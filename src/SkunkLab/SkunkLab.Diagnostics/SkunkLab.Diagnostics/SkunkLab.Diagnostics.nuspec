@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>SkunkLab.Diagnostics</id>
-    <version>0.9.1-prerelease</version>
+    <version>0.9.2-prerelease</version>
     <title>SkunkLab.Diagnostics</title>
     <authors>SkunkLab</authors>
     <owners>SkunkLab</owners>

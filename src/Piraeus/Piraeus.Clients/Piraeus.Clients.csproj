@@ -64,7 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coap\CoapClientRequestRegistry.cs" />
     <Compile Include="Coap\PiraeusCoapClient.cs" />
+    <Compile Include="Coap\ClientRequestDispatcher.cs" />
     <Compile Include="Mqtt\GenericMqttClient.cs" />
     <Compile Include="Mqtt\GenericMqttDispatcher.cs" />
     <Compile Include="Mqtt\PiraeusMqttClient.cs" />

@@ -108,7 +108,17 @@ namespace Piraeus.Grains
 
         public async Task<SubscriptionMetadata> GetMetadataAsync()
         {
-            return await Task.FromResult<SubscriptionMetadata>(State.Metadata);
+            SubscriptionMetadata metadata = null;
+
+            try
+            {
+                metadata = State.Metadata;
+
+            }
+            catch
+            { }
+
+            return await Task.FromResult<SubscriptionMetadata>(metadata);
         }
 
         #endregion
@@ -127,9 +137,9 @@ namespace Piraeus.Grains
             {
                 if (!string.IsNullOrEmpty(State.Metadata.NotifyAddress))
                 {
-                    if(sink == null)
+                    if (sink == null)
                     {
-                        sink = EventSinkFactory.Create(State.Metadata);                       
+                        sink = EventSinkFactory.Create(State.Metadata);
                     }
 
                     await sink.SendAsync(message);
@@ -142,13 +152,16 @@ namespace Piraeus.Grains
                         observer.Notify(message);
                     }
                 }
-                else if (State.Metadata.DurableMessaging && State.Metadata.TTL.HasValue) //durable message queue
+                else
                 {
-                    await QueueDurableMessageAsync(message);
-                }
-                else //in-memory message queue
-                {
-                    await QueueInMemoryMessageAsync(message);
+                    if (State.Metadata.DurableMessaging && State.Metadata.TTL.HasValue) //durable message queue
+                    {
+                        await QueueDurableMessageAsync(message);
+                    }
+                    else //in-memory message queue
+                    {
+                        await QueueInMemoryMessageAsync(message);
+                    }
                 }
             }
             catch(Exception ex)
@@ -209,6 +222,8 @@ namespace Piraeus.Grains
                 leaseTimer = RegisterTimer(CheckLeaseExpiryAsync, null, TimeSpan.FromSeconds(10.0), TimeSpan.FromSeconds(60.0));
             }
 
+            await DequeueAsync(State.MessageQueue);
+
             return await Task.FromResult<string>(leaseKey);
         }
         public async Task<string> AddObserverAsync(TimeSpan lifetime, IMetricObserver observer)
@@ -258,14 +273,15 @@ namespace Piraeus.Grains
             var metricQuery = State.LeaseExpiry.Where((c) => c.Key == leaseKey && c.Value.Item2 == "Metric");
             var errorQuery = State.LeaseExpiry.Where((c) => c.Key == leaseKey && c.Value.Item2 == "Error");
 
-            State.LeaseExpiry.Remove(leaseKey);
+            //State.LeaseExpiry.Remove(leaseKey);
 
             if (messageQuery.Count() == 1)
             {
                 State.MessageLeases.Remove(leaseKey);
-
+               
                 if (State.MessageLeases.Count == 0 && State.Metadata.IsEphemeral)
                 {
+                    //leaseTimer.Dispose();
                     await UnsubscribeFromResourceAsync();
                 }
             }
@@ -280,7 +296,7 @@ namespace Piraeus.Grains
                 State.ErrorLeases.Remove(leaseKey);
             }
 
-            await Task.CompletedTask;
+            State.LeaseExpiry.Remove(leaseKey);
         }
 
         public async Task<bool> RenewObserverLeaseAsync(string leaseKey, TimeSpan lifetime)
@@ -360,7 +376,7 @@ namespace Piraeus.Grains
                 State.MessageLeases.Remove(item);
                 State.LeaseExpiry.Remove(item);
 
-                if (State.MessageLeases.Count == 0 && State.Metadata.IsEphemeral)
+                if (State.Metadata.IsEphemeral)
                 {
                     await UnsubscribeFromResourceAsync();
                 }
@@ -378,10 +394,10 @@ namespace Piraeus.Grains
                 State.LeaseExpiry.Remove(item);
             }
 
-            if (State.LeaseExpiry.Count == 0)
-            {
-                leaseTimer.Dispose();
-            }            
+            //if (State.LeaseExpiry.Count == 0)
+            //{
+            //    leaseTimer.Dispose();
+            //}            
         }
         private async Task QueueDurableMessageAsync(EventMessage message)
         {            
@@ -400,7 +416,7 @@ namespace Piraeus.Grains
             //start the timer if not already started
             if (messageQueueTimer == null)
             {               
-                messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(10.0), TimeSpan.FromSeconds(60.0));
+                messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(5.0));
             }
 
             await Task.CompletedTask;
@@ -412,7 +428,7 @@ namespace Piraeus.Grains
 
             if (messageQueueTimer == null)
             {
-                messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(10.0), TimeSpan.FromSeconds(60.0));
+                messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(5.0));
             }
 
             DelayDeactivation(TimeSpan.FromSeconds(60.0));
@@ -447,7 +463,8 @@ namespace Piraeus.Grains
         private async Task DequeueAsync(Queue<EventMessage> queue)
         {
             EventMessage[] msgs = queue != null && queue.Count > 0 ? queue.ToArray() : null;
-            
+            queue.Clear();
+
             if(msgs != null)
             {
                 foreach(EventMessage msg in msgs)

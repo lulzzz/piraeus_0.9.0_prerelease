@@ -7,7 +7,7 @@
 #pragma warning disable 1591
 #pragma warning disable 1998
 [assembly: global::System.CodeDom.Compiler.GeneratedCodeAttribute("Orleans-CodeGenerator", "1.5.2.0")]
-[assembly: global::Orleans.CodeGeneration.OrleansCodeGenerationTargetAttribute("Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null")]
+[assembly: global::Orleans.CodeGeneration.OrleansCodeGenerationTargetAttribute("Piraeus.GrainInterfaces, Version=0.9.2.0, Culture=neutral, PublicKeyToken=null")]
 namespace Piraeus.GrainInterfaces
 {
     using global::Orleans.Async;
@@ -1239,6 +1239,8 @@ namespace Piraeus.GrainInterfaces
                             return "SubscribeAsync";
                         case -100167817:
                             return "UnsubscribeAsync";
+                        case -1453851530:
+                            return "UnsubscribeAsync";
                         case 1308349933:
                             return "GetSubscriptionListAsync";
                         case -1419223039:
@@ -1294,6 +1296,11 @@ namespace Piraeus.GrainInterfaces
         public global::System.Threading.Tasks.Task @UnsubscribeAsync(global::System.String @subscriptionUriString)
         {
             return base.@InvokeMethodAsync<global::System.Object>(-100167817, new global::System.Object[]{@subscriptionUriString});
+        }
+
+        public global::System.Threading.Tasks.Task @UnsubscribeAsync(global::System.String @subscriptionUriString, global::System.String @identity)
+        {
+            return base.@InvokeMethodAsync<global::System.Object>(-1453851530, new global::System.Object[]{@subscriptionUriString, @identity});
         }
 
         public global::System.Threading.Tasks.Task<global::System.Collections.Generic.IEnumerable<global::System.String>> @GetSubscriptionListAsync()
@@ -1364,6 +1371,8 @@ namespace Piraeus.GrainInterfaces
                             return ((global::Piraeus.GrainInterfaces.IResource)@grain).@SubscribeAsync((global::Piraeus.GrainInterfaces.ISubscription)arguments[0]).@Box();
                         case -100167817:
                             return ((global::Piraeus.GrainInterfaces.IResource)@grain).@UnsubscribeAsync((global::System.String)arguments[0]).@Box();
+                        case -1453851530:
+                            return ((global::Piraeus.GrainInterfaces.IResource)@grain).@UnsubscribeAsync((global::System.String)arguments[0], (global::System.String)arguments[1]).@Box();
                         case 1308349933:
                             return ((global::Piraeus.GrainInterfaces.IResource)@grain).@GetSubscriptionListAsync().@Box();
                         case -1419223039:

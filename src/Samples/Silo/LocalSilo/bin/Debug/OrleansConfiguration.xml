@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<OrleansConfiguration xmlns="urn:orleans">
+  <Globals>
+    <StorageProviders>
+      <!--
+      <Provider Type="OrleansRedisStorageProvider.RedisStorageProvider" Name="store"  DataConnectionString="HOST.redis.cache.windows.net,ssl=True,password=PASSWORD" />
+      <Provider Type="Orleans.Storage.AzureBlobStorage" Name="store"  ContainerName="GrainState" DataConnectionString="DefaultEndpointsProtocol=https;AccountName=myAccount;AccountKey=myKey;" />     
+      -->
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="store"   NumStorageGrains="1000000"/>
+      
+    </StorageProviders>
+    <SystemStore DeploymentId="PiraeusDeployment" SystemStoreType="AzureTable" DataConnectionString="DefaultEndpointsProtocol=https;AccountName=myAccount;AccountKey=myKey;"/>
+    <Liveness LivenessType="AzureTable" />
+  </Globals>
+  <Defaults>
+    <Networking Address="" Port="11111" />
+    <ProxyingGateway Address="" Port="10400" />    
+    <Tracing DefaultTraceLevel="Info" TraceToConsole="true" TraceToFile="{0}-{1}.log" >
+    </Tracing>
+  </Defaults>
+</OrleansConfiguration>
+

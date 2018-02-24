@@ -23,3 +23,8 @@ C:\_git\core\src\Piraeus\Piraeus.Configuration\bin\Debug\Piraeus.Configuration.p
 C:\_git\core\src\Piraeus\Piraeus.Configuration\obj\Debug\Piraeus.Configuration.csproj.CoreCompileInputs.cache
 C:\_git\core\src\Piraeus\Piraeus.Configuration\obj\Debug\Piraeus.Configuration.dll
 C:\_git\core\src\Piraeus\Piraeus.Configuration\obj\Debug\Piraeus.Configuration.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\bin\Debug\Piraeus.Configuration.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\bin\Debug\Piraeus.Configuration.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Debug\Piraeus.Configuration.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Debug\Piraeus.Configuration.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Debug\Piraeus.Configuration.pdb

@@ -74,9 +74,6 @@ namespace Samples.Clients.Coap
                 Console.WriteLine(ex.InnerException.Message);
                 goto endsample;
             }
-            
-            
-
 
             source.Cancel();
 
@@ -301,5 +298,7 @@ namespace Samples.Clients.Coap
             Console.ResetColor();
             Console.ReadKey();
         }
+
+       
     }
 }

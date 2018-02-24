@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
 using System.Net.Http;
@@ -73,6 +74,22 @@ namespace WebGateway.Controllers
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [CaplAuthorize(PolicyId = "http://www.skunklab.io/api/management")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetSubscriberSubscriptions(string identity)
+        {
+            try
+            {
+                IEnumerable<string> list = await GraphManager.GetSubscriberSubscriptionsListAsync(identity);
+                return Request.CreateResponse<IEnumerable<string>>(HttpStatusCode.OK, list);
+
+            }
+            catch(Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }

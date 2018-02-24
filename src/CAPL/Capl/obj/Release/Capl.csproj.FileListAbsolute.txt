@@ -41,3 +41,15 @@ C:\Docker\TcpUdpGateway\Output\Capl.pdb
 C:\Docker\Orleans-Silo\Output\Capl.dll
 C:\Docker\Orleans-Silo\Output\Capl.pdb
 C:\_git\core\src\CAPL\capl\obj\Release\Capl.csprojResolveAssemblyReference.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\bin\Release\Capl.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\bin\Release\Capl.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Release\Capl.Properties.Resources.resources
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Release\Capl.csproj.GenerateResource.Cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Release\Capl.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Release\Capl.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Release\Capl.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Capl.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Capl.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\capl\obj\Release\Capl.csprojResolveAssemblyReference.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Capl.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Capl.pdb

@@ -1,67 +1,67 @@
 /in:obj\Release\Piraeus.Silo.exe
-/out:C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Release\Piraeus.Silo.orleans.g.cs
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.CodeAnalysis.CSharp.2.6.1\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.CodeAnalysis.Common.2.6.1\lib\netstandard1.3\Microsoft.CodeAnalysis.dll
+/out:C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Release\Piraeus.Silo.orleans.g.cs
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.CodeAnalysis.CSharp.2.6.1\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.CodeAnalysis.Common.2.6.1\lib\netstandard1.3\Microsoft.CodeAnalysis.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Microsoft.CSharp.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Data.Edm.5.8.3\lib\net40\Microsoft.Data.Edm.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Data.OData.5.8.3\lib\net40\Microsoft.Data.OData.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Data.Services.Client.5.8.3\lib\net40\Microsoft.Data.Services.Client.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Extensions.DependencyInjection.1.1.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll
-/r:C:\_git\core\src\Nuget\packages\WindowsAzure.Storage.8.7.0\lib\net45\Microsoft.WindowsAzure.Storage.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Data.Edm.5.8.3\lib\net40\Microsoft.Data.Edm.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Data.OData.5.8.3\lib\net40\Microsoft.Data.OData.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Data.Services.Client.5.8.3\lib\net40\Microsoft.Data.Services.Client.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Extensions.DependencyInjection.1.1.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\WindowsAzure.Storage.8.7.0\lib\net45\Microsoft.WindowsAzure.Storage.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\mscorlib.dll
-/r:C:\_git\core\src\Nuget\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Orleans.Core.1.5.2\lib\net461\Orleans.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Orleans.OrleansAzureUtils.1.5.2\lib\net461\OrleansAzureUtils.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Orleans.OrleansCodeGenerator.1.5.2\lib\net461\OrleansCodeGenerator.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Orleans.OrleansProviders.1.5.2\lib\net461\OrleansProviders.dll
-/r:C:\_git\core\src\Nuget\packages\Microsoft.Orleans.OrleansRuntime.1.5.2\lib\net461\OrleansRuntime.dll
-/r:C:\_git\core\Docker\Orleans-Silo\Output\Piraeus.Core.dll
-/r:C:\_git\core\Docker\Orleans-Silo\Output\Piraeus.GrainInterfaces.dll
-/r:C:\_git\core\Docker\Orleans-Silo\Output\Piraeus.Grains.dll
-/r:C:\_git\core\Docker\Orleans-Silo\Output\Piraeus.SiloHost.dll
-/r:C:\_git\core\src\Docker\Orleans-Silo\Output\SkunkLab.Security.dll
-/r:C:\_git\core\src\Docker\Orleans-Silo\Output\SkunkLab.Storage.dll
-/r:C:\_git\core\src\Nuget\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll
-/r:C:\_git\core\src\Nuget\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.Core.1.5.2\lib\net461\Orleans.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansAzureUtils.1.5.2\lib\net461\OrleansAzureUtils.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansCodeGenerator.1.5.2\lib\net461\OrleansCodeGenerator.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansProviders.1.5.2\lib\net461\OrleansProviders.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansRuntime.1.5.2\lib\net461\OrleansRuntime.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.Core.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.GrainInterfaces.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.Grains.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.SiloHost.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Security.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Storage.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.ComponentModel.Composition.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Configuration.dll
-/r:C:\_git\core\src\Nuget\packages\System.Console.4.3.0\lib\net46\System.Console.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Console.4.3.0\lib\net46\System.Console.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Core.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.DataSetExtensions.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.dll
-/r:C:\_git\core\src\Nuget\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll
-/r:C:\_git\core\src\Nuget\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll
-/r:C:\_git\core\src\Nuget\packages\System.Diagnostics.StackTrace.4.3.0\lib\net46\System.Diagnostics.StackTrace.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Diagnostics.StackTrace.4.3.0\lib\net46\System.Diagnostics.StackTrace.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll
-/r:C:\_git\core\src\Nuget\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll
-/r:C:\_git\core\src\Nuget\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.IO.Compression.FileSystem.dll
-/r:C:\_git\core\src\Nuget\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll
-/r:C:\_git\core\src\Nuget\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll
-/r:C:\_git\core\src\Nuget\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll
-/r:C:\_git\core\src\Nuget\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll
-/r:C:\_git\core\src\Nuget\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Numerics.dll
-/r:C:\_git\core\src\Nuget\packages\System.Reflection.Metadata.1.4.2\lib\portable-net45+win8\System.Reflection.Metadata.dll
-/r:C:\_git\core\src\Nuget\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll
-/r:C:\_git\core\src\Nuget\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll
-/r:C:\_git\core\src\Nuget\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll
-/r:C:\_git\core\src\Nuget\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll
-/r:C:\_git\core\src\Nuget\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll
-/r:C:\_git\core\src\Nuget\packages\System.Spatial.5.8.3\lib\net40\System.Spatial.dll
-/r:C:\_git\core\src\SiloHost\Piraeus.Silo\packages\System.Text.Encoding.CodePages.4.3.0\lib\net46\System.Text.Encoding.CodePages.dll
-/r:C:\_git\core\src\Nuget\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll
-/r:C:\_git\core\src\Nuget\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Reflection.Metadata.1.4.2\lib\portable-net45+win8\System.Reflection.Metadata.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Spatial.5.8.3\lib\net40\System.Spatial.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\packages\System.Text.Encoding.CodePages.4.3.0\lib\net46\System.Text.Encoding.CodePages.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Web.Extensions.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.Linq.dll
-/r:C:\_git\core\src\Nuget\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll
-/r:C:\_git\core\src\Nuget\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll
-/r:C:\_git\core\src\Nuget\packages\System.Xml.XPath.4.3.0\lib\net46\System.Xml.XPath.dll
-/r:C:\_git\core\src\Nuget\packages\System.Xml.XPath.XDocument.4.3.0\lib\net46\System.Xml.XPath.XDocument.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Xml.XPath.4.3.0\lib\net46\System.Xml.XPath.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\System.Xml.XPath.XDocument.4.3.0\lib\net46\System.Xml.XPath.XDocument.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.Concurrent.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ComponentModel.Annotations.dll

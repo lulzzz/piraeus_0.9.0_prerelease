@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Piraeus.Adapters</id>
-    <version>0.9.1-prerelease</version>
+    <version>0.9.2-prerelease</version>
     <title>Piraeus.Adapters</title>
     <authors>SkunkLab</authors>
     <owners>SkunkLab</owners>
@@ -18,10 +18,10 @@
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
         <dependency id="Microsoft.Orleans.Client" version="1.5.2" />
-        <dependency id="Piraeus.Grains" version="0.9.1-prerelease" />
-        <dependency id="Piraeus.Configuration" version="0.9.1-prerelease" />
-        <dependency id="SkunkLab.Channels" version="0.9.1-prerelease" />
-        <dependency id="SkunkLab.Protocols" version="0.9.1-prerelease" />
+        <dependency id="Piraeus.Grains" version="0.9.2-prerelease" />
+        <dependency id="Piraeus.Configuration" version="0.9.2-prerelease" />
+        <dependency id="SkunkLab.Channels" version="0.9.2-prerelease" />
+        <dependency id="SkunkLab.Protocols" version="0.9.2-prerelease" />
         <dependency id="SkunkLab.Storage" version="0.5.24" />
       </group>
     </dependencies>

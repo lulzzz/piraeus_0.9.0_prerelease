@@ -23,3 +23,10 @@ C:\_git\core\src\Piraeus\src\Docker\TcpUdpGateway\Output\Piraeus.Configuration.d
 C:\_git\core\src\Piraeus\src\Docker\TcpUdpGateway\Output\Piraeus.Configuration.pdb
 C:\Docker\TcpUdpGateway\Output\Piraeus.Configuration.dll
 C:\Docker\TcpUdpGateway\Output\Piraeus.Configuration.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\bin\Release\Piraeus.Configuration.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\bin\Release\Piraeus.Configuration.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Release\Piraeus.Configuration.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Release\Piraeus.Configuration.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Release\Piraeus.Configuration.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.Configuration.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.Configuration.pdb
