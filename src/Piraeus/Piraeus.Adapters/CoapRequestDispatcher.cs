@@ -24,7 +24,7 @@ namespace Piraeus.Adapters
             coapUnobserved = new HashSet<string>();
             adapter = new OrleansAdapter(session.Identity, channel.TypeId, "CoAP");
             adapter.OnObserve += Adapter_OnObserve;
-            Task task = LoadDurableAyncs();
+            Task task = LoadDurablesAsync();
             Task.WhenAll(task);
         }
 
@@ -284,7 +284,7 @@ namespace Piraeus.Adapters
         }
         
 
-        private async Task LoadDurableAyncs()
+        private async Task LoadDurablesAsync()
         {
             List<string> list = await adapter.LoadDurableSubscriptionsAsync(session.Identity);
 

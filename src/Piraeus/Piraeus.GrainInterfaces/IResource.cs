@@ -18,6 +18,8 @@ namespace Piraeus.GrainInterfaces
 
         Task UnsubscribeAsync(string subscriptionUriString);
 
+        Task UnsubscribeAsync(string subscriptionUriString, string identity);
+
         Task<IEnumerable<string>> GetSubscriptionListAsync();
 
         Task PublishAsync(EventMessage message);

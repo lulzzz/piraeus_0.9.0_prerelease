@@ -1239,6 +1239,8 @@ namespace Piraeus.GrainInterfaces
                             return "SubscribeAsync";
                         case -100167817:
                             return "UnsubscribeAsync";
+                        case -1453851530:
+                            return "UnsubscribeAsync";
                         case 1308349933:
                             return "GetSubscriptionListAsync";
                         case -1419223039:
@@ -1294,6 +1296,11 @@ namespace Piraeus.GrainInterfaces
         public global::System.Threading.Tasks.Task @UnsubscribeAsync(global::System.String @subscriptionUriString)
         {
             return base.@InvokeMethodAsync<global::System.Object>(-100167817, new global::System.Object[]{@subscriptionUriString});
+        }
+
+        public global::System.Threading.Tasks.Task @UnsubscribeAsync(global::System.String @subscriptionUriString, global::System.String @identity)
+        {
+            return base.@InvokeMethodAsync<global::System.Object>(-1453851530, new global::System.Object[]{@subscriptionUriString, @identity});
         }
 
         public global::System.Threading.Tasks.Task<global::System.Collections.Generic.IEnumerable<global::System.String>> @GetSubscriptionListAsync()
@@ -1364,6 +1371,8 @@ namespace Piraeus.GrainInterfaces
                             return ((global::Piraeus.GrainInterfaces.IResource)@grain).@SubscribeAsync((global::Piraeus.GrainInterfaces.ISubscription)arguments[0]).@Box();
                         case -100167817:
                             return ((global::Piraeus.GrainInterfaces.IResource)@grain).@UnsubscribeAsync((global::System.String)arguments[0]).@Box();
+                        case -1453851530:
+                            return ((global::Piraeus.GrainInterfaces.IResource)@grain).@UnsubscribeAsync((global::System.String)arguments[0], (global::System.String)arguments[1]).@Box();
                         case 1308349933:
                             return ((global::Piraeus.GrainInterfaces.IResource)@grain).@GetSubscriptionListAsync().@Box();
                         case -1419223039:

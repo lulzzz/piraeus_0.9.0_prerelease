@@ -123,11 +123,29 @@ namespace Piraeus.Grains
             if(!metadata.IsEphemeral && !string.IsNullOrEmpty(metadata.Identity) && metadata.NotifyAddress == null)
             {
                 //add as a durable active connection subscriber (no notify address)
-                ISubscriber subscriber = GrainFactory.GetGrain<ISubscriber>(metadata.Identity);
+                ISubscriber subscriber = GrainFactory.GetGrain<ISubscriber>(metadata.Identity.ToLowerInvariant());
                 await subscriber.AddSubscriptionAsync(metadata.SubscriptionUriString);
             }
 
             await Task.CompletedTask;
+        }
+
+        public async Task UnsubscribeAsync(string subscriptionUriString, string identity)
+        {
+            if (subscriptionUriString == null)
+            {
+                throw new ArgumentNullException("subscriptionUriString");
+            }
+
+            if(identity == null)
+            {
+                throw new ArgumentNullException("identity");
+            }
+
+            await UnsubscribeAsync(subscriptionUriString);
+
+            ISubscriber subscriber = GrainFactory.GetGrain<ISubscriber>(identity.ToLowerInvariant());
+            await subscriber.RemoveSubscriptionAsync(subscriptionUriString);
         }
 
         public async Task UnsubscribeAsync(string subscriptionUriString)
@@ -137,25 +155,41 @@ namespace Piraeus.Grains
                 throw new ArgumentNullException("subscriptionUriString");
             }
 
-            if (!State.Subscriptions.ContainsKey(subscriptionUriString))
+            if (State.Subscriptions.ContainsKey(subscriptionUriString))
             {
-                return;  //no subscription to unsubscribe
+                State.Subscriptions.Remove(subscriptionUriString);
             }
 
+            await Task.CompletedTask;
+
             //remove the subscription from the resource
-            State.Subscriptions.Remove(subscriptionUriString);
+
+
 
             //try to remove from subscriber; access control has verified this is permitted
             //if the subscriber does not have this subscription, no harm, it wasn't durable
-            ISubscription subscription = GrainFactory.GetGrain<ISubscription>(subscriptionUriString);
-            SubscriptionMetadata metadata = await subscription.GetMetadataAsync();
+            //ISubscription subscription = GrainFactory.GetGrain<ISubscription>(subscriptionUriString);
 
-            if(metadata != null && !string.IsNullOrEmpty(metadata.Identity))
-            {
-                await subscription.ClearAsync();
-                ISubscriber subscriber = GrainFactory.GetGrain<ISubscriber>(metadata.Identity);
-                await subscriber.RemoveSubscriptionAsync(subscriptionUriString);
-            }
+            //try
+            //{
+            //    SubscriptionMetadata metadata = await subscription.GetMetadataAsync();
+
+            //    if (metadata != null && !string.IsNullOrEmpty(metadata.Identity))
+            //    {
+            //        await subscription.ClearAsync();
+            //        ISubscriber subscriber = GrainFactory.GetGrain<ISubscriber>(metadata.Identity);
+            //        await subscriber.RemoveSubscriptionAsync(subscriptionUriString);
+            //    }
+            //}
+            //catch(AggregateException ae)
+            //{
+            //    Console.WriteLine(ae.Flatten().InnerException.Message);
+            //}
+            //catch(Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    //metadata remove due to ephemeral
+            //}
         }
 
         public async Task<IEnumerable<string>> GetSubscriptionListAsync()

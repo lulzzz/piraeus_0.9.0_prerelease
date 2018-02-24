@@ -5,6 +5,7 @@ using SkunkLab.Diagnostics.Logging;
 using SkunkLab.Protocols.Coap;
 using SkunkLab.Protocols.Coap.Handlers;
 using SkunkLab.Security.Authentication;
+using SkunkLab.Security.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -19,7 +20,8 @@ namespace Piraeus.Adapters
             CoapConfig coapConfig = new CoapConfig(authenticator, config.Protocols.Coap.HostName, options, config.Protocols.Coap.AutoRetry,
                 config.Protocols.Coap.KeepAliveSeconds, config.Protocols.Coap.AckTimeoutSeconds, config.Protocols.Coap.AckRandomFactor,
                 config.Protocols.Coap.MaxRetransmit, config.Protocols.Coap.NStart, config.Protocols.Coap.DefaultLeisure, config.Protocols.Coap.ProbingRate, config.Protocols.Coap.MaxLatencySeconds);
-
+            coapConfig.IdentityClaimType = config.Identity.Client.IdentityClaimType;
+            coapConfig.Indexes = config.Identity.Client.Indexes;
 
             Channel = channel;
             Channel.OnClose += Channel_OnClose;
@@ -45,8 +47,7 @@ namespace Piraeus.Adapters
         public override void Init()
         {
             forcePerReceiveAuthn = Channel as UdpChannel != null;
-
-            dispatcher = new CoapRequestDispatcher(session, Channel);
+            
             Task task = Channel.OpenAsync();
             Task.WaitAll(task);
         }
@@ -89,6 +90,13 @@ namespace Piraeus.Adapters
 
             session.IsAuthenticated = Channel.IsAuthenticated;
 
+            if(session.IsAuthenticated)
+            {                
+                IdentityDecoder decoder = new IdentityDecoder(session.Config.IdentityClaimType, session.Config.Indexes);
+                session.Identity = decoder.Id;
+                session.Indexes = decoder.Indexes;
+            }
+
             try
             {
                 if (!Channel.IsAuthenticated && e.Message != null)
@@ -97,6 +105,8 @@ namespace Piraeus.Adapters
                     CoapUri coapUri = new CoapUri(msg.ResourceUri.ToString());
                     session.IsAuthenticated = session.Authenticate(coapUri.TokenType, coapUri.SecurityToken);
                 }
+                
+               
             }
             catch (Exception ex)
             {
@@ -113,6 +123,11 @@ namespace Piraeus.Adapters
 
                 Task closeTask = Channel.CloseAsync();
                 Task.WaitAll(closeTask);
+            }
+            else
+            {
+
+                dispatcher = new CoapRequestDispatcher(session, Channel);
             }
 
         }

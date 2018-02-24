@@ -126,7 +126,7 @@ namespace WebGateway.Controllers
             try
             {
                 IEnumerable<string> list = await GraphManager.GetResourceSubscriptionListAsync(resourceUriString);
-                return Request.CreateResponse<IEnumerable<string>>(HttpStatusCode.OK, list);
+                return Request.CreateResponse(HttpStatusCode.OK, list);
             }
             catch (Exception ex)
             {

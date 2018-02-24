@@ -9,8 +9,7 @@ using SkunkLab.Security.Tokens;
 namespace Piraeus.Clients.Coap
 {
     public class PiraeusCoapClient
-    {
-        
+    {   
         public PiraeusCoapClient(CoapConfig config, IChannel channel, SecurityTokenType tokenType, string securityToken, ICoapRequestDispatch dispatcher = null)
             : this(config, channel, dispatcher)
         {
@@ -217,8 +216,6 @@ namespace Piraeus.Clients.Coap
         #region channel events
         private void Channel_OnReceive(object sender, ChannelReceivedEventArgs args)
         {
-            //index++;
-            //Console.WriteLine("Message # {0}", index);
             CoapMessage message = CoapMessage.DecodeMessage(args.Message);
             CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
             Task task = Task.Factory.StartNew(async () =>
@@ -233,35 +230,24 @@ namespace Piraeus.Clients.Coap
             });
 
             Task.WhenAll(task);
-
-            //Task<CoapMessage> task = handler.ProcessAsync();
-            //Task<CoapMessage>.WhenAll(task);
-            //CoapMessage msg = task.Result;
                 
         }
 
         private void Channel_OnStateChange(object sender, ChannelStateEventArgs args)
         {
-            //throw new NotImplementedException();
-            //Console.WriteLine("State {0}", args.State);
         }
 
         private void Channel_OnOpen(object sender, ChannelOpenEventArgs args)
         {
-            //throw new NotImplementedException();
-            //Console.WriteLine("Opened");
         }
 
         private void Channel_OnError(object sender, ChannelErrorEventArgs args)
         {
-            //Console.WriteLine(args.Error.Message);
-            //throw new NotImplementedException();
         }
 
         private void Channel_OnClose(object sender, ChannelCloseEventArgs args)
         {
-            //Console.WriteLine("Closing");
-            //throw new NotImplementedException();
+            
         }
 
         #endregion

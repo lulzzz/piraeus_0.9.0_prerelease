@@ -67,6 +67,7 @@
     <Compile Include="CaplPolicyCmdlet.cs" />
     <Compile Include="CaplRuleCmdlet.cs" />
     <Compile Include="CaplTransformCmdlet.cs" />
+    <Compile Include="GetSubscriberSubscriptionsCmdlet.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="SetAuditConfigCmdlet.cs" />
     <Compile Include="GetCaplPolicyCmdlet.cs" />

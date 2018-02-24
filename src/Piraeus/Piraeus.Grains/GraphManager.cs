@@ -81,7 +81,8 @@ namespace Piraeus.Grains
 
             //Add the subscription to the resource
             IResource resource = GetResource(uri.ToCanonicalString(false));
-            await resource.SubscribeAsync(subscription);
+            await resource.SubscribeAsync(subscription);            
+
             return subscriptionUriString;
         }
 
@@ -99,6 +100,16 @@ namespace Piraeus.Grains
 
             //unsubscribe from the resource
             await resource.UnsubscribeAsync(subscriptionUriString);
+        }
+
+        public static async Task UnsubscribeAsync(string subscriptionUriString, string identity)
+        {
+            Uri uri = new Uri(subscriptionUriString);
+            string resourceUriString = uri.ToCanonicalString(false, true);
+            IResource resource = GetResource(resourceUriString);
+
+            //unsubscribe from the resource
+            await resource.UnsubscribeAsync(subscriptionUriString, identity);
         }
 
         /// <summary>
