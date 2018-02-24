@@ -28,3 +28,5 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\bin\Relea
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Release\Piraeus.Configuration.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Release\Piraeus.Configuration.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Configuration\obj\Release\Piraeus.Configuration.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.Configuration.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.Configuration.pdb

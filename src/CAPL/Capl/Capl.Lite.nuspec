@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capl.Lite</id>
-    <version>0.9.1-prerelease</version>
+    <version>0.9.2-prerelease</version>
     <title>CAPL Lite</title>
     <authors>SkunkLab</authors>
     <owners>SkunkLab</owners>

@@ -1225,4 +1225,14 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Release\Pira
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Release\Piraeus.Grains.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Release\Piraeus.Grains.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Release\Piraeus.Grains.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\DocumentDB.Spatial.Sql.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.Grains.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.Grains.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.Grains.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\DocumentDB.Spatial.Sql.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.Grains.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.Grains.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.Grains.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Release\Piraeus.Grains.orleans.g.cs

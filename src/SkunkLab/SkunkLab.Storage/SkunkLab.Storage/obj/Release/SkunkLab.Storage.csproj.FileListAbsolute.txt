@@ -489,3 +489,9 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Stor
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Release\SkunkLab.Storage.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Release\SkunkLab.Storage.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Release\SkunkLab.Storage.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Storage.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Storage.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Storage.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Storage.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Storage.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Storage.pdb

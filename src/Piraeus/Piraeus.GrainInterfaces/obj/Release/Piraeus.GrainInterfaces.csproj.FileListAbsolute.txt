@@ -751,3 +751,9 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Rel
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.orleans.g.cs
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.GrainInterfaces.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.GrainInterfaces.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Piraeus.GrainInterfaces.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.GrainInterfaces.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.GrainInterfaces.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.GrainInterfaces.pdb

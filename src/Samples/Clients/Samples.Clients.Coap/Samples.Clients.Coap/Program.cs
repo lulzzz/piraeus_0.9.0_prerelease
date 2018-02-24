@@ -54,10 +54,7 @@ namespace Samples.Clients.Coap
          
             if (channelNo == 1) //security token is in Authorize http header for Web socket
             {
-                CoapClientRequestRegistry ccrr = new CoapClientRequestRegistry();
-                ccrr.Add("POST", observeResource, DoIt);
-                ClientRequestDispatcher crd = new ClientRequestDispatcher(ccrr);
-                client = new PiraeusCoapClient(config, channel, crd);
+                client = new PiraeusCoapClient(config, channel);
             }
             else 
             {
@@ -68,12 +65,8 @@ namespace Samples.Clients.Coap
             //observe a resource
             try
             {
-
-                Task t = client.PublishAsync(publishResource, "text/plain", Encoding.UTF8.GetBytes("foo"), false, PublishResponse).ContinueWith(SendMessages);
-                Task.WaitAll(t);
-
-                //Task task = client.ObserveAsync(observeResource, ObserveResource).ContinueWith(WaitForObserveAck).ContinueWith(SendMessages);
-                //Task.WaitAll(task);
+                Task task = client.ObserveAsync(observeResource, ObserveResource).ContinueWith(WaitForObserveAck).ContinueWith(SendMessages);
+                Task.WaitAll(task);
             }
             catch (Exception ex)
             {
@@ -306,9 +299,6 @@ namespace Samples.Clients.Coap
             Console.ReadKey();
         }
 
-        static void DoIt(string contentType, byte[] payload)
-        {
-            Console.WriteLine(Encoding.UTF8.GetString(payload));
-        }
+       
     }
 }

@@ -124,3 +124,9 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Sec
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Security.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Security.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Security.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Security.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Security.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\Orleans-Silo\Output\SkunkLab.Security.pdb
