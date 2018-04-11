@@ -5,9 +5,9 @@ services:
       - gateway-config.env
     container_name: web-server
     image: skunklab/webgateway
-    restart: always
-     volumes:
-       - c:\piraeus:c:\inetpub\wwwroot\logs
+    restart: always    
+    volumes:
+      - c:\piraeus:c:\inetpub\wwwroot\logs
     ports:
       - "80:80/tcp"
     links:
