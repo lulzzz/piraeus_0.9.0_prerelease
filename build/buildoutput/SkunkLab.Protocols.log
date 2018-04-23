@@ -1,4 +1,4 @@
-Build started 2/15/2018 6:03:30 PM.
+Build started 3/21/2018 6:26:29 PM.
 Search paths being used for $(MSBuildExtensionsPath) are C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild;$(MSBuildProgramFiles32)\MSBuild
 Trying to import C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\$(MSBuildToolsVersion)\Microsoft.Common.props using extensions path C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild
 Property reassignment: $(MSBuildProjectExtensionsPath)="C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\obj\" (previous value: "obj\") at C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Microsoft.Common.props (58,5)
@@ -1689,7 +1689,7 @@ Task "ResolveAssemblyReference"
       C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\
   LatestTargetFrameworkDirectories:
   ProfileTablesLocation:
-  Primary reference "SkunkLab.Security, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Security, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.pdb".
@@ -4054,4 +4054,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.73
+Time Elapsed 00:00:01.48

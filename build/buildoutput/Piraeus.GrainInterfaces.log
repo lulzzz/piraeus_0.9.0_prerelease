@@ -1,4 +1,4 @@
-Build started 2/15/2018 6:02:18 PM.
+Build started 3/21/2018 6:25:26 PM.
 Search paths being used for $(MSBuildExtensionsPath) are C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild;$(MSBuildProgramFiles32)\MSBuild
 Property reassignment: $(DefineCommonItemSchemas)="false" (previous value: "true") at C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\Microsoft\VisualStudio\Managed\Microsoft.Managed.DesignTime.targets (12,5)
 Property reassignment: $(DefineCommonCapabilities)="false" (previous value: "true") at C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\Microsoft\VisualStudio\Managed\Microsoft.Managed.DesignTime.targets (13,5)
@@ -2739,7 +2739,7 @@ Task "ResolveAssemblyReference"
       Reference found at search path location "C:\_git\core\src\CAPL\Capl\bin\Release\Capl.dll".
       Found related file "C:\_git\core\src\CAPL\Capl\bin\Release\Capl.pdb".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "Piraeus.Core, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "Piraeus.Core, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll".
       Reference found at search path location "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll".
       Found related file "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.pdb".
@@ -5201,7 +5201,7 @@ Task "ResolveAssemblyReference"
       Reference found at search path location "C:\_git\core\src\CAPL\Capl\bin\Release\Capl.dll".
       Found related file "C:\_git\core\src\CAPL\Capl\bin\Release\Capl.pdb".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "Piraeus.Core, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "Piraeus.Core, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll".
       Reference found at search path location "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll".
       Found related file "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.pdb".
@@ -6766,20 +6766,20 @@ Task "Exec"
   	System.Xml.XmlSerializer.dll => C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Xml.XmlSerializer.dll
   Orleans-CodeGen - Generating file C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.orleans.g.cs
   ClientGenerator - Generating serializer classes for types:
-  	type Piraeus.GrainInterfaces.AccessControlState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.GrainInterfaces.AccessControlState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
   	type Capl.Authorization.AuthorizationPolicy in namespace Capl.Authorization defined in Assembly Capl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   	type Capl.Authorization.TransformCollection in namespace Capl.Authorization defined in Assembly Capl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.GrainInterfaces.AuditConfigState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.GrainInterfaces.ResourceListState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.GrainInterfaces.ResourceState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.Core.Metadata.ResourceMetadata in namespace Piraeus.Core.Metadata defined in Assembly Piraeus.Core, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.GrainInterfaces.ServiceIdentityState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.GrainInterfaces.SubscriberState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.GrainInterfaces.SubscriptionState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.Core.Messaging.EventMessage in namespace Piraeus.Core.Messaging defined in Assembly Piraeus.Core, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
-  	type Piraeus.Core.Metadata.SubscriptionMetadata in namespace Piraeus.Core.Metadata defined in Assembly Piraeus.Core, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.GrainInterfaces.AuditConfigState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.GrainInterfaces.ResourceListState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.GrainInterfaces.ResourceState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.Core.Metadata.ResourceMetadata in namespace Piraeus.Core.Metadata defined in Assembly Piraeus.Core, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.GrainInterfaces.ServiceIdentityState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.GrainInterfaces.SubscriberState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.GrainInterfaces.SubscriptionState in namespace Piraeus.GrainInterfaces defined in Assembly Piraeus.GrainInterfaces, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.Core.Messaging.EventMessage in namespace Piraeus.Core.Messaging defined in Assembly Piraeus.Core, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.Core.Metadata.SubscriptionMetadata in namespace Piraeus.Core.Metadata defined in Assembly Piraeus.Core, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
   ClientGenerator - Generating serializer classes for types:
-  	type Piraeus.Core.Messaging.CommunicationMetrics in namespace Piraeus.Core.Messaging defined in Assembly Piraeus.Core, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null
+  	type Piraeus.Core.Messaging.CommunicationMetrics in namespace Piraeus.Core.Messaging defined in Assembly Piraeus.Core, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null
   Orleans-CodeGen - Generated file written C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.orleans.g.cs
 Done executing task "Exec".
 Done building target "OrleansCodeGeneration" in project "Piraeus.GrainInterfaces.csproj".
@@ -9707,4 +9707,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:06.10
+Time Elapsed 00:00:04.27

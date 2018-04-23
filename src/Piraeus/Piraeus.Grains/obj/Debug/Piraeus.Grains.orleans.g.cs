@@ -7,7 +7,7 @@
 #pragma warning disable 1591
 #pragma warning disable 1998
 [assembly: global::System.CodeDom.Compiler.GeneratedCodeAttribute("Orleans-CodeGenerator", "1.5.2.0")]
-[assembly: global::Orleans.CodeGeneration.OrleansCodeGenerationTargetAttribute("Piraeus.Grains, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null")]
+[assembly: global::Orleans.CodeGeneration.OrleansCodeGenerationTargetAttribute("Piraeus.Grains, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null")]
 namespace Piraeus.GrainInterfaces
 {
     using global::Orleans.Async;

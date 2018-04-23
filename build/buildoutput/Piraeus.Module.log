@@ -1,4 +1,4 @@
-Build started 2/15/2018 6:05:10 PM.
+Build started 3/21/2018 6:27:55 PM.
 Search paths being used for $(MSBuildExtensionsPath) are C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild;$(MSBuildProgramFiles32)\MSBuild
 Trying to import C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\$(MSBuildToolsVersion)\Microsoft.Common.props using extensions path C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild
 Property reassignment: $(MSBuildProjectExtensionsPath)="C:\_git\core\src\Piraeus\Powershell\Piraeus.Module\Piraeus.Module\obj\" (previous value: "obj\") at C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Microsoft.Common.props (58,5)
@@ -2564,7 +2564,7 @@ Task "ResolveAssemblyReference"
       Reference found at search path location "C:\_git\core\src\CAPL\Capl\bin\Release\Capl.dll".
       Found related file "C:\_git\core\src\CAPL\Capl\bin\Release\Capl.pdb".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "Piraeus.Core, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "Piraeus.Core, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll".
       Reference found at search path location "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll".
       Found related file "C:\_git\core\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.pdb".
@@ -5882,4 +5882,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.94
+Time Elapsed 00:00:01.68

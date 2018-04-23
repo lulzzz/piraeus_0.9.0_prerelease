@@ -1,4 +1,4 @@
-Build started 2/15/2018 6:09:15 PM.
+Build started 3/21/2018 6:31:39 PM.
 Search paths being used for $(MSBuildExtensionsPath) are C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild;$(MSBuildProgramFiles32)\MSBuild
 Trying to import C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\$(MSBuildToolsVersion)\Microsoft.Common.props using extensions path C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild
 Property reassignment: $(MSBuildProjectExtensionsPath)="C:\_git\core\src\Samples\Clients\Samples.Clients.Rest\obj\" (previous value: "obj\") at C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Microsoft.Common.props (58,5)
@@ -3547,7 +3547,7 @@ Task "ResolveAssemblyReference"
       C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\
   LatestTargetFrameworkDirectories:
   ProfileTablesLocation:
-  Primary reference "SkunkLab.Diagnostics, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Diagnostics, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.Diagnostics\bin\Release\SkunkLab.Diagnostics.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.Diagnostics\bin\Release\SkunkLab.Diagnostics.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.Diagnostics\bin\Release\SkunkLab.Diagnostics.pdb".
@@ -4745,7 +4745,7 @@ Task "ResolveAssemblyReference"
       C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\
   LatestTargetFrameworkDirectories:
   ProfileTablesLocation:
-  Primary reference "SkunkLab.Security, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Security, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.pdb".
@@ -5475,19 +5475,19 @@ Task "ResolveAssemblyReference"
       C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\
   LatestTargetFrameworkDirectories:
   ProfileTablesLocation:
-  Primary reference "SkunkLab.Channels, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Channels, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.pdb".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll.config".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "SkunkLab.Protocols, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Protocols, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.pdb".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.dll.config".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "SkunkLab.Security, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Security, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.pdb".
@@ -5636,7 +5636,7 @@ Task "ResolveAssemblyReference"
           Considered "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\BouncyCastle.Crypto.winmd", but it didn't exist.
       Required by "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll".
       The ImageRuntimeVersion for this reference is "v1.1.4322".
-  Dependency "SkunkLab.Diagnostics, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Dependency "SkunkLab.Diagnostics, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Diagnostics.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release".
           For SearchPath "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release".
@@ -6408,25 +6408,25 @@ Task "ResolveAssemblyReference"
       C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\
   LatestTargetFrameworkDirectories:
   ProfileTablesLocation:
-  Primary reference "Piraeus.Clients, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "Piraeus.Clients, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\Piraeus\Piraeus.Clients\bin\Release\Piraeus.Clients.dll".
       Reference found at search path location "C:\_git\core\src\Piraeus\Piraeus.Clients\bin\Release\Piraeus.Clients.dll".
       Found related file "C:\_git\core\src\Piraeus\Piraeus.Clients\bin\Release\Piraeus.Clients.pdb".
       Found related file "C:\_git\core\src\Piraeus\Piraeus.Clients\bin\Release\Piraeus.Clients.dll.config".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "SkunkLab.Channels, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Channels, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.pdb".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll.config".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "SkunkLab.Protocols, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Protocols, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.pdb".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\bin\Release\SkunkLab.Protocols.dll.config".
       The ImageRuntimeVersion for this reference is "v4.0.30319".
-  Primary reference "SkunkLab.Security, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Primary reference "SkunkLab.Security, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.dll".
       Found related file "C:\_git\core\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\SkunkLab.Security.pdb".
@@ -6531,7 +6531,7 @@ Task "ResolveAssemblyReference"
       Required by "C:\_git\core\src\Piraeus\Piraeus.Clients\bin\Release\Piraeus.Clients.dll".
       Required by "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Channels.dll".
       The ImageRuntimeVersion for this reference is "v1.1.4322".
-  Dependency "SkunkLab.Diagnostics, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null".
+  Dependency "SkunkLab.Diagnostics, Version=0.9.3.0, Culture=neutral, PublicKeyToken=null".
       Resolved file path is "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release\SkunkLab.Diagnostics.dll".
       Reference found at search path location "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release".
           For SearchPath "C:\_git\core\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Release".
@@ -12249,4 +12249,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:03.95
+Time Elapsed 00:00:03.13
