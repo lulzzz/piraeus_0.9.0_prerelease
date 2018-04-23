@@ -62,9 +62,9 @@ function UpdateYmlAndStore
 {
     Param ([string]$acctName, [string]$storeKey, [string]$matchString, $containerName)
 
-    $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
+Â Â Â  $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
 
-    $path = "docker-compose.yml"
+    $path = "gateway-config.env"
 
     (Get-Content $path) -replace $matchString,$connectionString | out-file $path
 
