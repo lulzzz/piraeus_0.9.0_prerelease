@@ -51,9 +51,11 @@ Invoke-WebRequest "https://github.com/docker/compose/releases/download/1.18.0/do
 
 
 #Download docker-compose.yml file
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $ymlFileUrl -UseBasicParsing -OutFile "docker-compose.yml" 
 
 #Download gateway-config.env file
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $envFileUrl -UseBasicParsing -OutFile "gateway-config.env" 
 
 
