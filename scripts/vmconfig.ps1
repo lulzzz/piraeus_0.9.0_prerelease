@@ -51,11 +51,9 @@ Invoke-WebRequest "https://github.com/docker/compose/releases/download/1.18.0/do
 
 
 #Download docker-compose.yml file
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $ymlFileUrl -UseBasicParsing -OutFile "docker-compose.yml" 
 
 #Download gateway-config.env file
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $envFileUrl -UseBasicParsing -OutFile "gateway-config.env" 
 
 
@@ -64,7 +62,7 @@ function UpdateYmlAndStore
 {
     Param ([string]$acctName, [string]$storeKey, [string]$matchString, $containerName)
 
-Â Â Â  $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
+    $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
 
     $path = "gateway-config.env"
 
