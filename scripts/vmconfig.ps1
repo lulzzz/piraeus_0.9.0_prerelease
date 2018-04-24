@@ -67,7 +67,7 @@ function UpdateYmlAndStore
 
     $path = "gateway-config.env"
 
-    (Get-Content $path) -replace $matchString,$connectionString | out-file $path
+    (Get-Content $path) -replace $matchString,$connectionString | out-file $path -Encoding ascii
 
     $context = New-AzureStorageContext -StorageAccountName $acctName -StorageAccountKey $storeKey -Protocol Https
     New-AzureStorageContainer -Name $containerName -Context $context
