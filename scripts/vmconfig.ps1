@@ -20,7 +20,6 @@ param([string]$store1, [string]$key1, [string]$store2, [string]$key2)
 
 #Dare Mighty Things :-)
 
-
 #Install the Azure Powershell Module 
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 Install-Module AzureRM -AllowClobber -Force
@@ -62,7 +61,7 @@ function UpdateYmlAndStore
 {
     Param ([string]$acctName, [string]$storeKey, [string]$matchString, $containerName)
 
-    $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
+Â Â Â  $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
 
     $path = "gateway-config.env"
 
