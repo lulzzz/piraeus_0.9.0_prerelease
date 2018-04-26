@@ -1,0 +1,49 @@
+version: '3.1'
+services:
+  webgateway:
+    container_name: web-server
+    env_file:
+      - gateway-config.env
+    image: skunklab/webgateway
+    restart: always
+    volumes:
+      - c:\piraeus:c:\inetpub\wwwroot\logs
+    ports:
+      - "80:80/tcp"
+    links:
+      - orleans-silo
+    depends_on:
+      - orleans-silo
+  tcpudpgateway:
+    container_name: tcp-server
+    env_file:
+      - gateway-config.env
+    image: skunklab/tcpudpgateway
+    restart: always
+    volumes:
+      - c:\piraeus:c:\app\logs
+    ports:
+      - "1883:1883/tcp"
+      - "8883:8883/tcp"
+      - "5683:5683/udp"
+      - "5684:5684/tcp"
+      - "5883:5883/udp"
+    links:
+      - orleans-silo
+    depends_on:
+      - orleans-silo
+  orleans-silo:
+    container_name: orleans-silo
+    env_file:
+      - gateway-config.env
+    image: skunklab/orleans-silo
+    restart: always
+    volumes:
+      - c:\piraeus:c:\app\logs
+    ports:
+      - "11111:11111/tcp"
+      - "30000:30000/tcp"
+networks:
+  default:
+    external:
+      name: nat
