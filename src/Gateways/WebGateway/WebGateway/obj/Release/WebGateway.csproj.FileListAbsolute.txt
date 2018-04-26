@@ -230,6 +230,7 @@ C:\_git\core\src\Gateways\WebGateway\WebGateway\obj\Release\WebGateway.csprojRes
 C:\_git\core\src\Gateways\WebGateway\WebGateway\obj\Release\WebGateway.csproj.CoreCompileInputs.cache
 C:\_git\core\src\Gateways\WebGateway\WebGateway\obj\Release\WebGateway.dll
 C:\_git\core\src\Gateways\WebGateway\WebGateway\obj\Release\WebGateway.pdb
+<<<<<<< HEAD
 C:\_git\core\src\Gateways\WebGateway\WebGateway\obj\Release\AspnetCompileMerge\TempBuildDir\Areas\HelpPage\HelpPage.css
 C:\_git\core\src\Gateways\WebGateway\WebGateway\obj\Release\AspnetCompileMerge\TempBuildDir\Areas\HelpPage\Views\Help\Api.cshtml
 C:\_git\core\src\Gateways\WebGateway\WebGateway\obj\Release\AspnetCompileMerge\TempBuildDir\Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml
@@ -988,3 +989,5 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Rele
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Release\WebGateway.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Release\WebGateway.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Release\WebGateway.pdb
+=======
+>>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009

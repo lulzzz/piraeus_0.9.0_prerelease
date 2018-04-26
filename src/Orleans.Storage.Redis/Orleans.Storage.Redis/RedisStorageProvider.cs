@@ -24,7 +24,11 @@ namespace Orleans.Storage.Redis
         private ConnectionMultiplexer connection;
         private IDatabase database;
         private SerializationManager serializationManager;
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
         public Logger Log
         {
             get;
@@ -34,7 +38,7 @@ namespace Orleans.Storage.Redis
         public string Name { get; protected set; }
         
         public async Task Init(string name, IProviderRuntime providerRuntime, IProviderConfiguration config)
-        {           
+        {
             Log = providerRuntime.GetLogger(this.GetType().FullName + "." + providerRuntime.ServiceId.ToString());
             this.serializationManager = providerRuntime.ServiceProvider.GetRequiredService<SerializationManager>();
 
@@ -51,7 +55,7 @@ namespace Orleans.Storage.Redis
 
         public async Task ReadStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)
         {
-            if(!connection.IsConnected)
+            if (!connection.IsConnected)
             {
                 Task task = ConnectAsync();
                 Task.WaitAll(task);
@@ -59,7 +63,11 @@ namespace Orleans.Storage.Redis
 
             string key = grainReference.ToKeyString();
             RedisValue value = await database.StringGetAsync(key);
+<<<<<<< HEAD
             if(value.HasValue)
+=======
+            if (value.HasValue)
+>>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
             {
                 grainState.State = serializationManager.DeserializeFromByteArray<object>(value);
             }
@@ -81,7 +89,7 @@ namespace Orleans.Storage.Redis
             await database.StringSetAsync(key, payload);
         }
 
-        public Task ClearStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)
+        public async Task ClearStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)
         {
             if (!connection.IsConnected)
             {
@@ -90,9 +98,7 @@ namespace Orleans.Storage.Redis
             }
 
             string key = grainReference.ToKeyString();
-            database.KeyDelete(key);
-
-            return Task.CompletedTask;
+            await database.KeyDeleteAsync(key);
         }
 
         public Task Close()
