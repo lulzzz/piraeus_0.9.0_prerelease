@@ -7,7 +7,7 @@
 #pragma warning disable 1591
 #pragma warning disable 1998
 [assembly: global::System.CodeDom.Compiler.GeneratedCodeAttribute("Orleans-CodeGenerator", "1.5.2.0")]
-[assembly: global::Orleans.CodeGeneration.OrleansCodeGenerationTargetAttribute("Piraeus.GrainInterfaces, Version=0.9.2.0, Culture=neutral, PublicKeyToken=null")]
+[assembly: global::Orleans.CodeGeneration.OrleansCodeGenerationTargetAttribute("Piraeus.GrainInterfaces, Version=0.9.4.0, Culture=neutral, PublicKeyToken=null")]
 namespace Piraeus.GrainInterfaces
 {
     using global::Orleans.Async;
@@ -603,7 +603,7 @@ namespace Piraeus.GrainInterfaces
 
         public global::System.Threading.Tasks.Task @UpsertPolicyAsync(global::Capl.Authorization.AuthorizationPolicy @policy)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(-1016270937, new global::System.Object[]{@policy});
+            return base.@InvokeMethodAsync<global::System.Object>(-1016270937, new global::System.Object[]{@policy}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @ClearAsync()
@@ -613,7 +613,7 @@ namespace Piraeus.GrainInterfaces
 
         public global::System.Threading.Tasks.Task<global::Capl.Authorization.AuthorizationPolicy> @GetPolicyAsync()
         {
-            return base.@InvokeMethodAsync<global::Capl.Authorization.AuthorizationPolicy>(894844329, null);
+            return base.@InvokeMethodAsync<global::Capl.Authorization.AuthorizationPolicy>(894844329, null, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
     }
 
@@ -1275,32 +1275,32 @@ namespace Piraeus.GrainInterfaces
 
         public global::System.Threading.Tasks.Task @UpsertMetadataAsync(global::Piraeus.Core.Metadata.ResourceMetadata @metadata)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(1120461561, new global::System.Object[]{@metadata});
+            return base.@InvokeMethodAsync<global::System.Object>(1120461561, new global::System.Object[]{@metadata}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::Piraeus.Core.Messaging.CommunicationMetrics> @GetMetricsAsync()
         {
-            return base.@InvokeMethodAsync<global::Piraeus.Core.Messaging.CommunicationMetrics>(42119730, null);
+            return base.@InvokeMethodAsync<global::Piraeus.Core.Messaging.CommunicationMetrics>(42119730, null, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::Piraeus.Core.Metadata.ResourceMetadata> @GetMetadataAsync()
         {
-            return base.@InvokeMethodAsync<global::Piraeus.Core.Metadata.ResourceMetadata>(1255360387, null);
+            return base.@InvokeMethodAsync<global::Piraeus.Core.Metadata.ResourceMetadata>(1255360387, null, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @SubscribeAsync(global::Piraeus.GrainInterfaces.ISubscription @subscription)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(1523623891, new global::System.Object[]{@subscription is global::Orleans.Grain ? @subscription.@AsReference<global::Piraeus.GrainInterfaces.ISubscription>() : @subscription});
+            return base.@InvokeMethodAsync<global::System.Object>(1523623891, new global::System.Object[]{@subscription is global::Orleans.Grain ? @subscription.@AsReference<global::Piraeus.GrainInterfaces.ISubscription>() : @subscription}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @UnsubscribeAsync(global::System.String @subscriptionUriString)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(-100167817, new global::System.Object[]{@subscriptionUriString});
+            return base.@InvokeMethodAsync<global::System.Object>(-100167817, new global::System.Object[]{@subscriptionUriString}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @UnsubscribeAsync(global::System.String @subscriptionUriString, global::System.String @identity)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(-1453851530, new global::System.Object[]{@subscriptionUriString, @identity});
+            return base.@InvokeMethodAsync<global::System.Object>(-1453851530, new global::System.Object[]{@subscriptionUriString, @identity}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::System.Collections.Generic.IEnumerable<global::System.String>> @GetSubscriptionListAsync()
@@ -1310,12 +1310,12 @@ namespace Piraeus.GrainInterfaces
 
         public global::System.Threading.Tasks.Task @PublishAsync(global::Piraeus.Core.Messaging.EventMessage @message)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(-1419223039, new global::System.Object[]{@message});
+            return base.@InvokeMethodAsync<global::System.Object>(-1419223039, new global::System.Object[]{@message}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @PublishAsync(global::Piraeus.Core.Messaging.EventMessage @message, global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.String>> @indexes)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(1725683869, new global::System.Object[]{@message, @indexes});
+            return base.@InvokeMethodAsync<global::System.Object>(1725683869, new global::System.Object[]{@message, @indexes}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @ClearAsync()
@@ -1326,23 +1326,23 @@ namespace Piraeus.GrainInterfaces
         public global::System.Threading.Tasks.Task<global::System.String> @AddObserverAsync(global::System.TimeSpan @lifetime, global::Piraeus.GrainInterfaces.IMetricObserver @observer)
         {
             global::Orleans.CodeGeneration.GrainFactoryBase.@CheckGrainObserverParamInternal(@observer);
-            return base.@InvokeMethodAsync<global::System.String>(2140683751, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IMetricObserver>() : @observer});
+            return base.@InvokeMethodAsync<global::System.String>(2140683751, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IMetricObserver>() : @observer}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::System.String> @AddObserverAsync(global::System.TimeSpan @lifetime, global::Piraeus.GrainInterfaces.IErrorObserver @observer)
         {
             global::Orleans.CodeGeneration.GrainFactoryBase.@CheckGrainObserverParamInternal(@observer);
-            return base.@InvokeMethodAsync<global::System.String>(-609522259, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IErrorObserver>() : @observer});
+            return base.@InvokeMethodAsync<global::System.String>(-609522259, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IErrorObserver>() : @observer}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @RemoveObserverAsync(global::System.String @leaseKey)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(-1510100919, new global::System.Object[]{@leaseKey});
+            return base.@InvokeMethodAsync<global::System.Object>(-1510100919, new global::System.Object[]{@leaseKey}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::System.Boolean> @RenewObserverLeaseAsync(global::System.String @leaseKey, global::System.TimeSpan @lifetime)
         {
-            return base.@InvokeMethodAsync<global::System.Boolean>(-395996090, new global::System.Object[]{@leaseKey, @lifetime});
+            return base.@InvokeMethodAsync<global::System.Boolean>(-395996090, new global::System.Object[]{@leaseKey, @lifetime}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
     }
 
@@ -1964,45 +1964,45 @@ namespace Piraeus.GrainInterfaces
 
         public global::System.Threading.Tasks.Task<global::System.String> @GetIdAsync()
         {
-            return base.@InvokeMethodAsync<global::System.String>(-767118177, null);
+            return base.@InvokeMethodAsync<global::System.String>(-767118177, null, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @UpsertMetadataAsync(global::Piraeus.Core.Metadata.SubscriptionMetadata @metadata)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(233903696, new global::System.Object[]{@metadata});
+            return base.@InvokeMethodAsync<global::System.Object>(233903696, new global::System.Object[]{@metadata}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::Piraeus.Core.Messaging.CommunicationMetrics> @GetMetricsAsync()
         {
-            return base.@InvokeMethodAsync<global::Piraeus.Core.Messaging.CommunicationMetrics>(42119730, null);
+            return base.@InvokeMethodAsync<global::Piraeus.Core.Messaging.CommunicationMetrics>(42119730, null, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::Piraeus.Core.Metadata.SubscriptionMetadata> @GetMetadataAsync()
         {
-            return base.@InvokeMethodAsync<global::Piraeus.Core.Metadata.SubscriptionMetadata>(1255360387, null);
+            return base.@InvokeMethodAsync<global::Piraeus.Core.Metadata.SubscriptionMetadata>(1255360387, null, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::System.String> @AddObserverAsync(global::System.TimeSpan @lifetime, global::Piraeus.GrainInterfaces.IMessageObserver @observer)
         {
             global::Orleans.CodeGeneration.GrainFactoryBase.@CheckGrainObserverParamInternal(@observer);
-            return base.@InvokeMethodAsync<global::System.String>(1347980661, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IMessageObserver>() : @observer});
+            return base.@InvokeMethodAsync<global::System.String>(1347980661, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IMessageObserver>() : @observer}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::System.String> @AddObserverAsync(global::System.TimeSpan @lifetime, global::Piraeus.GrainInterfaces.IMetricObserver @observer)
         {
             global::Orleans.CodeGeneration.GrainFactoryBase.@CheckGrainObserverParamInternal(@observer);
-            return base.@InvokeMethodAsync<global::System.String>(2140683751, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IMetricObserver>() : @observer});
+            return base.@InvokeMethodAsync<global::System.String>(2140683751, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IMetricObserver>() : @observer}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::System.String> @AddObserverAsync(global::System.TimeSpan @lifetime, global::Piraeus.GrainInterfaces.IErrorObserver @observer)
         {
             global::Orleans.CodeGeneration.GrainFactoryBase.@CheckGrainObserverParamInternal(@observer);
-            return base.@InvokeMethodAsync<global::System.String>(-609522259, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IErrorObserver>() : @observer});
+            return base.@InvokeMethodAsync<global::System.String>(-609522259, new global::System.Object[]{@lifetime, @observer is global::Orleans.Grain ? @observer.@AsReference<global::Piraeus.GrainInterfaces.IErrorObserver>() : @observer}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @RemoveObserverAsync(global::System.String @leaseKey)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(-1510100919, new global::System.Object[]{@leaseKey});
+            return base.@InvokeMethodAsync<global::System.Object>(-1510100919, new global::System.Object[]{@leaseKey}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task<global::System.Boolean> @RenewObserverLeaseAsync(global::System.String @leaseKey, global::System.TimeSpan @lifetime)
@@ -2012,12 +2012,12 @@ namespace Piraeus.GrainInterfaces
 
         public global::System.Threading.Tasks.Task @NotifyAsync(global::Piraeus.Core.Messaging.EventMessage @message)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(833284507, new global::System.Object[]{@message});
+            return base.@InvokeMethodAsync<global::System.Object>(833284507, new global::System.Object[]{@message}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @NotifyAsync(global::Piraeus.Core.Messaging.EventMessage @message, global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.String>> @indexes)
         {
-            return base.@InvokeMethodAsync<global::System.Object>(934898313, new global::System.Object[]{@message, @indexes});
+            return base.@InvokeMethodAsync<global::System.Object>(934898313, new global::System.Object[]{@message, @indexes}, options: global::Orleans.CodeGeneration.InvokeMethodOptions.@AlwaysInterleave);
         }
 
         public global::System.Threading.Tasks.Task @ClearAsync()

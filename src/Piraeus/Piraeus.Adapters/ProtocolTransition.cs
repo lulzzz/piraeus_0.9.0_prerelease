@@ -141,7 +141,7 @@ namespace Piraeus.Adapters
 
             if (pm.QualityOfService != QualityOfServiceLevelType.AtMostOnce)
             {
-                session.Quarantine(pm);
+                session.Quarantine(pm,SkunkLab.Protocols.Mqtt.Handlers.DirectionType.Out);
             }
 
             return pm.Encode();

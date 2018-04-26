@@ -30,14 +30,17 @@ namespace SkunkLab.Protocols.Mqtt.Handlers
                 return await Task.FromResult<MqttMessage>(null);
             }
 
+
+
             MqttMessage response = GetAck(msg);
 
-            if(!msg.Dup || (msg.Dup && !Session.IsQuarantined(msg.MessageId)))
+            //if(!msg.Dup || (msg.Dup && !Session.IsQuarantined(msg.MessageId)))
+            if (!Session.IsQuarantined(msg.MessageId))
             {
-                Session.Quarantine(Message);
+                Session.Quarantine(Message, DirectionType.In);
                 Dispatch(msg);               
             }
-
+            
             return await Task.FromResult<MqttMessage>(response);
             
         }
@@ -64,7 +67,14 @@ namespace SkunkLab.Protocols.Mqtt.Handlers
                 Session.HoldMessage(msg);
             }
 
-            return new PublishAckMessage(ackType, msg.MessageId);
+            if (msg.QualityOfServiceLevel == QualityOfServiceLevelType.AtMostOnce)
+            {
+                return null;
+            }
+            else
+            {
+                return new PublishAckMessage(ackType, msg.MessageId);
+            }
         }
     }
 }

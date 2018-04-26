@@ -694,3 +694,8 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Servers\Docker\TcpUdp
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Servers\Docker\TcpUdpGateway\Output\SkunkLab.Listeners.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Servers\Docker\TcpUdpGateway\Output\SkunkLab.Listeners.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Servers\Docker\TcpUdpGateway\Output\SkunkLab.Listeners.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\DocumentDB.Spatial.Sql.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Listeners.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Listeners.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Listeners.pdb

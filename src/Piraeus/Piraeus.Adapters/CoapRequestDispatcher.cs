@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Piraeus.Core;
 using Piraeus.Core.Messaging;
 using Piraeus.Core.Metadata;
 using Piraeus.Grains;
@@ -18,8 +20,7 @@ namespace Piraeus.Adapters
         {
             this.channel = channel;
             this.session = session;
-            Task auditorTask = SetupAuditorAsync();
-            Task.WhenAll(auditorTask);          
+            auditor = new Auditor();
             coapObserved = new Dictionary<string, byte[]>();
             coapUnobserved = new HashSet<string>();
             adapter = new OrleansAdapter(session.Identity, channel.TypeId, "CoAP");
@@ -100,7 +101,6 @@ namespace Piraeus.Adapters
         /// <returns></returns>
         public async Task<CoapMessage> ObserveAsync(CoapMessage message)
         {
-            await Log.LogInfoAsync("Coap observe message received.");
 
             if (!message.Observe.HasValue)
             {
@@ -136,9 +136,8 @@ namespace Piraeus.Adapters
                     Indexes = session.Indexes
                 };
 
-                await Log.LogInfoAsync("Coap observe subscribe attempt.");
                 string subscriptionUriString = await adapter.SubscribeAsync(uri.Resource, metadata);
-                await Log.LogInfoAsync("Coap obseve subscribed.");
+               
 
                 if (!coapObserved.ContainsKey(uri.Resource)) //add resource to observed list
                 {
@@ -146,64 +145,51 @@ namespace Piraeus.Adapters
                 }
             }
 
-            await Log.LogInfoAsync("Returning Coap observe response.");
             return new CoapResponse(message.MessageId, rmt, ResponseCodeType.Valid, message.Token);
         }
 
         private void Adapter_OnObserve(object sender, ObserveMessageEventArgs e)
         {
-            Task t0 = Log.LogInfoAsync("Coap adapter observed incoming message from Piraeus.");
-            Task.WhenAll(t0);
+            //Task t0 = Log.LogInfoAsync("Coap adapter observed incoming message from Piraeus.");
+            //Task.WhenAll(t0);
 
             byte[] message = null;
 
             if (coapObserved.ContainsKey(e.Message.ResourceUri))
             {
-                Task t1 = Log.LogInfoAsync("Coap adapter observed message converting with token prior to send.");
-                Task.WhenAll(t1);
-
                 message = ProtocolTransition.ConvertToCoap(session, e.Message, coapObserved[e.Message.ResourceUri]);
             }
             else
             {
-                Task t2 = Log.LogInfoAsync("Coap adapter observed message converting without token prior to send.");
-                Task.WhenAll(t2);
-
                 message = ProtocolTransition.ConvertToCoap(session, e.Message);
             }
 
-            Task t3 = Log.LogInfoAsync("Coap adapter observed messaging sending converted messsage.");
-            Task.WhenAll(t3);
 
             Task task = Send(message,e);
             Task.WhenAll(task);
         }
 
         private async Task Send(byte[] message, ObserveMessageEventArgs e)
-        {           
-            await Log.LogInfoAsync("Coap adapter about to send observed message on channel.");
+        {  
             AuditRecord record = null;
             try
             {
                 await channel.SendAsync(message);
-                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, e.Message.Protocol.ToString(), e.Message.Message.Length, true, DateTime.UtcNow);
+                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, e.Message.Protocol.ToString(), e.Message.Message.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
             }
             catch(Exception ex)
             {
-                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, e.Message.Protocol.ToString(), e.Message.Message.Length, false, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, e.Message.Protocol.ToString(), e.Message.Message.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
             }
             finally
             {
-                if(e.Message.Audit)
+                if(e.Message.Audit && auditor.CanAudit)
                 {
-                    if (auditor.CanAudit)
-                    {
-                        await auditor.WriteAuditRecordAsync(record);
-                    }
+                    await auditor.WriteAuditRecordAsync(record);
                 }
             }
 
-            await Log.LogInfoAsync("Coap adapter about to sent observed message on channel.");
+      
 
         }
 
@@ -214,33 +200,53 @@ namespace Piraeus.Adapters
         /// <returns></returns>
         public async Task<CoapMessage> PostAsync(CoapMessage message)
         {
-            await Log.LogInfoAsync("Coap post of message received.");
+            //await Log.LogInfoAsync("Coap post of message received.");
 
-            CoapUri uri = new CoapUri(message.ResourceUri.ToString());
-            ResponseMessageType rmt = message.MessageType == CoapMessageType.Confirmable ? ResponseMessageType.Acknowledgement : ResponseMessageType.NonConfirmable;
-            ResourceMetadata metadata = await GraphManager.GetResourceMetadataAsync(uri.Resource);
-
-            if (!await adapter.CanPublishAsync(metadata, channel.IsEncrypted))
+            try
             {
-                return new CoapResponse(message.MessageId, rmt, ResponseCodeType.Unauthorized, message.Token);
+                CoapUri uri = new CoapUri(message.ResourceUri.ToString());
+                ResponseMessageType rmt = message.MessageType == CoapMessageType.Confirmable ? ResponseMessageType.Acknowledgement : ResponseMessageType.NonConfirmable;
+                ResourceMetadata metadata = await GraphManager.GetResourceMetadataAsync(uri.Resource);
+
+                if (!await adapter.CanPublishAsync(metadata, channel.IsEncrypted))
+                {
+                    if(metadata.Audit && auditor.CanAudit)
+                    {
+                        await auditor.WriteAuditRecordAsync(new AuditRecord("XXXXXXXXXXXX", session.Identity, this.channel.TypeId, "CoAP", message.Payload.Length, MessageDirectionType.In, false, DateTime.UtcNow, "Not authorized, missing resource metadata, or channel encryption requirements"));
+                    }
+
+                    return new CoapResponse(message.MessageId, rmt, ResponseCodeType.Unauthorized, message.Token);
+                }
+
+                string contentType = message.ContentType.HasValue ? message.ContentType.Value.ConvertToContentType() : "application/octet-stream";
+
+                EventMessage msg = new EventMessage(contentType, uri.Resource, ProtocolType.COAP, message.Encode(), DateTime.UtcNow, metadata.Audit);
+
+                if (uri.Indexes == null)
+                {
+                    await adapter.PublishAsync(msg);
+                }
+                else
+                {
+                    List<KeyValuePair<string, string>> indexes = new List<KeyValuePair<string, string>>(uri.Indexes);
+
+                    Task task = Retry.ExecuteAsync(async () =>
+                    {
+                        await adapter.PublishAsync(msg, indexes);
+                    });
+
+                    await Task.WhenAll(task);
+                }
+
+
+                return new CoapResponse(message.MessageId, rmt, ResponseCodeType.Created, message.Token);
             }
-
-            string contentType = message.ContentType.HasValue ? message.ContentType.Value.ConvertToContentType() : "application/octet-stream";
-            
-            EventMessage msg = new EventMessage(contentType, uri.Resource, ProtocolType.COAP, message.Encode(), DateTime.UtcNow, metadata.Audit);
-
-            if (uri.Indexes == null)
+            catch(Exception ex)
             {
-                await adapter.PublishAsync(msg);
+                Trace.TraceError("ERROR: CoAP publish erorr {0}", ex.Message);
+                Trace.TraceError("ERROR: CoAP publish erorr stack trace {0} ", ex.StackTrace);
+                throw ex;
             }
-            else
-            {
-                List<KeyValuePair<string, string>> indexes = new List<KeyValuePair<string, string>>(uri.Indexes);
-                await adapter.PublishAsync(msg, indexes);
-            }
-
-
-            return new CoapResponse(message.MessageId, rmt, ResponseCodeType.Created, message.Token);
         }
         
 
@@ -332,13 +338,7 @@ namespace Piraeus.Adapters
         #endregion
 
 
-        private async Task SetupAuditorAsync()
-        {
-            string connectionstring = await GraphManager.GetAuditConfigConnectionstringAsync();
-            string tablename = await GraphManager.GetAuditConfigTablenameAsync();
-
-            auditor = new Auditor(connectionstring, tablename);
-        }
+        
 
 
 

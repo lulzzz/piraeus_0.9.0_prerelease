@@ -1,4 +1,5 @@
-﻿using Piraeus.Clients.Coap;
+﻿using Newtonsoft.Json;
+using Piraeus.Clients.Coap;
 using SkunkLab.Channels;
 using SkunkLab.Channels.WebSocket;
 using SkunkLab.Protocols.Coap;
@@ -12,12 +13,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace Samples.Clients.Coap
 {
     class Program
     {
-               
 
+        static string jsonPayload;
+        static int messageType;
         static int channelNo;
         static int index;
         static IChannel channel;
@@ -30,11 +33,21 @@ namespace Samples.Clients.Coap
         static PiraeusCoapClient client;
         static ManualResetEventSlim observeAck;
         static bool canSend;
+        static long minTicks;
+        static int counter;
 
         static void Main(string[] args)
         {
             source = new CancellationTokenSource();
             WriteHeader();  //descriptive header
+            Console.Write("Select message type [1=Json, Enter=Default] ? ");
+            messageType = Console.ReadLine() == "1" ? 1 : 0;
+            if(messageType == 1)
+            {
+                contentType = "application/json";
+                jsonPayload = RandomString(990);
+            }
+
             SelectClientRole(); //select a role for the client
 
             string securityToken = GetSecurityToken();  //get the security token with a unique name
@@ -156,7 +169,18 @@ namespace Samples.Clients.Coap
             Console.ForegroundColor = ConsoleColor.Magenta;
             if (payload != null)
             {
-                Console.WriteLine(Encoding.UTF8.GetString(payload));
+                if (messageType != 1)
+                {
+                    Console.WriteLine(Encoding.UTF8.GetString(payload));
+                }
+                else
+                {
+                    MyMessage mmsg = JsonConvert.DeserializeObject<MyMessage>(Encoding.UTF8.GetString(payload));
+                    long ticks = DateTime.UtcNow.Ticks;
+                    minTicks = minTicks == 0 ? mmsg.Ticks : minTicks > mmsg.Ticks ? mmsg.Ticks : minTicks;
+                    counter++;
+                    Console.WriteLine("{0} - {1} - {2}", counter, TimeSpan.FromTicks(ticks - minTicks).TotalMilliseconds, TimeSpan.FromTicks(ticks - mmsg.Ticks).TotalMilliseconds);
+                }
             }
             else
             {
@@ -193,14 +217,30 @@ namespace Samples.Clients.Coap
                 {
                     index++;
                     //send a message to a resource
-                    string message = String.Format("{0} sent message {1}", clientName, index);
-                    byte[] payload = Encoding.UTF8.GetBytes(message);
+                    string payloadString = null;
+                    if(messageType == 1)
+                    {
+                        
+                        MyMessage mmsg = new MyMessage() { Ticks = DateTime.UtcNow.Ticks, Payload = jsonPayload };
+                        payloadString = JsonConvert.SerializeObject(mmsg);
+
+                    }
+                    else
+                    {
+                        payloadString = String.Format("{0} sent message {1}", clientName, index);
+                    }
+
+                    //string message = String.Format("{0} sent message {1}", clientName, index);
+                                        
+                    byte[] payload = Encoding.UTF8.GetBytes(payloadString);
+                    
                     Task pubTask = client.PublishAsync(publishResource, contentType, payload, false, PublishResponse);
                     Task.WhenAll(pubTask);
 
                     if (delay > 0)
                     {
-                        Task.Delay(delay).Wait();
+                        Thread.Sleep(delay);
+                        //Task.Delay(delay).Wait();
                     }
                 }
 
@@ -299,6 +339,20 @@ namespace Samples.Clients.Coap
             Console.ReadKey();
         }
 
-       
+        private static string RandomString(int size)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+
+            return builder.ToString();
+        }
+
+
     }
 }

@@ -1,5 +1,5 @@
 @echo off
-set @version=0.9.2
+set @version=0.9.4
 set @prerelease=prerelease
 
 @echo off 

@@ -40,13 +40,13 @@ namespace Piraeus.Grains
                 State.Container.Add(subscriptionUriString);
             }
 
-            await Task.CompletedTask;
+            await WriteStateAsync();
         }
 
         public async Task RemoveSubscriptionAsync(string subscriptionUriString)
         {
             State.Container.Remove(subscriptionUriString);
-            await Task.CompletedTask;
+            await WriteStateAsync();
         }
 
         #endregion

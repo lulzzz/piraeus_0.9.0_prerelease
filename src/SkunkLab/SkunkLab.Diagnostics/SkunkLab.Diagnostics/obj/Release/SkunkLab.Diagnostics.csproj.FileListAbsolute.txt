@@ -175,3 +175,6 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Diagnostics.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Diagnostics.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Diagnostics.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\SkunkLab.Diagnostics.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\SkunkLab.Diagnostics.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\SkunkLab.Diagnostics.pdb

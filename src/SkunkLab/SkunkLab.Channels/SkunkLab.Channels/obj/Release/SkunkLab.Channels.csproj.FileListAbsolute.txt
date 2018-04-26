@@ -186,3 +186,6 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Cha
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Channels.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Channels.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\Docker\TcpUdpGateway\Output\SkunkLab.Channels.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\SkunkLab.Channels.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\SkunkLab.Channels.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\SkunkLab.Channels.pdb

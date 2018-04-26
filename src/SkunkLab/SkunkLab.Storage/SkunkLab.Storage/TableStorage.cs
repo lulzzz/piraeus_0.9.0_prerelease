@@ -1,8 +1,10 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
@@ -11,13 +13,18 @@ namespace SkunkLab.Storage
 {
     public class TableStorage
     {
+        private HashSet<string> tableNames;
         protected TableStorage(string connectionString)
         {
             try
             {
+                tableNames = new HashSet<string>();
                 CloudStorageAccount account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(connectionString);
                 StorageCredentials credentials = new StorageCredentials(account.Credentials.AccountName, account.Credentials.ExportKey());
                 client = new CloudTableClient(account.TableStorageUri, credentials);
+                client.DefaultRequestOptions.ServerTimeout = TimeSpan.FromMinutes(1.0);
+                client.DefaultRequestOptions.RetryPolicy = new ExponentialRetry(TimeSpan.FromMilliseconds(10000), 8);
+                client.DefaultRequestOptions.MaximumExecutionTime = TimeSpan.FromMinutes(3.0);
 
                 if (bufferManager != null)
                 {
@@ -34,10 +41,14 @@ namespace SkunkLab.Storage
         {
             try
             {
+                tableNames = new HashSet<string>();
                 keyVault = new Vault(vault, clientId, clientSecret, keyName);
                 CloudStorageAccount account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(keyVault.Key);
                 StorageCredentials credentials = new StorageCredentials(account.Credentials.AccountName, account.Credentials.ExportKey());
                 client = new CloudTableClient(account.TableStorageUri, credentials);
+                client.DefaultRequestOptions.ServerTimeout = TimeSpan.FromMinutes(1.0);
+                client.DefaultRequestOptions.RetryPolicy = new ExponentialRetry(TimeSpan.FromMilliseconds(10000), 8);
+                client.DefaultRequestOptions.MaximumExecutionTime = TimeSpan.FromMinutes(3.0);
 
                 if (bufferManager != null)
                 {
@@ -122,7 +133,12 @@ namespace SkunkLab.Storage
         public void Write(string tableName, ITableEntity entity, string encryptKeyName = null)
         {
             CloudTable table = client.GetTableReference(tableName);
-            table.CreateIfNotExists();
+            if(!tableNames.Contains(tableName.ToLowerInvariant()))
+            {
+                table.CreateIfNotExists();
+                tableNames.Add(tableName.ToLowerInvariant());
+            }
+            
             TableOperation operation = TableOperation.InsertOrReplace(entity);
 
             if (!string.IsNullOrEmpty(encryptKeyName))
@@ -138,18 +154,32 @@ namespace SkunkLab.Storage
 
         public async Task WriteAsync(string tableName, ITableEntity entity, string encryptKeyName = null)
         {
-            CloudTable table = client.GetTableReference(tableName);
-            await table.CreateIfNotExistsAsync();
-            TableOperation operation = TableOperation.InsertOrReplace(entity);
-
-            if (!string.IsNullOrEmpty(encryptKeyName))
+            if(entity == null)
             {
-                await table.ExecuteAsync(operation);
+                Trace.TraceWarning("Table {0} entity is null", tableName);
+                return;
             }
-            else
+
+            try
             {
-                TableRequestOptions options = keyVault.GetEncryptionTableOptions(encryptKeyName);
-                await table.ExecuteAsync(operation, options, null);
+                CloudTable table = client.GetTableReference(tableName);
+                await table.CreateIfNotExistsAsync();
+                TableOperation operation = TableOperation.InsertOrReplace(entity);
+
+                if (string.IsNullOrEmpty(encryptKeyName))
+                {
+                    await table.ExecuteAsync(operation);
+                }
+                else
+                {
+                    TableRequestOptions options = keyVault.GetEncryptionTableOptions(encryptKeyName);
+                    await table.ExecuteAsync(operation, options, null);
+                }
+            }
+            catch(Exception ex)
+            {
+                Trace.TraceWarning("Table {0} failed write.", tableName);
+                Trace.TraceError("Table {0} write error {1}", tableName, ex.Message);
             }
         }
 

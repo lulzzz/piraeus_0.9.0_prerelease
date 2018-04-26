@@ -11,31 +11,37 @@ namespace Piraeus.Grains.Notifications
         {
         }
 
-        public AuditRecord(string messageId, string identity, string channel, string protocol, int length, DateTime messageTime, string error = null)
-        {
-            MessageId = messageId;
-            Identity = identity;
-            Channel = channel;
-            Protocol = protocol;
-            Length = length;
-            Direction = "In";
-            MessageTime = messageTime;
-            Error = error;
-        }
+       
 
-        public AuditRecord(string messageId, string identity, string channel, string protocol, int length, bool success, DateTime messageTime, string error = null)
+        public AuditRecord(string messageId, string identity, string channel, string protocol, int length, MessageDirectionType direction, bool success, DateTime messageTime, string error = null)
         {
             MessageId = messageId;
             Identity = identity;
             Channel = channel;
             Protocol = protocol;
             Length = length;
-            Direction = "Out";
+            Direction = direction.ToString();
             Error = error;
             Success = success;
             MessageTime = messageTime;
+            Key = Guid.NewGuid().ToString();
         }
 
+      
+
+        [JsonProperty("key")]
+        public string Key
+        {
+            get
+            {
+                return PartitionKey;
+            }
+            set
+            {
+                PartitionKey = value;
+            }
+
+        }
 
         [JsonProperty("messageId")]
         public string MessageId

@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Piraeus.Grains.Notifications;
+using System.Diagnostics;
 
 namespace Piraeus.Adapters
 {
@@ -18,11 +19,10 @@ namespace Piraeus.Adapters
     {
         public OrleansAdapter(string identity, string channelType, string protocolType)
         {
+            this.auditor = new Auditor();
             this.identity = identity;
             this.channelType = channelType;
             this.protocolType = protocolType;
-            Task task = SetAuditorAsync();
-            Task.WhenAll(task);
 
             container = new Dictionary<string, Tuple<string, string>>();
             ephemeralObservers = new Dictionary<string, IMessageObserver>();
@@ -31,6 +31,7 @@ namespace Piraeus.Adapters
 
         public event EventHandler<ObserveMessageEventArgs> OnObserve;   //signal protocol adapter
 
+        private int observeCount;
         private Auditor auditor;
         private string identity;
         private string channelType;
@@ -133,10 +134,11 @@ namespace Piraeus.Adapters
             if (!authz)
             {                
                 await Log.LogWarningAsync("Identity is not authorized to publish to resource {0}", metadata.ResourceUriString);
-                foreach (Claim claim in identity.Claims)
-                {
-                    await Log.LogInfoAsync("Identity claim {0} : {1}", claim.Type, claim.Value);
-                }
+                
+                //foreach (Claim claim in identity.Claims)
+                //{
+                //    await Log.LogInfoAsync("Identity claim {0} : {1}", claim.Type, claim.Value);
+                //}
             }
 
             return authz;
@@ -197,31 +199,31 @@ namespace Piraeus.Adapters
         public override async Task PublishAsync(EventMessage message, List<KeyValuePair<string, string>> indexes = null)
         {
             AuditRecord record = null;
+            DateTime receiveTime = DateTime.UtcNow;
 
             try
             {
+                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, MessageDirectionType.In, true, receiveTime);
+
                 if (indexes == null || indexes.Count == 0)
                 {
-                    await GraphManager.PublishAsync(message.ResourceUri, message);                   
+                    await GraphManager.PublishAsync(message.ResourceUri, message);                 
                 }
                 else
                 {
-                    await GraphManager.PublishAsync(message.ResourceUri, message, indexes);                    
-                }
-
-                if(message.Audit)
-                {
-
-                    record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, DateTime.UtcNow);
+                    await GraphManager.PublishAsync(message.ResourceUri, message, indexes);               
                 }
             }
             catch(Exception ex)
             {
-                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, MessageDirectionType.In, false, receiveTime, ex.Message);
             }
             finally
             {
-                await AuditAsync(record);
+                if(auditor.CanAudit && message.Audit)
+                {
+                    await auditor.WriteAuditRecordAsync(record);
+                }
             }
         }
 
@@ -305,6 +307,8 @@ namespace Piraeus.Adapters
         #region private methods
         private void Observer_OnNotify(object sender, MessageNotificationArgs e)
         {
+            observeCount++;
+            Trace.TraceInformation("Obsever {0}", observeCount);
             //signal the protocol adapter
             OnObserve?.Invoke(this, new ObserveMessageEventArgs(e.Message));
         }
@@ -456,20 +460,9 @@ namespace Piraeus.Adapters
             }
         }
 
-        private async Task AuditAsync(AuditRecord record = null)
-        {   
-            if (record != null && auditor.CanAudit)
-            {
-                await auditor.WriteAuditRecordAsync(record);
-            }
-        }
+        
 
-        private async Task SetAuditorAsync()
-        {
-            string connectionstring = await GraphManager.GetAuditConfigConnectionstringAsync();
-            string tablename = await GraphManager.GetAuditConfigTablenameAsync();
-            auditor = new Auditor(connectionstring, tablename);
-        }
+        
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-param([string]$store1, [string]$key1, [string]$store2, [string]$key2)
+ï»¿param([string]$store1, [string]$key1, [string]$store2, [string]$key2)
 
 # 1.  Install Azure Powershell Module
 # 2.  Create c:\piraeus folder
@@ -19,7 +19,6 @@ param([string]$store1, [string]$key1, [string]$store2, [string]$key2)
 #       You are ready to run the sample!
 
 #Dare Mighty Things :-)
-
 
 #Install the Azure Powershell Module 
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
@@ -46,13 +45,16 @@ $envFileUrl = "https://raw.githubusercontent.com/skunklab/piraeus_0.9.0_prerelea
 
 
 #Install Docker Compose
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest "https://github.com/docker/compose/releases/download/1.18.0/docker-compose-Windows-x86_64.exe" -UseBasicParsing -OutFile $Env:ProgramFiles\docker\docker-compose.exe
 
 
 #Download docker-compose.yml file
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $ymlFileUrl -UseBasicParsing -OutFile "docker-compose.yml" 
 
 #Download gateway-config.env file
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $envFileUrl -UseBasicParsing -OutFile "gateway-config.env" 
 
 
@@ -61,11 +63,11 @@ function UpdateYmlAndStore
 {
     Param ([string]$acctName, [string]$storeKey, [string]$matchString, $containerName)
 
-    $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
+Â Â Â  $connectionString = "DefaultEndpointsProtocol=https;AccountName=" + $acctName + ";AccountKey=" + $storeKey
 
-    $path = "docker-compose.yml"
+    $path = "gateway-config.env"
 
-    (Get-Content $path) -replace $matchString,$connectionString | out-file $path
+    (Get-Content $path) -replace $matchString,$connectionString | out-file $path -Encoding ascii
 
     $context = New-AzureStorageContext -StorageAccountName $acctName -StorageAccountKey $storeKey -Protocol Https
     New-AzureStorageContainer -Name $containerName -Context $context

@@ -93,6 +93,7 @@
     <Compile Include="Coap\Transmitter.cs" />
     <Compile Include="Coap\UnsupportedMediaTypeException.cs" />
     <Compile Include="Coap\UriExtensions.cs" />
+    <Compile Include="Mqtt\Handlers\DirectionType.cs" />
     <Compile Include="Mqtt\IMqttDispatch.cs" />
     <Compile Include="Mqtt\RetryMessageData.cs" />
     <Compile Include="Mqtt\ByteContainer.cs" />

@@ -8,9 +8,12 @@ using Piraeus.GrainInterfaces;
 using System.Linq;
 using Orleans.Providers;
 using Piraeus.Grains.Notifications;
+using Orleans.Concurrency;
+using System.Diagnostics;
 
 namespace Piraeus.Grains
 {
+    [Reentrant]
     [StorageProvider(ProviderName = "store")]
     public class Subscription : Grain<SubscriptionState>, ISubscription
     {
@@ -103,7 +106,7 @@ namespace Piraeus.Grains
         public async Task UpsertMetadataAsync(SubscriptionMetadata metadata)
         {
             State.Metadata = metadata;
-            await Task.CompletedTask;
+            await WriteStateAsync();
         }
 
         public async Task<SubscriptionMetadata> GetMetadataAsync()
@@ -166,6 +169,8 @@ namespace Piraeus.Grains
             }
             catch(Exception ex)
             {
+                Trace.TraceWarning("Subscription publish failed to complete.");
+                Trace.TraceError("Subscription publish error {0}", ex.Message);
                 error = ex;
                 GetLogger().Log(2, Orleans.Runtime.Severity.Error, "Subscription notification exception {0}", new object[] { State.Metadata.SubscriptionUriString }, ex);                
             }
@@ -180,23 +185,32 @@ namespace Piraeus.Grains
 
         public async Task NotifyAsync(EventMessage message, List<KeyValuePair<string, string>> indexes)
         {
-            if (indexes == null)
+            try
             {
-                await NotifyAsync(message);
-                return;
-            }
+                if (indexes == null)
+                {
+                    await NotifyAsync(message);
+                    return;
+                }
 
-            var query = indexes.Where((c) => State.Metadata.Indexes.Contains(new KeyValuePair<string, string>(c.Key, c.Value)));
+                var query = indexes.Where((c) => State.Metadata.Indexes.Contains(new KeyValuePair<string, string>(c.Key, c.Value)));
 
-            if (indexes.Count == query.Count())
-            {
-                await NotifyAsync(message);
+                if (indexes.Count == query.Count())
+                {
+                    await NotifyAsync(message);
+                }
+                else
+                {
+                    State.MessageCount++;
+                    State.ByteCount += message.Message.LongLength;
+                    State.LastMessageTimestamp = DateTime.UtcNow;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                State.MessageCount++;
-                State.ByteCount += message.Message.LongLength;
-                State.LastMessageTimestamp = DateTime.UtcNow;                
+                Trace.TraceWarning("Subscription publish with indexes failed to complete.");
+                Trace.TraceError("Subscription publish with indexes error {0}", ex.Message);
+                GetLogger().Log(2, Orleans.Runtime.Severity.Error, "Subscription notification exception {0}", new object[] { State.Metadata.SubscriptionUriString }, ex);
             }
         }
 
@@ -223,6 +237,7 @@ namespace Piraeus.Grains
             }
 
             await DequeueAsync(State.MessageQueue);
+            await WriteStateAsync();
 
             return await Task.FromResult<string>(leaseKey);
         }
@@ -244,6 +259,7 @@ namespace Piraeus.Grains
                 leaseTimer = RegisterTimer(CheckLeaseExpiryAsync, null, TimeSpan.FromSeconds(10.0), TimeSpan.FromSeconds(60.0));
             }
 
+            await WriteStateAsync();
             return await Task.FromResult<string>(leaseKey);
 
         }
@@ -265,6 +281,7 @@ namespace Piraeus.Grains
                 leaseTimer = RegisterTimer(CheckLeaseExpiryAsync, null, TimeSpan.FromSeconds(10.0), TimeSpan.FromSeconds(60.0));
             }
 
+            await WriteStateAsync();
             return await Task.FromResult<string>(leaseKey);
         }
         public async Task RemoveObserverAsync(string leaseKey)
@@ -278,6 +295,7 @@ namespace Piraeus.Grains
             if (messageQuery.Count() == 1)
             {
                 State.MessageLeases.Remove(leaseKey);
+                
                
                 if (State.MessageLeases.Count == 0 && State.Metadata.IsEphemeral)
                 {
@@ -297,6 +315,8 @@ namespace Piraeus.Grains
             }
 
             State.LeaseExpiry.Remove(leaseKey);
+
+            await WriteStateAsync();
         }
 
         public async Task<bool> RenewObserverLeaseAsync(string leaseKey, TimeSpan lifetime)
@@ -306,6 +326,7 @@ namespace Piraeus.Grains
                 Tuple<DateTime, string> value = State.LeaseExpiry[leaseKey];
                 Tuple<DateTime, string> newValue = new Tuple<DateTime, string>(DateTime.UtcNow.Add(lifetime), value.Item2);
                 State.LeaseExpiry[leaseKey] = newValue;
+                await WriteStateAsync();
                 return await Task.FromResult<bool>(true);
             }
 
@@ -334,89 +355,116 @@ namespace Piraeus.Grains
 
         private async Task NotifyErrorAsync(Exception ex)
         {
-            if(State.ErrorLeases.Count == 0)
+            try
             {
-                return;
-            }
+                if (State.ErrorLeases.Count == 0)
+                {
+                    return;
+                }
 
-            foreach (var item in State.ErrorLeases.Values)
+                foreach (var item in State.ErrorLeases.Values)
+                {
+                    item.NotifyError(State.Metadata.SubscriptionUriString, ex);
+                }
+            }
+            catch(Exception ex1)
             {
-                item.NotifyError(State.Metadata.SubscriptionUriString, ex);
+                Trace.TraceWarning("Subscription notify error failed to complete.");
+                Trace.TraceError("Subscription notify error with error {0}", ex1.Message);
             }
             await Task.CompletedTask;
         }
 
         private async Task NotifyMetricsAsync()
         {
-            if(State.MetricLeases.Count == 0)
+            try
             {
-                return;
-            }
+                if (State.MetricLeases.Count == 0)
+                {
+                    return;
+                }
 
-            foreach (var item in State.MetricLeases.Values)
+                foreach (var item in State.MetricLeases.Values)
+                {
+                    item.NotifyMetrics(new CommunicationMetrics(State.Metadata.SubscriptionUriString, State.MessageCount, State.ByteCount, State.ErrorCount, State.LastMessageTimestamp.Value, State.LastErrorTimestamp));
+                }
+            }
+            catch(Exception ex)
             {
-                item.NotifyMetrics(new CommunicationMetrics(State.Metadata.SubscriptionUriString, State.MessageCount, State.ByteCount, State.ErrorCount, State.LastMessageTimestamp.Value, State.LastErrorTimestamp));
+                Trace.TraceWarning("Subscription notify metrics failed to complete.");
+                Trace.TraceError("Subscription notify metrics with error {0}", ex.Message);
             }
-
             await Task.CompletedTask;
         }
 
         private async Task CheckLeaseExpiryAsync(object args)
         {
-            var messageQuery = State.LeaseExpiry.Where((c) => c.Value.Item1 < DateTime.UtcNow && c.Value.Item2 == "Message");
-            var metricQuery = State.LeaseExpiry.Where((c) => c.Value.Item1 < DateTime.UtcNow && c.Value.Item2 == "Metric");
-            var errorQuery = State.LeaseExpiry.Where((c) => c.Value.Item1 < DateTime.UtcNow && c.Value.Item2 == "Error");
-
-            List<string> messageLeaseKeyList = new List<string>(messageQuery.Select((c) => c.Key));
-            List<string> metricLeaseKeyList = new List<string>(metricQuery.Select((c) => c.Key));
-            List<string> errorLeaseKeyList = new List<string>(errorQuery.Select((c) => c.Key));
-
-            foreach (var item in messageLeaseKeyList)
+            try
             {
-                State.MessageLeases.Remove(item);
-                State.LeaseExpiry.Remove(item);
+                var messageQuery = State.LeaseExpiry.Where((c) => c.Value.Item1 < DateTime.UtcNow && c.Value.Item2 == "Message");
+                var metricQuery = State.LeaseExpiry.Where((c) => c.Value.Item1 < DateTime.UtcNow && c.Value.Item2 == "Metric");
+                var errorQuery = State.LeaseExpiry.Where((c) => c.Value.Item1 < DateTime.UtcNow && c.Value.Item2 == "Error");
 
-                if (State.Metadata.IsEphemeral)
+                List<string> messageLeaseKeyList = new List<string>(messageQuery.Select((c) => c.Key));
+                List<string> metricLeaseKeyList = new List<string>(metricQuery.Select((c) => c.Key));
+                List<string> errorLeaseKeyList = new List<string>(errorQuery.Select((c) => c.Key));
+
+                foreach (var item in messageLeaseKeyList)
                 {
-                    await UnsubscribeFromResourceAsync();
+                    State.MessageLeases.Remove(item);
+                    State.LeaseExpiry.Remove(item);
+                    GetLogger().Log(3, Orleans.Runtime.Severity.Warning, "Subscription {0} message lease expired", new object[] { State.Metadata.SubscriptionUriString }, null);
+
+                    if (State.Metadata.IsEphemeral)
+                    {
+                        await UnsubscribeFromResourceAsync();
+                    }
+                }
+
+                foreach (var item in metricLeaseKeyList)
+                {
+                    State.MetricLeases.Remove(item);
+                    State.LeaseExpiry.Remove(item);
+                }
+
+                foreach (var item in errorLeaseKeyList)
+                {
+                    State.ErrorLeases.Remove(item);
+                    State.LeaseExpiry.Remove(item);
                 }
             }
-
-            foreach (var item in metricLeaseKeyList)
+            catch(Exception ex)
             {
-                State.MetricLeases.Remove(item);
-                State.LeaseExpiry.Remove(item);
+                Trace.TraceWarning("Subscription check lease expiry failed.");
+                Trace.TraceError("Subscription check lease expiry with error {0}", ex.Message);
             }
-
-            foreach (var item in errorLeaseKeyList)
-            {
-                State.ErrorLeases.Remove(item);
-                State.LeaseExpiry.Remove(item);
-            }
-
-            //if (State.LeaseExpiry.Count == 0)
-            //{
-            //    leaseTimer.Dispose();
-            //}            
         }
         private async Task QueueDurableMessageAsync(EventMessage message)
-        {            
-            if(State.MessageQueue.Count > 0)
+        {
+            try
             {
-                //remove expired messages
-                while(State.MessageQueue.Peek().Timestamp.Add(State.Metadata.TTL.Value) < DateTime.UtcNow)
+                if (State.MessageQueue.Count > 0)
                 {
-                    State.MessageQueue.Dequeue();
+                    //remove expired messages
+                    while (State.MessageQueue.Peek().Timestamp.Add(State.Metadata.TTL.Value) < DateTime.UtcNow)
+                    {
+                        State.MessageQueue.Dequeue();
+                    }
+                }
+
+                //add the new message
+                State.MessageQueue.Enqueue(message);
+
+                //start the timer if not already started
+                if (messageQueueTimer == null)
+                {
+                    messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(5.0));
                 }
             }
-
-            //add the new message
-            State.MessageQueue.Enqueue(message);
-            
-            //start the timer if not already started
-            if (messageQueueTimer == null)
-            {               
-                messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(5.0));
+            catch(Exception ex)
+            {
+                Trace.TraceWarning("Subscription queue durable message failed.");
+                Trace.TraceError("Subscription queue durable message with error {0}", ex.Message);
             }
 
             await Task.CompletedTask;
@@ -424,61 +472,84 @@ namespace Piraeus.Grains
 
         private async Task QueueInMemoryMessageAsync(EventMessage message)
         {
-            memoryMessageQueue.Enqueue(message);
-
-            if (messageQueueTimer == null)
+            try
             {
-                messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(5.0));
+                memoryMessageQueue.Enqueue(message);
+
+                if (messageQueueTimer == null)
+                {
+                    messageQueueTimer = RegisterTimer(CheckQueueAsync, null, TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(5.0));
+                }
+
+                DelayDeactivation(TimeSpan.FromSeconds(60.0));
             }
-
-            DelayDeactivation(TimeSpan.FromSeconds(60.0));
-
+            catch(Exception ex)
+            {
+                Trace.TraceWarning("Subscription queue in-memorty message failed.");
+                Trace.TraceError("Subscription queue in-memory message with error {0}", ex.Message);
+            }
             await Task.CompletedTask;
         }
 
         private async Task CheckQueueAsync(object args)
         {
             //timer firing for queued messages
-           
-            if (State.MessageLeases.Count > 0)
-            {
-                if (memoryMessageQueue != null)
-                {
-                    await DequeueAsync(memoryMessageQueue);
 
-                    if (memoryMessageQueue.Count > 0)
+            try
+            {
+                if (State.MessageLeases.Count > 0)
+                {
+                    if (memoryMessageQueue != null)
                     {
-                        DelayDeactivation(State.Metadata.TTL.Value);
+                        await DequeueAsync(memoryMessageQueue);
+
+                        if (memoryMessageQueue.Count > 0)
+                        {
+                            DelayDeactivation(State.Metadata.TTL.Value);
+                        }
+                    }
+
+                    if (State.MessageQueue != null)
+                    {
+                        await DequeueAsync(State.MessageQueue);
                     }
                 }
-
-                if (State.MessageQueue != null)
-                {
-                    await DequeueAsync(State.MessageQueue);
-                }                
+            }
+            catch(Exception ex)
+            {
+                Trace.TraceWarning("Subscription check queue failed.");
+                Trace.TraceError("Subscription check queue with error {0}", ex.Message);
             }
         }
 
 
         private async Task DequeueAsync(Queue<EventMessage> queue)
         {
-            EventMessage[] msgs = queue != null && queue.Count > 0 ? queue.ToArray() : null;
-            queue.Clear();
-
-            if(msgs != null)
+            try
             {
-                foreach(EventMessage msg in msgs)
-                {
-                    if (msg.Timestamp.Add(State.Metadata.TTL.Value) > DateTime.UtcNow)
-                    {
-                        await NotifyAsync(msg);
+                EventMessage[] msgs = queue != null && queue.Count > 0 ? queue.ToArray() : null;
+                queue.Clear();
 
-                        if (State.Metadata.SpoolRate.HasValue)
+                if (msgs != null)
+                {
+                    foreach (EventMessage msg in msgs)
+                    {
+                        if (msg.Timestamp.Add(State.Metadata.TTL.Value) > DateTime.UtcNow)
                         {
-                            await Task.Delay(State.Metadata.SpoolRate.Value);
+                            await NotifyAsync(msg);
+
+                            if (State.Metadata.SpoolRate.HasValue)
+                            {
+                                await Task.Delay(State.Metadata.SpoolRate.Value);
+                            }
                         }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                Trace.TraceWarning("Subscription dequeue failed.");
+                Trace.TraceError("Subscription dequeue with error {0}", ex.Message);
             }
         }
         #endregion

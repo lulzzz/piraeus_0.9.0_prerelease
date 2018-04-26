@@ -2,9 +2,11 @@
 
 namespace Orleans.Storage.Redis
 {
+    using Microsoft.Extensions.DependencyInjection;
     using Orleans;
     using Orleans.Providers;
     using Orleans.Runtime;
+    using Orleans.Serialization;
     using Orleans.Storage;
     using StackExchange.Redis;
     using System;
@@ -20,7 +22,8 @@ namespace Orleans.Storage.Redis
 
         private string connectionString;
         private ConnectionMultiplexer connection;
-        private IDatabase database;        
+        private IDatabase database;
+        private SerializationManager serializationManager;
         
         public Logger Log
         {
@@ -33,6 +36,7 @@ namespace Orleans.Storage.Redis
         public async Task Init(string name, IProviderRuntime providerRuntime, IProviderConfiguration config)
         {           
             Log = providerRuntime.GetLogger(this.GetType().FullName + "." + providerRuntime.ServiceId.ToString());
+            this.serializationManager = providerRuntime.ServiceProvider.GetRequiredService<SerializationManager>();
 
             if (string.IsNullOrWhiteSpace(config.Properties["DataConnectionString"]))
             {
@@ -45,7 +49,7 @@ namespace Orleans.Storage.Redis
             Name = name;
         }
 
-        public Task ReadStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)
+        public async Task ReadStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)
         {
             if(!connection.IsConnected)
             {
@@ -54,21 +58,14 @@ namespace Orleans.Storage.Redis
             }
 
             string key = grainReference.ToKeyString();
-            Dictionary<string, object> dict = database.Get<Dictionary<string, object>>(key);
-
-            if (dict == null)
+            RedisValue value = await database.StringGetAsync(key);
+            if(value.HasValue)
             {
-                dict = new Dictionary<string, object>();
+                grainState.State = serializationManager.DeserializeFromByteArray<object>(value);
             }
-            else
-            {
-                grainState.State = dict;
-            }
-
-            return Task.CompletedTask;
         }
 
-        public Task WriteStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)
+        public async Task WriteStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)
         {
             if (!connection.IsConnected)
             {
@@ -77,20 +74,11 @@ namespace Orleans.Storage.Redis
             }
 
             var key = grainReference.ToKeyString();
-            Dictionary<string, object> state = grainState.State as Dictionary<string, object>;
+            var data = grainState.State;
 
-            if (state == null)
-            {
-                state = new Dictionary<string, object>();
-            }
-            else
-            {
-                database.Set(key, state);
-            }
+            byte[] payload = serializationManager.SerializeToByteArray(data);
 
-            database.Set(key, state);           
-
-            return Task.CompletedTask;
+            await database.StringSetAsync(key, payload);
         }
 
         public Task ClearStateAsync(string grainType, GrainReference grainReference, IGrainState grainState)

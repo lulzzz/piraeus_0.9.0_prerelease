@@ -472,4 +472,9 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\DocumentDB.S
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.SiloHost.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.SiloHost.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.SiloHost.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\DocumentDB.Spatial.Sql.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.SiloHost.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.SiloHost.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.SiloHost.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.SiloHost\obj\Release\Piraeus.SiloHost.orleans.g.cs

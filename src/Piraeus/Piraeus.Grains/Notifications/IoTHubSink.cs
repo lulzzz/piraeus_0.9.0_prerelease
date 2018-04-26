@@ -81,12 +81,12 @@ namespace Piraeus.Grains.Notifications
                             CloudToDeviceMethod method = new CloudToDeviceMethod(methodName);
                             method.SetPayloadJson(Encoding.UTF8.GetString(payload));
                             await serviceClient.InvokeDeviceMethodAsync(deviceId, method);
-                            record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, true, DateTime.UtcNow);
+                            record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
                         }
                         else
                         {
                             Trace.TraceWarning("Cannot send IoTHub device {0} direct message because content-type is not JSON.", deviceId);
-                            record = new AuditRecord(message.MessageId, String.Format("iothub://{0}",uri.Authority), "IoTHub", "IoTHub", payload.Length, false, DateTime.UtcNow, String.Format("Cannot send IoTHub device {0} direct message because content-type is not JSON.", deviceId));
+                            record = new AuditRecord(message.MessageId, String.Format("iothub://{0}",uri.Authority), "IoTHub", "IoTHub", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, String.Format("Cannot send IoTHub device {0} direct message because content-type is not JSON.", deviceId));
                         }
                     }
                     else //command to device
@@ -101,7 +101,7 @@ namespace Piraeus.Grains.Notifications
                         }
 
                         await serviceClient.SendAsync(deviceId, serviceMessage);
-                        record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, true, DateTime.UtcNow);
+                        record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
                     }
                 }
                 else if (deviceClient != null) //this subscription is a device and will send to IoTHub
@@ -114,22 +114,22 @@ namespace Piraeus.Grains.Notifications
                         msg.Properties.Add(propertyName, propertyValue);
                     }
                     await deviceClient.SendEventAsync(msg);
-                    record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, true, DateTime.UtcNow);
+                    record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, MessageDirectionType.Out,  true, DateTime.UtcNow);
                 }
                 else
                 {
                     Trace.TraceWarning("IoTHub subscription has neither Service or Device client");
-                    record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, false, DateTime.UtcNow, "IoTHub subscription has neither service or device client");
+                    record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, "IoTHub subscription has neither service or device client");
                 }
             } catch (Exception ex)
             {
-                record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, false, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(message.MessageId, String.Format("iothub://{0}", uri.Authority), "IoTHub", "IoTHub", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
             }
             finally
             {
-                if (message.Audit)
+                if(record != null && message.Audit && auditor.CanAudit)
                 {
-                    Audit(record);
+                    await auditor.WriteAuditRecordAsync(record);
                 }
             }
         }
@@ -152,13 +152,6 @@ namespace Piraeus.Grains.Notifications
                     return null;
             }
         }
-        private void Audit(AuditRecord record)
-        {
-            if (auditor.CanAudit)
-            {
-                Task task = auditor.WriteAuditRecordAsync(record);
-                Task.WhenAll(task);
-            }
-        }
+       
     }
 }

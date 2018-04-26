@@ -143,7 +143,7 @@ namespace Piraeus.Clients.Mqtt
             if(qos != QualityOfServiceLevelType.AtMostOnce)
             {
                 msg.MessageId = session.NewId();
-                session.Quarantine(msg);
+                session.Quarantine(msg, DirectionType.Out);
             }
 
             queue.Enqueue(msg.Encode());

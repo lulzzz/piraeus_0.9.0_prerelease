@@ -28,6 +28,10 @@ namespace Piraeus.Module
         [Parameter(HelpMessage = "Either storage key or SAS token for account or queue.", Mandatory = true)]
         public string Key;
 
+        [Parameter(HelpMessage = "Description of the subscription.", Mandatory = false)]
+        public string Description;
+
+
         protected override void ProcessRecord()
         {
             string uriString = TTL.HasValue ? String.Format("https://{0}.queue.core.windows.net?queue={1}&ttl={2}", Host, Queue, TTL.Value.ToString()) :
@@ -37,7 +41,8 @@ namespace Piraeus.Module
             {
                 IsEphemeral = false,
                 NotifyAddress = uriString,
-                SymmetricKey = Key
+                SymmetricKey = Key,
+                Description = this.Description
             };
 
             string url = String.Format("{0}/api2/resource/subscribe?resourceuristring={1}", ServiceUrl, ResourceUriString);

@@ -263,9 +263,9 @@ namespace SkunkLab.Protocols.Mqtt
         {
             return quarantine.ContainsKey(messageId);
         }
-        public void Quarantine(MqttMessage message)
+        public void Quarantine(MqttMessage message, DirectionType direction)
         {
-            quarantine.Add(message);
+            quarantine.Add(message, direction);
         }
 
         public void Unquarantine(ushort messageId)

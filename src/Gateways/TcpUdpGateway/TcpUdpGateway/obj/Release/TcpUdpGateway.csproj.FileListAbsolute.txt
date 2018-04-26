@@ -509,3 +509,8 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\Docker\TcpUdpGateway\Output\Do
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\Docker\TcpUdpGateway\Output\TcpUdpGateway.exe.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\Docker\TcpUdpGateway\Output\TcpUdpGateway.exe
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\Docker\TcpUdpGateway\Output\TcpUdpGateway.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\DocumentDB.Spatial.Sql.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\TcpUdpGateway.exe.config
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\TcpUdpGateway.exe
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\TcpUdpGateway.pdb

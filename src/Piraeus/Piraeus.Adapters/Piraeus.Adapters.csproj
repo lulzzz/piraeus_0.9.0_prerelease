@@ -177,6 +177,7 @@
   <ItemGroup>
     <Compile Include="CoapProtocolAdapter.cs" />
     <Compile Include="CoapRequestDispatcher.cs" />
+    <Compile Include="LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="MqttProtocolAdapter.cs" />
     <Compile Include="ObserveMessageEventArgs.cs" />
     <Compile Include="OrleansAdapter.cs" />

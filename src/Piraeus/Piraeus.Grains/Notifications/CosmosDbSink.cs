@@ -5,6 +5,7 @@ using Piraeus.Core.Metadata;
 using SkunkLab.Protocols.Coap;
 using SkunkLab.Protocols.Mqtt;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -18,7 +19,7 @@ namespace Piraeus.Grains.Notifications
     public class CosmosDBSink : EventSink
     {
         private Uri uri;
-        private DocumentClient client;
+        //private DocumentClient client;
         private Uri documentDBUri;
         private string databaseId;
         private string symmetricKey;
@@ -26,10 +27,16 @@ namespace Piraeus.Grains.Notifications
         private Database database;
         private DocumentCollection collection;
         private Auditor auditor;
+        private ConcurrentQueue<byte[]> queue;
+        private int delay;
+        private int clientCount;
+        private DocumentClient[] storageArray;
+        private int arrayIndex;
 
         public CosmosDBSink(SubscriptionMetadata metadata)
             : base(metadata)
         {
+            queue = new ConcurrentQueue<byte[]>();
             auditor = new Auditor();
             uri = new Uri(metadata.NotifyAddress);
             string docDBUri = String.Format("https://{0}", uri.Authority);
@@ -40,10 +47,35 @@ namespace Piraeus.Grains.Notifications
             collectionId = nvc["collection"];
 
             symmetricKey = metadata.SymmetricKey;
-            client = new DocumentClient(documentDBUri, symmetricKey);
+
+            if (!int.TryParse(nvc["clients"], out clientCount))
+            {
+                clientCount = 1;
+            }
+
+            if (!int.TryParse(nvc["delay"], out delay))
+            {
+                delay = 1000;
+            }
+
+            storageArray = new DocumentClient[clientCount];
+            for (int i = 0; i < clientCount; i++)
+            {
+                storageArray[i] = new DocumentClient(documentDBUri, symmetricKey);
+            }
+
+            Task<Database> dbtask = GetDatabaseAsync();
+            Task.WaitAll(dbtask);
+            database = dbtask.Result;
+
+            Task<DocumentCollection> coltask = GetCollectionAsync(database.SelfLink, collectionId);
+            Task.WaitAll(coltask);
+            collection = coltask.Result;           
+
+            //client = new DocumentClient(documentDBUri, symmetricKey);
         }
 
-        
+       
 
 
         public override async Task SendAsync(EventMessage message)
@@ -51,67 +83,87 @@ namespace Piraeus.Grains.Notifications
             AuditRecord record = null;
             byte[] payload = null;
 
+            byte[] msg = GetPayload(message);
+
+            if (msg != null)
+            {
+                queue.Enqueue(msg);
+            }
+
             try
             {
-                payload = GetPayload(message);
-                if (payload == null)
+                while (!queue.IsEmpty)
                 {
-                    Trace.TraceWarning("Subscription {0} could not write to CosmosDB sink because payload was either null or unknown protocol type.");
-                    return;
-                }
+                    arrayIndex = arrayIndex.RangeIncrement(0, clientCount - 1);
+                    queue.TryDequeue(out payload);
 
-                if (client == null)
-                {
-                    client = new DocumentClient(documentDBUri, symmetricKey);
-                }
-
-                if (database == null)
-                {
-                    database = await GetDatabaseAsync();
-                }
-
-                if (collection == null)
-                {
-                    collection = await GetCollectionAsync(database.SelfLink, collectionId);
-                }
-
-                using (MemoryStream stream = new MemoryStream(payload))
-                {
-                    stream.Position = 0;
-                    if (message.ContentType.Contains("json"))
+                    //payload = GetPayload(message);
+                    if (payload == null)
                     {
-
-
-                        await client.CreateDocumentAsync(collection.SelfLink, Microsoft.Azure.Documents.Resource.LoadFrom<Document>(stream));
+                        Trace.TraceWarning("Subscription {0} could not write to CosmosDB sink because payload was either null or unknown protocol type.");
+                        return;
                     }
-                    else
+
+                    //if (client == null)
+                    //{
+                    //    client = new DocumentClient(documentDBUri, symmetricKey);
+                    //}
+
+                    //if (database == null)
+                    //{
+                    //    database = await GetDatabaseAsync();
+                    //}
+
+                    //if (collection == null)
+                    //{
+                    //    collection = await GetCollectionAsync(database.SelfLink, collectionId);
+                    //}
+
+                    using (MemoryStream stream = new MemoryStream(payload))
                     {
-                        dynamic documentWithAttachment = new
+                        stream.Position = 0;
+                        if (message.ContentType.Contains("json"))
                         {
-                            Id = Guid.NewGuid().ToString(),
-                            Timestamp = DateTime.UtcNow
-                        };
 
-                        Document doc = await client.CreateDocumentAsync(collection.SelfLink, documentWithAttachment);
-                        string slug = GetSlug(documentWithAttachment.Id, message.ContentType);
-                        await client.CreateAttachmentAsync(doc.AttachmentsLink, stream, new MediaOptions { ContentType = message.ContentType, Slug = slug });
+                            await storageArray[arrayIndex].CreateDocumentAsync(collection.SelfLink, Microsoft.Azure.Documents.Resource.LoadFrom<Document>(stream));
+                            //await client.CreateDocumentAsync(collection.SelfLink, Microsoft.Azure.Documents.Resource.LoadFrom<Document>(stream));
+                        }
+                        else
+                        {
+                            dynamic documentWithAttachment = new
+                            {
+                                Id = Guid.NewGuid().ToString(),
+                                Timestamp = DateTime.UtcNow
+                            };
+
+                            Document doc = await storageArray[arrayIndex].CreateDocumentAsync(collection.SelfLink, documentWithAttachment);
+                            //Document doc = await client.CreateDocumentAsync(collection.SelfLink, documentWithAttachment);
+                            string slug = GetSlug(documentWithAttachment.Id, message.ContentType);
+                            //await client.CreateAttachmentAsync(doc.AttachmentsLink, stream, new MediaOptions { ContentType = message.ContentType, Slug = slug });
+                            await storageArray[arrayIndex].CreateAttachmentAsync(doc.AttachmentsLink, stream, new MediaOptions { ContentType = message.ContentType, Slug = slug });
+
+                        }
+                    }
+
+                    if (auditor.CanAudit && message.Audit)
+                    {
+                        record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "CosmosDB", "CosmoDB", payload.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
                     }
                 }
 
-                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "CosmosDB", "CosmoDB", payload.Length, true, DateTime.UtcNow);
-
+                await Task.Delay(delay);
                 
             }
             catch(Exception ex)
             {
-                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "CosmosDB", "CosmosDB", payload.Length, false, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "CosmosDB", "CosmosDB", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
                 throw;
             }
             finally
             {
-                if(message.Audit)
+                if(record != null && auditor.CanAudit && message.Audit)
                 {
-                    Audit(record);
+                    await auditor.WriteAuditRecordAsync(record);
                 }
             }
         }
@@ -134,14 +186,7 @@ namespace Piraeus.Grains.Notifications
                     return null;
             }
         }
-        private void Audit(AuditRecord record)
-        {
-            if (auditor.CanAudit)
-            {
-                Task task = auditor.WriteAuditRecordAsync(record);
-                Task.WhenAll(task);
-            }
-        }
+        
 
         private string GetSlug(string id, string contentType)
         {
@@ -174,7 +219,7 @@ namespace Piraeus.Grains.Notifications
                     }
                 }
 
-                return await client.CreateDatabaseAsync(new Database { Id = databaseId });
+                return await storageArray[0].CreateDatabaseAsync(new Database { Id = databaseId });
             }
             catch (Exception ex)
             {
@@ -198,7 +243,7 @@ namespace Piraeus.Grains.Notifications
                 }
             }
 
-            return await client.CreateDocumentCollectionAsync(dbLink, new DocumentCollection() { Id = id });
+            return await storageArray[0].CreateDocumentCollectionAsync(dbLink, new DocumentCollection() { Id = id });
         }
 
         private async Task<List<DocumentCollection>> ReadCollectionsFeedAsync(string databaseSelfLink)
@@ -217,7 +262,7 @@ namespace Piraeus.Grains.Notifications
                         MaxItemCount = 50
                     };
 
-                    FeedResponse<DocumentCollection> response = (FeedResponse<DocumentCollection>)await client.ReadDocumentCollectionFeedAsync(databaseSelfLink, options);
+                    FeedResponse<DocumentCollection> response = (FeedResponse<DocumentCollection>)await storageArray[0].ReadDocumentCollectionFeedAsync(databaseSelfLink, options);
 
                     foreach (DocumentCollection col in response)
                     {
@@ -269,7 +314,7 @@ namespace Piraeus.Grains.Notifications
                     MaxItemCount = 50
                 };
 
-                FeedResponse<Database> response = await client.ReadDatabaseFeedAsync(options);
+                FeedResponse<Database> response = await storageArray[0].ReadDatabaseFeedAsync(options);
                 foreach (Database db in response)
                 {
                     databases.Add(db);

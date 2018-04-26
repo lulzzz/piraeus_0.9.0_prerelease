@@ -55,6 +55,8 @@ namespace Piraeus.Grains
             return await resource.GetMetadataAsync();
         }
 
+        
+
 
         public static async Task<CommunicationMetrics> GetResourceMetricsAsync(string resourceUriString)
         {

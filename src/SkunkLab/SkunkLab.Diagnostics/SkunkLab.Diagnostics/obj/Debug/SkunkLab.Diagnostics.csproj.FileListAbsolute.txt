@@ -142,4 +142,3 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.Diagnostics\obj\Debug\SkunkLab.Diagnostics.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.Diagnostics\obj\Debug\SkunkLab.Diagnostics.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.Diagnostics\obj\Debug\SkunkLab.Diagnostics.pdb
-C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Diagnostics\SkunkLab.Diagnostics\obj\Debug\SkunkLab.Diagnostics.csprojResolveAssemblyReference.cache

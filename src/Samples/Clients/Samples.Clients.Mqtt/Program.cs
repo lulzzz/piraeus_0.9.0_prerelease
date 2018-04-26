@@ -1,4 +1,5 @@
-﻿using Piraeus.Clients.Mqtt;
+﻿using Newtonsoft.Json;
+using Piraeus.Clients.Mqtt;
 using SkunkLab.Channels;
 using SkunkLab.Channels.WebSocket;
 using SkunkLab.Protocols.Mqtt;
@@ -15,8 +16,9 @@ namespace Samples.Clients.Mqtt
 {
     class Program
     {
-        
 
+        static string jsonPayload;
+        static int messageType;
         static int channelNo;
         static int index;
         static IChannel channel;
@@ -25,20 +27,47 @@ namespace Samples.Clients.Mqtt
         static string observeResource;
         static string role;
         static string clientName;
+        static string contentType = "text/plain";
         static PiraeusMqttClient client;
+        static long minTicks;
+        static int counter;
+        static string hostname;
+        static int numMessages;
+        static int delayms;
+        static bool waitSend;
+        static bool sender;
+        static bool commandLine;
+        static HashSet<string> hashSet = new HashSet<string>();
 
 
         static void Main(string[] args)
         {
             source = new CancellationTokenSource();
-            WriteHeader();  //descriptive header
-            SelectClientRole(); //select a role for the client
+            ParseArgs(args);
+
+            if (hostname == null)
+            {
+
+                WriteHeader();  //descriptive header
+                Console.Write("Select message type [1=Json, Enter=Default] ? ");
+                messageType = Console.ReadLine() == "1" ? 1 : 0;
+                if (messageType == 1)
+                {
+                    contentType = "application/json";
+                    jsonPayload = RandomString(990);
+                }
+
+                SelectClientRole(); //select a role for the client
+            }
 
             string securityToken = GetSecurityToken();  //get the security token with a unique name
             SetResources(); //setup the resources for pub and observe based on role.
 
-            //Note: Must start the Web gateway and/or TCP/UDP gateway to be able to communicate
-            SelectChannel(); //pick a channel for communication 
+            if (hostname == null)
+            {
+                //Note: Must start the Web gateway and/or TCP/UDP gateway to be able to communicate
+                SelectChannel(); //pick a channel for communication 
+            }
 
             channel = GetChannel(channelNo, securityToken);
             channel.OnStateChange += Channel_OnStateChange;
@@ -75,36 +104,105 @@ namespace Samples.Clients.Mqtt
             Console.ReadKey();            
         }
 
+        static void ParseArgs(string[] args)
+        {
+            if(args == null || (args.Length < 4 || args.Length > 7))
+            {
+                commandLine = false;
+                waitSend = true;
+                sender = true;
+                return;
+            }
+
+            commandLine = true;
+            messageType = 1;
+            role = args[0].ToUpper();
+            clientName = args[1];
+            channelNo = Convert.ToInt32(args[2]);
+            hostname = args[3];
+            if (args.Length > 4)
+            {
+                sender = true;
+                numMessages = Convert.ToInt32(args[4]);
+                delayms = Convert.ToInt32(args[5]);
+                waitSend = Convert.ToBoolean(args[6]);
+            }
+            contentType = "application/json";
+            jsonPayload = RandomString(990);
+        }
+
+        
+
         static void SendMessages(Task task)
         {
-            Console.WriteLine();
-            Console.Write("Send messages (Y/N) ? ");
-            bool sending = Console.ReadLine().ToLowerInvariant() == "y";
+            bool sending = true;
+
+            if (waitSend && sender)
+            {
+                Console.WriteLine();
+                Console.Write("Send messages (Y/N) ? ");
+                sending = Console.ReadLine().ToLowerInvariant() == "y";
+            }
+
+            if (!waitSend && !sender)
+            {
+                Console.WriteLine("Waiting to receive...");
+                Console.ReadLine();
+            }
+
 
             if (sending)
             {
-                Console.Write("Enter number of messages to send ? ");
-                int num = Int32.Parse(Console.ReadLine());
+                if (!commandLine)
+                {
+                    Console.Write("Enter number of messages to send ? ");
+                    numMessages = Int32.Parse(Console.ReadLine());
+                }
 
-                Console.Write("Enter delay between messages in milliseconds ? ");
-                int delay = Int32.Parse(Console.ReadLine());
+                if (!commandLine)
+                {
+                    Console.Write("Enter delay between messages in milliseconds ? ");
+                    delayms = Int32.Parse(Console.ReadLine());
+                }
 
-                for (int i = 0; i < num; i++)
+                //Thread.Sleep(2000);
+
+                for (int i = 0; i < numMessages; i++)
                 {
                     index++;
                     //send a message to a resource
-                    string message = String.Format("{0} sent message {1}", clientName, index);
-                    byte[] payload = Encoding.UTF8.GetBytes(message);
-                    Task pubTask = client.PublishAsync(QualityOfServiceLevelType.AtLeastOnce, publishResource, "text/plain", payload);                    
+                    string payloadString = null;
+                    if (messageType == 1)
+                    {
+
+                        MyMessage mmsg = new MyMessage() { Ticks = DateTime.UtcNow.Ticks, Payload = jsonPayload };
+                        payloadString = JsonConvert.SerializeObject(mmsg);
+
+                    }
+                    else
+                    {
+                        payloadString = String.Format("{0} sent message {1}", clientName, index);
+                    }
+
+
+
+                    //string message = String.Format("{0} sent message {1}", clientName, index);
+                    byte[] payload = Encoding.UTF8.GetBytes(payloadString);
+                    Task pubTask = client.PublishAsync(QualityOfServiceLevelType.AtMostOnce, publishResource, contentType, payload);                    
                     Task.WhenAll(pubTask);
 
-                    if (delay > 0)
+                    if (delayms > 0)
                     {
-                        Task.Delay(delay).Wait();
+                        Thread.Sleep(delayms);
                     }
                 }
 
-                SendMessages(task);
+                if (waitSend)
+                {
+                    SendMessages(task);
+                }
+
+                Console.WriteLine("Indexer - {0}", index);
             }
         }
 
@@ -132,8 +230,11 @@ namespace Samples.Clients.Mqtt
             string nameClaimType = ConfigurationManager.AppSettings["nameClaimType"];
             string roleClaimType = ConfigurationManager.AppSettings["roleClaimType"];
 
-            Console.Write("Enter unique client name ? ");
-            clientName = Console.ReadLine();
+            if (hostname == null)
+            {
+                Console.Write("Enter unique client name ? ");
+                clientName = Console.ReadLine();
+            }
 
             List<Claim> claims = new List<Claim>()
             {
@@ -180,11 +281,14 @@ namespace Samples.Clients.Mqtt
 
         private static IChannel GetChannel(int num, string securityToken)
         {
-            Console.Write("Enter hostname, IP, or Enter for localhost ? ");
-            string hostnameOrIP = Console.ReadLine();
+            if (hostname == null)
+            {
+                Console.Write("Enter hostname, IP, or Enter for localhost ? ");
+                hostname = Console.ReadLine();
+            }
             IPAddress address = null;
-            bool isIP = IPAddress.TryParse(hostnameOrIP, out address);
-            string authority = isIP ? address.ToString() : String.IsNullOrEmpty(hostnameOrIP) ? "localhost" : hostnameOrIP;
+            bool isIP = IPAddress.TryParse(hostname, out address);
+            string authority = isIP ? address.ToString() : String.IsNullOrEmpty(hostname) ? "localhost" : hostname;
 
 
             if (num == 1)
@@ -218,7 +322,7 @@ namespace Samples.Clients.Mqtt
                 }
                 else
                 {
-                    return ChannelFactory.Create(port, hostnameOrIP, 5883, source.Token);
+                    return ChannelFactory.Create(port, hostname, 5883, source.Token);
                 }
             }
 
@@ -236,9 +340,36 @@ namespace Samples.Clients.Mqtt
         {
             if (payload != null)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(Encoding.UTF8.GetString(payload));
-                Console.ResetColor();
+                if (messageType != 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(Encoding.UTF8.GetString(payload));
+                    Console.ResetColor();
+                }
+                else
+                {
+                    
+                    MyMessage mmsg = JsonConvert.DeserializeObject<MyMessage>(Encoding.UTF8.GetString(payload));
+                    string hash = mmsg.GetHash();
+                    //if(hashSet.Contains(hash))
+                    //{
+                    //    Console.ForegroundColor = ConsoleColor.Cyan;
+                    //    Console.WriteLine("Duplicate--------------------------------------------------------------------------------------------------");
+                    //}
+                    //else
+                    //{
+                    //    hashSet.Add(hash);
+                    //}
+
+                    long ticks = DateTime.UtcNow.Ticks;
+
+                    //long diff = ticks - mmsg.Ticks;
+                    minTicks = minTicks == 0 ? mmsg.Ticks : minTicks > mmsg.Ticks ? mmsg.Ticks : minTicks;
+                    counter++;
+                    Console.WriteLine("{0} - {1} - {2}", counter, TimeSpan.FromTicks(ticks - minTicks).TotalMilliseconds, TimeSpan.FromTicks(ticks - mmsg.Ticks).TotalMilliseconds);
+
+                    //Console.WriteLine("{0} - {1}", Math.Round(TimeSpan.FromTicks(DateTime.UtcNow.Ticks - minTicks).TotalMilliseconds,0), Math.Round(TimeSpan.FromTicks(diff).TotalMilliseconds, 0));
+                }
             }
         }
 
@@ -262,6 +393,20 @@ namespace Samples.Clients.Mqtt
             Console.WriteLine("Channel closed");
             Console.ResetColor();
         }
-                
+
+        private static string RandomString(int size)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+
+            return builder.ToString();
+        }
+
     }
 }

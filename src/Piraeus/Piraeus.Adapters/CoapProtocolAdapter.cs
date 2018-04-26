@@ -7,6 +7,7 @@ using SkunkLab.Protocols.Coap.Handlers;
 using SkunkLab.Security.Authentication;
 using SkunkLab.Security.Identity;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Piraeus.Adapters
@@ -134,9 +135,13 @@ namespace Piraeus.Adapters
 
         private void Channel_OnReceive(object sender, ChannelReceivedEventArgs e)
         {
-            Task logTask = Log.LogInfoAsync("Channel {0} received message.", e.ChannelId);
-            Task.WhenAll(logTask);
-            
+            //Task logTask = Log.LogInfoAsync("Channel {0} received message.", e.ChannelId);
+            //Task.WhenAll(logTask);
+
+            LimitedConcurrencyLevelTaskScheduler lcts = new LimitedConcurrencyLevelTaskScheduler(5);
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+
+
             try
             {
                 CoapMessage message = CoapMessage.DecodeMessage(e.Message);
@@ -147,9 +152,27 @@ namespace Piraeus.Adapters
                 }
 
                 OnObserve?.Invoke(this, new ChannelObserverEventArgs(message.ResourceUri.ToString(), MediaTypeConverter.ConvertFromMediaType(message.ContentType), message.Payload));
+                               
+                Task task = Task.Factory.StartNew(async () =>
+                {
+                    
+                    CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
+                    CoapMessage msg = await handler.ProcessAsync();
 
-                Task task = Forward(message);
+                    if (msg != null)
+                    {
+                        byte[] payload = msg.Encode();
+                        await Channel.SendAsync(payload);
+                    }
+
+                    
+                },tokenSource.Token, TaskCreationOptions.AttachedToParent, lcts).ContinueWith(ExceptionAction, TaskContinuationOptions.OnlyOnFaulted);
+
+                //Task task = Forward(message);
                 Task.WhenAll(task);
+
+             
+
             }
             catch(Exception ex)
             {
@@ -157,29 +180,51 @@ namespace Piraeus.Adapters
                 Task t = Channel.CloseAsync();
                 Task.WhenAll(t);
             }
+
+          
         }
-        
-        private async Task Forward(CoapMessage message)
-        {           
-                CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
 
-                await Log.LogInfoAsync("Coap handler about to start processing");
-                CoapMessage msg = await handler.ProcessAsync();
-
-                await Log.LogInfoAsync("Coap handler processed.");
-
-            if (msg != null)
-            {
-                byte[] payload = msg.Encode();
-                await Channel.SendAsync(payload);                
-                await Log.LogInfoAsync("Coap handler message sent.");
-            }
-            else
-            {
-                await Log.LogInfoAsync("Coap handler return null messsage.");
-            }
+        private void ExceptionAction(Task task)
+        {
+            System.Diagnostics.Trace.WriteLine(task.Exception.Message);
+            System.Diagnostics.Trace.WriteLine(task.Exception.StackTrace);
         }
-        
+
+        private CoapMessage ExceptionAction2(Task task)
+        {
+            System.Diagnostics.Trace.WriteLine(task.Exception.Message);
+            System.Diagnostics.Trace.WriteLine(task.Exception.StackTrace);
+            return null;
+        }
+
+        //private async Task Forward(CoapMessage message)
+        //{
+
+
+        //    var throttler = new System.Threading.SemaphoreSlim(1);
+        //    await throttler.WaitAsync();
+
+        //    CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
+
+        //        //await Log.LogInfoAsync("Coap handler about to start processing");
+        //        CoapMessage msg = await handler.ProcessAsync();
+
+        //        //await Log.LogInfoAsync("Coap handler processed.");
+
+        //    if (msg != null)
+        //    {
+        //        byte[] payload = msg.Encode();
+        //        await Channel.SendAsync(payload);                
+        //        //await Log.LogInfoAsync("Coap handler message sent.");
+        //    }
+        //    else
+        //    {
+        //        //await Log.LogInfoAsync("Coap handler return null messsage.");
+        //    }
+
+        //    throttler.Release();
+        //}
+
         private void Channel_OnError(object sender, ChannelErrorEventArgs e)
         {
             OnError?.Invoke(this, new ProtocolAdapterErrorEventArgs(Channel.Id, e.Error));

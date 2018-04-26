@@ -213,3 +213,6 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Orleans.Storage.Redis\Orleans.Storage.R
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.dll.config
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.pdb

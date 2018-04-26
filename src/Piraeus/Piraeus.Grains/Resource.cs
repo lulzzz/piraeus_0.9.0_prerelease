@@ -7,9 +7,12 @@ using Piraeus.GrainInterfaces;
 using System.Linq;
 using Piraeus.Core.Messaging;
 using Orleans.Providers;
+using Orleans.Concurrency;
+using System.Diagnostics;
 
 namespace Piraeus.Grains
 {
+    [Reentrant]
     [StorageProvider(ProviderName = "store")]
     public class Resource : Grain<ResourceState>, IResource
     {
@@ -59,6 +62,7 @@ namespace Piraeus.Grains
 
             if(State.Metadata != null && metadata.ResourceUriString != this.GetPrimaryKeyString())
             {
+                Trace.TraceWarning("Resource metadata identifier mismatch failed for resource metadata upsert.");
                 Exception ex = new ResourceIdentityMismatchException(String.Format("Resource metadata {0} does not match grain identity {1}", State.Metadata.ResourceUriString, this.GetPrimaryKeyString()));
                 await NotifyErrorAsync(ex);
                 throw ex;
@@ -68,6 +72,8 @@ namespace Piraeus.Grains
 
             IResourceList resourceList = GrainFactory.GetGrain<IResourceList>("resourcelist");
             await resourceList.AddAsync(metadata.ResourceUriString);
+
+            await WriteStateAsync();
         }
 
         public async Task<CommunicationMetrics> GetMetricsAsync()
@@ -127,7 +133,7 @@ namespace Piraeus.Grains
                 await subscriber.AddSubscriptionAsync(metadata.SubscriptionUriString);
             }
 
-            await Task.CompletedTask;
+            await WriteStateAsync();
         }
 
         public async Task UnsubscribeAsync(string subscriptionUriString, string identity)
@@ -146,6 +152,7 @@ namespace Piraeus.Grains
 
             ISubscriber subscriber = GrainFactory.GetGrain<ISubscriber>(identity.ToLowerInvariant());
             await subscriber.RemoveSubscriptionAsync(subscriptionUriString);
+            await WriteStateAsync();
         }
 
         public async Task UnsubscribeAsync(string subscriptionUriString)
@@ -160,36 +167,8 @@ namespace Piraeus.Grains
                 State.Subscriptions.Remove(subscriptionUriString);
             }
 
-            await Task.CompletedTask;
-
-            //remove the subscription from the resource
-
-
-
-            //try to remove from subscriber; access control has verified this is permitted
-            //if the subscriber does not have this subscription, no harm, it wasn't durable
-            //ISubscription subscription = GrainFactory.GetGrain<ISubscription>(subscriptionUriString);
-
-            //try
-            //{
-            //    SubscriptionMetadata metadata = await subscription.GetMetadataAsync();
-
-            //    if (metadata != null && !string.IsNullOrEmpty(metadata.Identity))
-            //    {
-            //        await subscription.ClearAsync();
-            //        ISubscriber subscriber = GrainFactory.GetGrain<ISubscriber>(metadata.Identity);
-            //        await subscriber.RemoveSubscriptionAsync(subscriptionUriString);
-            //    }
-            //}
-            //catch(AggregateException ae)
-            //{
-            //    Console.WriteLine(ae.Flatten().InnerException.Message);
-            //}
-            //catch(Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    //metadata remove due to ephemeral
-            //}
+            await WriteStateAsync();
+            
         }
 
         public async Task<IEnumerable<string>> GetSubscriptionListAsync()
@@ -205,6 +184,7 @@ namespace Piraeus.Grains
         {
             if (message == null)
             {
+                Trace.TraceWarning("Resource publish has null message");
                 Exception ex = new ArgumentNullException("resource publish message");
                 await NotifyErrorAsync(ex);
                 return;
@@ -219,7 +199,7 @@ namespace Piraeus.Grains
                 State.LastMessageTimestamp = DateTime.UtcNow;
 
                 List<Task> taskList = new List<Task>();
-
+                
                 foreach (var item in State.Subscriptions.Values)
                 {
                     taskList.Add(item.NotifyAsync(message));
@@ -231,6 +211,8 @@ namespace Piraeus.Grains
             }
             catch(Exception ex)
             {
+                Trace.TraceWarning("Resource publish failed to complete.");
+                Trace.TraceError("Resource publish error {0}", ex.Message);
                 error = ex;
                 GetLogger().Log(1006, Orleans.Runtime.Severity.Error, "Resource publish error {0}", new object[] { State.Metadata.ResourceUriString }, ex);
             }
@@ -245,6 +227,7 @@ namespace Piraeus.Grains
         {
             if (message == null)
             {
+                Trace.TraceWarning("Resource publish with indexes has null message");
                 Exception ex = new ArgumentNullException("resource publish message");
                 await NotifyErrorAsync(ex);
                 return;
@@ -268,6 +251,8 @@ namespace Piraeus.Grains
             }
             catch(Exception ex)
             {
+                Trace.TraceWarning("Resource publish with indexes failed to complete.");
+                Trace.TraceError("Resource publish with indexes error {0}", ex.Message);
                 error = ex;                
             }
 

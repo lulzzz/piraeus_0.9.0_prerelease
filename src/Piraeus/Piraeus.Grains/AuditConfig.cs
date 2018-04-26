@@ -22,7 +22,7 @@ namespace Piraeus.Grains
         {
             State.ConnectionString = connectionstring;
             State.Tablename = tablename;
-            return Task.CompletedTask;
+            return WriteStateAsync();
         }
 
         public Task<string> GetConnectionstringAsync()

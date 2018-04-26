@@ -79,7 +79,7 @@ namespace Piraeus.Clients.Mqtt
 
             if (qos != QualityOfServiceLevelType.AtMostOnce)
             {
-                session.Quarantine(msg);
+                session.Quarantine(msg, DirectionType.In);
             }
 
             await channel.SendAsync(msg.Encode());

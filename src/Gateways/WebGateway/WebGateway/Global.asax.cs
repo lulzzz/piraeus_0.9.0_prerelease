@@ -16,6 +16,24 @@ namespace WebGateway
     {
         protected void Application_Start()
         {
+            // Catch unobserved exceptions from threads before they cause IIS to crash:
+            TaskScheduler.UnobservedTaskException += (object sender, UnobservedTaskExceptionEventArgs excArgs) =>
+            {
+                TraceSource trace = new TraceSource("UnhandledExceptionTrace");       
+                trace.TraceData(TraceEventType.Error, 1, excArgs.Exception);
+                excArgs.SetObserved();
+            };
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
+                Trace.TraceWarning("Web Gateway Unhandled exception");
+                Trace.TraceWarning("Is Terminating {0}", args.IsTerminating);
+                Exception ex = (Exception)args.ExceptionObject;
+                Trace.TraceError(ex.Message);
+                Trace.TraceError(ex.StackTrace);
+            };
+
+           
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -48,5 +66,7 @@ namespace WebGateway
 
 
         }
+
+      
     }
 }
