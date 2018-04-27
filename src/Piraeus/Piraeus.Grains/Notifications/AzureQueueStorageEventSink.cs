@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web;
+using System.Collections.Generic;
 
 
 namespace Piraeus.Grains.Notifications
@@ -49,6 +50,9 @@ namespace Piraeus.Grains.Notifications
             }
         }
 
+       
+
+
         public override async Task SendAsync(EventMessage message)
         {
             AuditRecord record = null;
@@ -65,22 +69,24 @@ namespace Piraeus.Grains.Notifications
 
                 await storage.EnqueueAsync(queue, payload, ttl);
 
-                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureQueue", "AzureQueue", payload.Length, true, DateTime.UtcNow);
+                if (message.Audit && auditor.CanAudit)
+                {
+                    record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureQueue", "AzureQueue", payload.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureQueue", "AzureQueue", payload.Length, false, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureQueue", "AzureQueue", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
                 throw;
             }
             finally
             {
-                if(message.Audit)
+                if (record != null && message.Audit && auditor.CanAudit)
                 {
-                    Audit(record);
+                    await auditor.WriteAuditRecordAsync(record);
                 }
             }
         }
-
 
         private byte[] GetPayload(EventMessage message)
         {
@@ -100,14 +106,5 @@ namespace Piraeus.Grains.Notifications
                     return null;
             }
         }
-        private void Audit(AuditRecord record)
-        {
-            if (auditor.CanAudit)
-            {
-                Task task = auditor.WriteAuditRecordAsync(record);
-                Task.WhenAll(task);
-            }
-        }
-
     }
 }

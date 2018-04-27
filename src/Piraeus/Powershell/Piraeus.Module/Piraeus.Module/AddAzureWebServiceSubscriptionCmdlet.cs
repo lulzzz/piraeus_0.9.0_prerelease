@@ -31,6 +31,9 @@ namespace Piraeus.Module
         [Parameter(HelpMessage = "(Optional) Symmetric key used to build security token for authentication with Web service when TokenType is JWT or SWT.", Mandatory = false)]
         public string Key;
 
+        [Parameter(HelpMessage = "Description of the subscription.", Mandatory = false)]
+        public string Description;
+
         protected override void ProcessRecord()
         {
             string uriString = WebServiceUrl;
@@ -53,7 +56,8 @@ namespace Piraeus.Module
                 IsEphemeral = false,
                 NotifyAddress = uriString,
                 SymmetricKey = Key,
-                TokenType = this.TokenType
+                TokenType = this.TokenType,
+                Description = this.Description
             };
 
             string url = String.Format("{0}/api2/resource/subscribe?resourceuristring={1}", ServiceUrl, ResourceUriString);

@@ -1,11 +1,13 @@
 ﻿using Capl.Authorization;
 using Orleans;
+using Orleans.Concurrency;
 using Orleans.Providers;
 using Piraeus.GrainInterfaces;
 using System.Threading.Tasks;
 
 namespace Piraeus.Grains
 {
+    [Reentrant]
     [StorageProvider(ProviderName ="store")]
     public class AccessControl : Grain<AccessControlState>, IAccessControl
     {
@@ -22,7 +24,7 @@ namespace Piraeus.Grains
         public async Task UpsertPolicyAsync(AuthorizationPolicy policy)
         {
             State.Policy = policy;
-            await Task.CompletedTask;
+            await WriteStateAsync();
         }
 
         public override async Task OnDeactivateAsync()

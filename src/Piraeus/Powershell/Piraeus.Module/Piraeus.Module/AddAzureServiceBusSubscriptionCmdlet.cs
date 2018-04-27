@@ -28,6 +28,9 @@ namespace Piraeus.Module
         [Parameter(HelpMessage = "SAS token used for authentication.", Mandatory = true)]
         public string Key;
 
+        [Parameter(HelpMessage = "Description of the subscription.", Mandatory = false)]
+        public string Description;
+
         protected override void ProcessRecord()
         {
             string uriString = String.Format("sb://{0}.servicebus.windows.net?topic={1}&keyname={2}", Host, Topic, KeyName);
@@ -37,7 +40,8 @@ namespace Piraeus.Module
             {
                 IsEphemeral = false,
                 NotifyAddress = uriString,
-                SymmetricKey = Key
+                SymmetricKey = Key,
+                Description = this.Description
             };
 
             string url = String.Format("{0}/api2/resource/subscribe?resourceuristring={1}", ServiceUrl, ResourceUriString);

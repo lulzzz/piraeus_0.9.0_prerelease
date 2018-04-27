@@ -5,7 +5,9 @@ using SkunkLab.Diagnostics.Logging;
 using SkunkLab.Protocols.Coap;
 using SkunkLab.Protocols.Coap.Handlers;
 using SkunkLab.Security.Authentication;
+using SkunkLab.Security.Identity;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Piraeus.Adapters
@@ -19,7 +21,8 @@ namespace Piraeus.Adapters
             CoapConfig coapConfig = new CoapConfig(authenticator, config.Protocols.Coap.HostName, options, config.Protocols.Coap.AutoRetry,
                 config.Protocols.Coap.KeepAliveSeconds, config.Protocols.Coap.AckTimeoutSeconds, config.Protocols.Coap.AckRandomFactor,
                 config.Protocols.Coap.MaxRetransmit, config.Protocols.Coap.NStart, config.Protocols.Coap.DefaultLeisure, config.Protocols.Coap.ProbingRate, config.Protocols.Coap.MaxLatencySeconds);
-
+            coapConfig.IdentityClaimType = config.Identity.Client.IdentityClaimType;
+            coapConfig.Indexes = config.Identity.Client.Indexes;
 
             Channel = channel;
             Channel.OnClose += Channel_OnClose;
@@ -45,8 +48,7 @@ namespace Piraeus.Adapters
         public override void Init()
         {
             forcePerReceiveAuthn = Channel as UdpChannel != null;
-
-            dispatcher = new CoapRequestDispatcher(session, Channel);
+            
             Task task = Channel.OpenAsync();
             Task.WaitAll(task);
         }
@@ -89,6 +91,13 @@ namespace Piraeus.Adapters
 
             session.IsAuthenticated = Channel.IsAuthenticated;
 
+            if(session.IsAuthenticated)
+            {                
+                IdentityDecoder decoder = new IdentityDecoder(session.Config.IdentityClaimType, session.Config.Indexes);
+                session.Identity = decoder.Id;
+                session.Indexes = decoder.Indexes;
+            }
+
             try
             {
                 if (!Channel.IsAuthenticated && e.Message != null)
@@ -97,6 +106,8 @@ namespace Piraeus.Adapters
                     CoapUri coapUri = new CoapUri(msg.ResourceUri.ToString());
                     session.IsAuthenticated = session.Authenticate(coapUri.TokenType, coapUri.SecurityToken);
                 }
+                
+               
             }
             catch (Exception ex)
             {
@@ -114,14 +125,23 @@ namespace Piraeus.Adapters
                 Task closeTask = Channel.CloseAsync();
                 Task.WaitAll(closeTask);
             }
+            else
+            {
+
+                dispatcher = new CoapRequestDispatcher(session, Channel);
+            }
 
         }
 
         private void Channel_OnReceive(object sender, ChannelReceivedEventArgs e)
         {
-            Task logTask = Log.LogInfoAsync("Channel {0} received message.", e.ChannelId);
-            Task.WhenAll(logTask);
-            
+            //Task logTask = Log.LogInfoAsync("Channel {0} received message.", e.ChannelId);
+            //Task.WhenAll(logTask);
+
+            LimitedConcurrencyLevelTaskScheduler lcts = new LimitedConcurrencyLevelTaskScheduler(5);
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+
+
             try
             {
                 CoapMessage message = CoapMessage.DecodeMessage(e.Message);
@@ -132,9 +152,27 @@ namespace Piraeus.Adapters
                 }
 
                 OnObserve?.Invoke(this, new ChannelObserverEventArgs(message.ResourceUri.ToString(), MediaTypeConverter.ConvertFromMediaType(message.ContentType), message.Payload));
+                               
+                Task task = Task.Factory.StartNew(async () =>
+                {
+                    
+                    CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
+                    CoapMessage msg = await handler.ProcessAsync();
 
-                Task task = Forward(message);
+                    if (msg != null)
+                    {
+                        byte[] payload = msg.Encode();
+                        await Channel.SendAsync(payload);
+                    }
+
+                    
+                },tokenSource.Token, TaskCreationOptions.AttachedToParent, lcts).ContinueWith(ExceptionAction, TaskContinuationOptions.OnlyOnFaulted);
+
+                //Task task = Forward(message);
                 Task.WhenAll(task);
+
+             
+
             }
             catch(Exception ex)
             {
@@ -142,29 +180,51 @@ namespace Piraeus.Adapters
                 Task t = Channel.CloseAsync();
                 Task.WhenAll(t);
             }
+
+          
         }
-        
-        private async Task Forward(CoapMessage message)
-        {           
-                CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
 
-                await Log.LogInfoAsync("Coap handler about to start processing");
-                CoapMessage msg = await handler.ProcessAsync();
-
-                await Log.LogInfoAsync("Coap handler processed.");
-
-            if (msg != null)
-            {
-                byte[] payload = msg.Encode();
-                await Channel.SendAsync(payload);                
-                await Log.LogInfoAsync("Coap handler message sent.");
-            }
-            else
-            {
-                await Log.LogInfoAsync("Coap handler return null messsage.");
-            }
+        private void ExceptionAction(Task task)
+        {
+            System.Diagnostics.Trace.WriteLine(task.Exception.Message);
+            System.Diagnostics.Trace.WriteLine(task.Exception.StackTrace);
         }
-        
+
+        private CoapMessage ExceptionAction2(Task task)
+        {
+            System.Diagnostics.Trace.WriteLine(task.Exception.Message);
+            System.Diagnostics.Trace.WriteLine(task.Exception.StackTrace);
+            return null;
+        }
+
+        //private async Task Forward(CoapMessage message)
+        //{
+
+
+        //    var throttler = new System.Threading.SemaphoreSlim(1);
+        //    await throttler.WaitAsync();
+
+        //    CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
+
+        //        //await Log.LogInfoAsync("Coap handler about to start processing");
+        //        CoapMessage msg = await handler.ProcessAsync();
+
+        //        //await Log.LogInfoAsync("Coap handler processed.");
+
+        //    if (msg != null)
+        //    {
+        //        byte[] payload = msg.Encode();
+        //        await Channel.SendAsync(payload);                
+        //        //await Log.LogInfoAsync("Coap handler message sent.");
+        //    }
+        //    else
+        //    {
+        //        //await Log.LogInfoAsync("Coap handler return null messsage.");
+        //    }
+
+        //    throttler.Release();
+        //}
+
         private void Channel_OnError(object sender, ChannelErrorEventArgs e)
         {
             OnError?.Invoke(this, new ProtocolAdapterErrorEventArgs(Channel.Id, e.Error));

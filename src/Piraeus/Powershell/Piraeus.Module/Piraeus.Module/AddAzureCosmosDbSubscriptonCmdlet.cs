@@ -28,15 +28,25 @@ namespace Piraeus.Module
         [Parameter(HelpMessage = "CosmosDb read-write key", Mandatory = true)]
         public string Key;
 
+        [Parameter(HelpMessage = "Number of blob storage clients to use.", Mandatory = false)]
+        public int NumClients;
+
+        [Parameter(HelpMessage = "Number of milliseconds to delay next write.", Mandatory = false)]
+        public int Delay;
+
+        [Parameter(HelpMessage = "Description of the subscription.", Mandatory = false)]
+        public string Description;
+
         protected override void ProcessRecord()
         {
-            string uriString = String.Format("https://{0}.documents.azure.com:443?database={1}&collection={2}", Host, Database, Collection);
+            string uriString = String.Format("https://{0}.documents.azure.com:443?database={1}&collection={2}&clients{3}&delay{4}", Host, Database, Collection, NumClients <= 0 ? 1 : NumClients, Delay <= 0 ? 1000 : Delay);
 
             SubscriptionMetadata metadata = new SubscriptionMetadata()
             {
                 IsEphemeral = false,
                 NotifyAddress = uriString,
-                SymmetricKey = Key
+                SymmetricKey = Key,
+                Description = this.Description
             };
 
             string url = String.Format("{0}/api2/resource/subscribe?resourceuristring={1}", ServiceUrl, ResourceUriString);

@@ -290,6 +290,8 @@
     <Compile Include="Notifications\EventSink.cs" />
     <Compile Include="Notifications\EventSinkFactory.cs" />
     <Compile Include="Notifications\IoTHubSink.cs" />
+    <Compile Include="Notifications\MessageDirectionType.cs" />
+    <Compile Include="Notifications\RangeIncrementerExtension.cs" />
     <Compile Include="Notifications\RestWebServiceSink.cs" />
     <Compile Include="Notifications\ServiceBusTopicSink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

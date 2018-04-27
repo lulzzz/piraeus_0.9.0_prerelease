@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Piraeus.Silo
 {
@@ -8,6 +10,21 @@ namespace Piraeus.Silo
     {
         static int Main(string[] args)
         {
+            TaskScheduler.UnobservedTaskException += (object sender, UnobservedTaskExceptionEventArgs excArgs) =>
+            {
+                TraceSource trace = new TraceSource("UnhandledExceptionTrace");
+                trace.TraceData(TraceEventType.Error, 1, excArgs.Exception);
+                excArgs.SetObserved();
+            };
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, args1) => {
+                Trace.TraceWarning("Piraeus Silo Unhandled exception");
+                Trace.TraceWarning("Is Terminating {0}", args1.IsTerminating);
+                Exception ex = (Exception)args1.ExceptionObject;
+                Trace.TraceError(ex.Message);
+                Trace.TraceError(ex.StackTrace);
+            };
+
             int code = -1;
 
             try

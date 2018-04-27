@@ -53,12 +53,13 @@ namespace Piraeus.Core.Messaging
 
         public EventMessage(string messageId, string contentType, string resourceUri, ProtocolType protocol, byte[] message, DateTime timeStamp, bool audit = false)
         {
-            this.MessageId = messageId;
+            this.MessageId = messageId == null ? Guid.NewGuid().ToString() : messageId;
             this.ContentType = contentType;
             this.ResourceUri = resourceUri;
             this.Protocol = protocol;
             this.Message = message;
             this.Timestamp = timeStamp;
+            this.Audit = audit;
         }
         /// <summary>
         /// A unique message id for the event message.

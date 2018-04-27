@@ -24,6 +24,7 @@ namespace Piraeus.Adapters
         {
             this.config = config;
             Channel = channel;
+            auditor = new Auditor();
         }
 
         public override IChannel Channel { get; set; }
@@ -36,6 +37,8 @@ namespace Piraeus.Adapters
         private PiraeusConfig config;
         private OrleansAdapter adapter;
         private bool disposedValue;
+        private Auditor auditor;
+        private string identity;
 
         
 
@@ -72,6 +75,7 @@ namespace Piraeus.Adapters
 
             MessageUri uri = new MessageUri(e.Message);
             IdentityDecoder decoder = new IdentityDecoder(config.Identity.Client.IdentityClaimType, config.Identity.Client.Indexes);
+            identity = decoder.Id;
 
             adapter = new OrleansAdapter(decoder.Id, "HTTP", "REST");
             adapter.OnObserve += Adapter_OnObserve;
@@ -102,8 +106,7 @@ namespace Piraeus.Adapters
                     await PublishAsync(decoder.Id, message, indexList);
                 });
 
-                Task.WhenAll(t);
-              
+                Task.WhenAll(t);            
             }
         }
 
@@ -190,6 +193,10 @@ namespace Piraeus.Adapters
             }
             else
             {
+                if (metadata.Audit && auditor.CanAudit)
+                {
+                    await auditor.WriteAuditRecordAsync(new AuditRecord("XXXXXXXXXXXX", identity, this.Channel.TypeId, "REST", message.Message.Length, MessageDirectionType.In, false, DateTime.UtcNow, "Not authorized, missing resource metadata, or channel encryption requirements"));
+                }
                 await Log.LogErrorAsync("Identity {0} cannot publish to resource {1}", identity, message.ResourceUri);
             }            
         }

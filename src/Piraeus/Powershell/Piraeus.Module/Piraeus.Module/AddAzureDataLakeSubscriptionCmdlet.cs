@@ -16,30 +16,44 @@ namespace Piraeus.Module
         [Parameter(HelpMessage = "Unique URI identifier of resource to subscribe.", Mandatory = true)]
         public string ResourceUriString;
 
-        [Parameter(HelpMessage = "Host name of CosmosDb, e.g, <host>.documents.azure.com:443", Mandatory = true)]
-        public string Host;
+        [Parameter(HelpMessage = "Azure Data Lake Store Account", Mandatory = true)]
+        public string Account;
+
+        [Parameter(HelpMessage = "AAD, e.g, microsoft.onmicrosoft.com", Mandatory = true)]
+        public string Domain;
 
         [Parameter(HelpMessage = "Application ID for access from AAD.", Mandatory = true)]
-        public string ApplicationId;
+        public string AppId;
 
-        [Parameter(HelpMessage = "Tenant for access from AAD, e.g., contoso.onmicrosoft.com", Mandatory = true)]
-        public string Tenant;
+        [Parameter(HelpMessage = "Secret for access from AAD", Mandatory = true)]
+        public string ClientSecret;        
 
         [Parameter(HelpMessage = "Name of folder to write data.", Mandatory = true)]
         public string Folder;
 
-        [Parameter(HelpMessage = "Security key (secret) from AAD for access.", Mandatory = true)]
-        public string Key;
+        [Parameter(HelpMessage = "Name of filename to write data, but exclusive of an extension.", Mandatory = false)]
+        public string Filename;
+
+        [Parameter(HelpMessage = "Number of blob storage clients to use.", Mandatory = false)]
+        public int NumClients;
+
+        [Parameter(HelpMessage = "Number of milliseconds to delay next write.", Mandatory = false)]
+        public int Delay;
+
+        [Parameter(HelpMessage = "Description of the subscription.", Mandatory = false)]
+        public string Description;
 
         protected override void ProcessRecord()
         {
-            string uriString = String.Format("adl://{0}.azuredatalakestore.net?appid={1}&tenantId={2}&folder={3}", Host, ApplicationId, Tenant, Folder);
+            string uriString = Filename == null ? String.Format("adl://{0}.azuredatalakestore.net?domain={1}&appid={2}&folder={3}&clients{4}&delay{5}", Account, Domain, AppId, Folder, NumClients <= 0 ? 1 : NumClients, Delay <= 0 ? 1000 : Delay) : String.Format("adl://{0}.azuredatalakestore.net?domain={1}&appid={2}&folder={3}&file={4}&clients{5}&delay{6}", Account, Domain, AppId, Folder, Filename, NumClients <= 0 ? 1 : NumClients, Delay <= 0 ? 1000 : Delay);
+
 
             SubscriptionMetadata metadata = new SubscriptionMetadata()
             {
                 IsEphemeral = false,
                 NotifyAddress = uriString,
-                SymmetricKey = Key
+                SymmetricKey = ClientSecret,
+                Description = this.Description
             };
 
             string url = String.Format("{0}/api2/resource/subscribe?resourceuristring={1}", ServiceUrl, ResourceUriString);

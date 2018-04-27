@@ -84,7 +84,7 @@ namespace Piraeus.Adapters
                 if (observableToken == null)
                 {
                     //request
-                    coapMessage = new CoapRequest(id, msg.MessageType == CoapMessageType.Confirmable ? RequestMessageType.Confirmable : RequestMessageType.NonConfirmable, MethodType.POST, new Uri(uriString), MediaTypeConverter.ConvertToMediaType(message.ContentType));
+                    coapMessage = new CoapRequest(id, msg.MessageType == CoapMessageType.Confirmable ? RequestMessageType.Confirmable : RequestMessageType.NonConfirmable, MethodType.POST, new Uri(uriString), MediaTypeConverter.ConvertToMediaType(message.ContentType), msg.Payload);
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace Piraeus.Adapters
 
             if (pm.QualityOfService != QualityOfServiceLevelType.AtMostOnce)
             {
-                session.Quarantine(pm);
+                session.Quarantine(pm,SkunkLab.Protocols.Mqtt.Handlers.DirectionType.Out);
             }
 
             return pm.Encode();

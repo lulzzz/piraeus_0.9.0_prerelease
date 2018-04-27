@@ -1,5 +1,9 @@
 @echo off
+<<<<<<< HEAD
+set @version=0.9.4
+=======
 set @version=0.9.3
+>>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
 set @prerelease=prerelease
 
 @echo off 

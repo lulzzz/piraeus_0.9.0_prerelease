@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Piraeus.Grains.Notifications;
+using System.Diagnostics;
 
 namespace Piraeus.Adapters
 {
@@ -18,11 +19,10 @@ namespace Piraeus.Adapters
     {
         public OrleansAdapter(string identity, string channelType, string protocolType)
         {
+            this.auditor = new Auditor();
             this.identity = identity;
             this.channelType = channelType;
             this.protocolType = protocolType;
-            Task task = SetAuditorAsync();
-            Task.WhenAll(task);
 
             container = new Dictionary<string, Tuple<string, string>>();
             ephemeralObservers = new Dictionary<string, IMessageObserver>();
@@ -31,6 +31,7 @@ namespace Piraeus.Adapters
 
         public event EventHandler<ObserveMessageEventArgs> OnObserve;   //signal protocol adapter
 
+        private int observeCount;
         private Auditor auditor;
         private string identity;
         private string channelType;
@@ -40,6 +41,56 @@ namespace Piraeus.Adapters
         private Dictionary<string, IMessageObserver> durableObservers;   //subscription, observer
         private System.Timers.Timer leaseTimer; //timer for leases
         private bool disposedValue = false; // To detect redundant calls
+
+        public override async Task<List<string>> LoadDurableSubscriptionsAsync(string identity)
+        {
+            List<string> list = new List<string>();
+
+            IEnumerable<string> subscriptionUriStrings = await GraphManager.GetSubscriberSubscriptionsListAsync(identity);
+
+            if (subscriptionUriStrings == null || subscriptionUriStrings.Count() == 0)
+            {
+                return null;
+            }
+
+            foreach (var item in subscriptionUriStrings)
+            {
+                if (!durableObservers.ContainsKey(item))
+                {
+                    MessageObserver observer = new MessageObserver();
+                    observer.OnNotify += Observer_OnNotify;
+
+                    //set the observer in the subscription with the lease lifetime
+                    TimeSpan leaseTime = TimeSpan.FromSeconds(20.0);
+
+                    string leaseKey = await GraphManager.AddSubscriptionObserverAsync(item, leaseTime, observer);
+
+                    //add the lease key to the list of ephemeral observers
+                    durableObservers.Add(item, observer);
+
+
+                    //get the resource from the subscription
+                    Uri uri = new Uri(item);
+                    string resourceUriString = item.Replace(uri.Segments[uri.Segments.Length - 1], "");
+
+                    list.Add(resourceUriString); //add to list to return
+
+                    //add the resource, subscription, and lease key the container
+
+                    if (!container.ContainsKey(resourceUriString))
+                    {
+                        container.Add(resourceUriString, new Tuple<string, string>(item, leaseKey));
+                    }
+                }
+            }
+
+            if (subscriptionUriStrings.Count() > 0)
+            {
+                EnsureLeaseTimer();
+            }
+
+            return list.Count == 0 ? null : list;
+        }
 
         public override async Task<bool> CanPublishAsync(ResourceMetadata metadata, bool channelEncrypted)
         {
@@ -83,10 +134,11 @@ namespace Piraeus.Adapters
             if (!authz)
             {                
                 await Log.LogWarningAsync("Identity is not authorized to publish to resource {0}", metadata.ResourceUriString);
-                foreach (Claim claim in identity.Claims)
-                {
-                    await Log.LogInfoAsync("Identity claim {0} : {1}", claim.Type, claim.Value);
-                }
+                
+                //foreach (Claim claim in identity.Claims)
+                //{
+                //    await Log.LogInfoAsync("Identity claim {0} : {1}", claim.Type, claim.Value);
+                //}
             }
 
             return authz;
@@ -143,85 +195,35 @@ namespace Piraeus.Adapters
 
             return authz;
         }
-
-        public override async Task<List<string>> LoadDurableSubscriptionsAsync(string identity)
-        {
-            List<string> list = new List<string>();
-
-            IEnumerable<string> subscriptionUriStrings = await GraphManager.GetSubscriberSubscriptionsListAsync(identity);
-
-            if(subscriptionUriStrings == null || subscriptionUriStrings.Count() == 0)
-            {
-                return null;
-            }
-
-            foreach (var item in subscriptionUriStrings)
-            {
-                if (!durableObservers.ContainsKey(item))
-                {
-                    MessageObserver observer = new MessageObserver();
-                    observer.OnNotify += Observer_OnNotify;
-
-                    //set the observer in the subscription with the lease lifetime
-                    TimeSpan leaseTime = TimeSpan.FromSeconds(20.0);
-
-                    string leaseKey = await GraphManager.AddSubscriptionObserverAsync(item, leaseTime, observer);
-
-                    //add the lease key to the list of ephemeral observers
-                    durableObservers.Add(item, observer);
-
-
-                    //get the resource from the subscription
-                    Uri uri = new Uri(item);
-                    string resourceUriString = item.Replace(uri.Segments[uri.Segments.Length - 1], "");
-
-                    list.Add(resourceUriString); //add to list to return
-
-                    //add the resource, subscription, and lease key the container
-
-                    if (!container.ContainsKey(resourceUriString))
-                    {
-                        container.Add(resourceUriString, new Tuple<string, string>(item, leaseKey));
-                    }
-                }
-            }
-
-            if (subscriptionUriStrings.Count() > 0)
-            {
-                EnsureLeaseTimer();
-            }
-
-            return list.Count == 0 ? null : list;
-        }
-
+        
         public override async Task PublishAsync(EventMessage message, List<KeyValuePair<string, string>> indexes = null)
         {
             AuditRecord record = null;
+            DateTime receiveTime = DateTime.UtcNow;
 
             try
             {
+                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, MessageDirectionType.In, true, receiveTime);
+
                 if (indexes == null || indexes.Count == 0)
                 {
-                    await GraphManager.PublishAsync(message.ResourceUri, message);                   
+                    await GraphManager.PublishAsync(message.ResourceUri, message);                 
                 }
                 else
                 {
-                    await GraphManager.PublishAsync(message.ResourceUri, message, indexes);                    
-                }
-
-                if(message.Audit)
-                {
-
-                    record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, DateTime.UtcNow);
+                    await GraphManager.PublishAsync(message.ResourceUri, message, indexes);               
                 }
             }
             catch(Exception ex)
             {
-                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, MessageDirectionType.In, false, receiveTime, ex.Message);
             }
             finally
             {
-                await AuditAsync(record);
+                if(auditor.CanAudit && message.Audit)
+                {
+                    await auditor.WriteAuditRecordAsync(record);
+                }
             }
         }
 
@@ -305,6 +307,8 @@ namespace Piraeus.Adapters
         #region private methods
         private void Observer_OnNotify(object sender, MessageNotificationArgs e)
         {
+            observeCount++;
+            Trace.TraceInformation("Obsever {0}", observeCount);
             //signal the protocol adapter
             OnObserve?.Invoke(this, new ObserveMessageEventArgs(e.Message));
         }
@@ -338,24 +342,25 @@ namespace Piraeus.Adapters
                 {
                     foreach (var kvp in kvps)
                     {
-                        SubscriptionMetadata metadata = await GraphManager.GetSubscriptionMetadataAsync(kvp.Value.Item1);                      
+                        await GraphManager.RenewObserverLeaseAsync(kvp.Value.Item1, kvp.Value.Item2, TimeSpan.FromSeconds(60.0));
+                        //SubscriptionMetadata metadata = await GraphManager.GetSubscriptionMetadataAsync(kvp.Value.Item1);                      
 
-                        if (metadata != null)
-                        {
-                            bool renewed = await GraphManager.RenewObserverLeaseAsync(kvp.Value.Item1, kvp.Value.Item2, TimeSpan.FromSeconds(60.0));
-                            if(renewed)
-                            {
-                                await Log.LogInfoAsync("Observer lease renewed.");
-                            }
-                            else
-                            {
-                                await Log.LogWarningAsync("Observer lease could not be renewed.");
-                            }
-                        }
-                        else
-                        {
-                            await Log.LogWarningAsync("Subscription metadata not found.");
-                        }
+                        //if (metadata != null)
+                        //{
+                            
+                        //    //if(renewed)
+                        //    //{
+                        //    //    await Log.LogInfoAsync("Observer lease renewed.");
+                        //    //}
+                        //    //else
+                        //    //{
+                        //    //    await Log.LogWarningAsync("Observer lease could not be renewed.");
+                        //    //}
+                        //}
+                        //else
+                        //{
+                        //    await Log.LogWarningAsync("Subscription metadata not found.");
+                        //}
                     }
                 }
             });
@@ -371,13 +376,13 @@ namespace Piraeus.Adapters
             if (durableObservers.Count > 0)
             {
                 List<Task> taskList = new List<Task>();
-                KeyValuePair<string, IMessageObserver>[] kvps = ephemeralObservers.ToArray();
+                KeyValuePair<string, IMessageObserver>[] kvps = durableObservers.ToArray();
                 foreach (var item in kvps)
                 {
                     IEnumerable<KeyValuePair<string, Tuple<string, string>>> items = container.Where((c) => c.Value.Item1 == item.Key);
                     foreach (var lease in items)
                     {
-                        list.Add(lease.Key);
+                        list.Add(lease.Value.Item1);
 
                         if (durableObservers.ContainsKey(lease.Value.Item1))
                         {
@@ -404,26 +409,27 @@ namespace Piraeus.Adapters
             if (ephemeralObservers.Count > 0)
             {
                 KeyValuePair<string, IMessageObserver>[] kvps = ephemeralObservers.ToArray();                
-                List<Task> taskList = new List<Task>();
+                List<Task> unobserveTaskList = new List<Task>();
                 foreach (var item in kvps)
                 {                    
                     IEnumerable<KeyValuePair<string, Tuple<string, string>>> items = container.Where((c) => c.Value.Item1 == item.Key);
 
                     foreach (var lease in items)
                     {
-                        list.Add(lease.Key);
+                        list.Add(lease.Value.Item1);
                         if (ephemeralObservers.ContainsKey(lease.Value.Item1))
                         {
-                            Task task = GraphManager.RemoveSubscriptionObserverAsync(lease.Value.Item1, lease.Value.Item2);
-                            taskList.Add(task);
+                            Task unobserveTask = GraphManager.RemoveSubscriptionObserverAsync(lease.Value.Item1, lease.Value.Item2);
+                            unobserveTaskList.Add(unobserveTask);
                         }
                     }
                 }
 
-                if (taskList.Count > 0)
+                if (unobserveTaskList.Count > 0)
                 {
-                    Task.WhenAll(taskList);
+                    Task.WhenAll(unobserveTaskList);                   
                 }
+                
 
                 ephemeralObservers.Clear();
                 RemoveFromContainer(list);
@@ -454,20 +460,9 @@ namespace Piraeus.Adapters
             }
         }
 
-        private async Task AuditAsync(AuditRecord record = null)
-        {   
-            if (record != null && auditor.CanAudit)
-            {
-                await auditor.WriteAuditRecordAsync(record);
-            }
-        }
+        
 
-        private async Task SetAuditorAsync()
-        {
-            string connectionstring = await GraphManager.GetAuditConfigConnectionstringAsync();
-            string tablename = await GraphManager.GetAuditConfigTablenameAsync();
-            auditor = new Auditor(connectionstring, tablename);
-        }
+        
         #endregion
     }
 }

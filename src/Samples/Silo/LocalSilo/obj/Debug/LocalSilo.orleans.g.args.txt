@@ -1,66 +1,66 @@
 /in:obj\Debug\LocalSilo.exe
-/out:C:\_git\core\src\Samples\Silo\LocalSilo\obj\Debug\LocalSilo.orleans.g.cs
-/r:C:\_git\core\src\CAPL\Capl\bin\Debug\Capl.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.CodeAnalysis.CSharp.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.CodeAnalysis.dll
+/out:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\obj\Debug\LocalSilo.orleans.g.cs
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\bin\Debug\Capl.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.CodeAnalysis.CSharp.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.CodeAnalysis.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Microsoft.CSharp.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Data.Edm.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Data.OData.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Data.Services.Client.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Win32.Primitives.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Data.Edm.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Data.OData.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Data.Services.Client.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Microsoft.Win32.Primitives.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\mscorlib.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Newtonsoft.Json.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Orleans.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\OrleansCodeGenerator.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\OrleansProviders.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\OrleansRuntime.dll
-/r:C:\_git\core\src\Piraeus\Piraeus.Core\bin\Debug\Piraeus.Core.dll
-/r:C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.dll
-/r:C:\_git\core\src\Piraeus\Piraeus.Grains\bin\Debug\Piraeus.Grains.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\Piraeus.SiloHost.dll
-/r:C:\_git\core\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\bin\Debug\SkunkLab.Storage.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\StackExchange.Redis.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Newtonsoft.Json.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Orleans.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\OrleansCodeGenerator.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\OrleansProviders.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\OrleansRuntime.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Debug\Piraeus.Core.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\bin\Debug\Piraeus.Grains.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\Piraeus.SiloHost.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\bin\Debug\SkunkLab.Storage.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\StackExchange.Redis.dll
 /r:C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.AppContext\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.AppContext.dll
 /r:C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\System.Collections.Immutable.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.ComponentModel.Composition.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Console.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Console.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Core.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.DataSetExtensions.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Diagnostics.DiagnosticSource.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Diagnostics.FileVersionInfo.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Diagnostics.StackTrace.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Diagnostics.StackTrace.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Globalization.Calendars.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Globalization.Calendars.dll
 /r:C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\System.IO.Compression.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.IO.Compression.FileSystem.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.IO.Compression.ZipFile.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.IO.FileSystem.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.IO.FileSystem.Primitives.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Net.Http.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Net.Http.Formatting.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Net.Sockets.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.IO.Compression.ZipFile.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.IO.FileSystem.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.IO.FileSystem.Primitives.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Net.Http.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Net.Http.Formatting.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Net.Sockets.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Numerics.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Reflection.Metadata.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Reflection.Metadata.dll
 /r:C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\System.Runtime.InteropServices.RuntimeInformation.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.Algorithms.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.Encoding.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.Primitives.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.X509Certificates.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Spatial.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Text.Encoding.CodePages.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Threading.Thread.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.ValueTuple.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Web.Http.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Web.Http.WebHost.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.Algorithms.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.Encoding.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.Primitives.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Spatial.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Text.Encoding.CodePages.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Threading.Thread.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.ValueTuple.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Web.Http.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Web.Http.WebHost.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.Linq.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.ReaderWriter.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.XmlDocument.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.XPath.dll
-/r:C:\_git\core\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.XPath.XDocument.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.ReaderWriter.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.XmlDocument.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.XPath.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Silo\LocalSilo\bin\Debug\System.Xml.XPath.XDocument.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.Concurrent.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ComponentModel.Annotations.dll

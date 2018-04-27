@@ -124,10 +124,10 @@ namespace Piraeus.Grains.Notifications
         {
             AuditRecord record = null;
             HttpWebRequest request = null;
-
+            byte[] payload = null;
             try
             {
-                byte[] payload = GetPayload(message);
+                payload = GetPayload(message);
                 if (payload == null)
                 {
                     Trace.TraceWarning("Subscription {0} could not write to web service sink because payload was either null or unknown protocol type.");
@@ -149,8 +149,7 @@ namespace Piraeus.Grains.Notifications
                 catch (Exception ex)
                 {
                     Trace.TraceError("REST event sink subscription {0} could set request; error {1} ", metadata.SubscriptionUriString, ex.Message);
-                    record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, false, DateTime.UtcNow, ex.Message);
-                    throw;
+                    record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
                 }
 
                 try
@@ -160,13 +159,13 @@ namespace Piraeus.Grains.Notifications
                         if (response.StatusCode == HttpStatusCode.Accepted || response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent)
                         {
                             Trace.TraceInformation("Rest request is success.");
-                            record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, true, DateTime.UtcNow);
+                            record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
 
                         }
                         else
                         {
                             Trace.TraceInformation("Rest request returned an expected status code.");
-                            record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, false, DateTime.UtcNow, String.Format("Rest request returned an expected status code {0}", response.StatusCode));
+                            record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, String.Format("Rest request returned an expected status code {0}", response.StatusCode));
                         }
                     }
                 }
@@ -174,19 +173,18 @@ namespace Piraeus.Grains.Notifications
                 {
                     string faultMessage = String.Format("subscription '{0}' with status code '{1}' and error message '{2}'", metadata.SubscriptionUriString, we.Status.ToString(), we.Message);
                     Trace.TraceError(faultMessage);
-                    record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, false, DateTime.UtcNow, we.Message);
-                    throw;
+                    record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, we.Message);                   
                 }
             }
             catch(Exception ex)
             {
-                throw ex;
+                record = new AuditRecord(message.MessageId, address, "WebService", "HTTP", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
             }
             finally
             {
-                if(message.Audit)
+                if(message.Audit && record != null && auditor.CanAudit)
                 {
-                    Audit(record);
+                    await auditor.WriteAuditRecordAsync(record);
                 }
             }
         }
@@ -209,13 +207,6 @@ namespace Piraeus.Grains.Notifications
                     return null;
             }
         }
-        private void Audit(AuditRecord record)
-        {
-            if (auditor.CanAudit)
-            {
-                Task task = auditor.WriteAuditRecordAsync(record);
-                Task.WhenAll(task);
-            }
-        }
+        
     }
 }

@@ -217,29 +217,38 @@ namespace SkunkLab.Channels.WebSocket
 
         public override async Task ReceiveAsync()
         {
-            while (!token.IsCancellationRequested && IsConnected)
+            try
             {
-                ChannelReceivedEventArgs args = null;
-               
-                WebSocketMessage message = await WebSocketMessageReader.ReadMessageAsync(client, new byte[config.ReceiveLoopBufferSize], config.MaxIncomingMessageSize, token);
-                if(message.Data != null)
+                while (!token.IsCancellationRequested && IsConnected)
                 {
-                    if(message.MessageType == WebSocketMessageType.Binary)
-                    {
-                        args = new ChannelReceivedEventArgs(Id, message.Data as byte[]);
-                    }
-                    else if(message.MessageType == WebSocketMessageType.Text)
-                    {
-                        args = new ChannelReceivedEventArgs(Id, Encoding.UTF8.GetBytes(message.Data as string));
-                    }
-                    else
-                    {
-                        State = ChannelState.ClosedReceived;
-                        break;
-                    }
+                    ChannelReceivedEventArgs args = null;
 
-                    OnReceive?.Invoke(this, args);
+                    WebSocketMessage message = await WebSocketMessageReader.ReadMessageAsync(client, new byte[config.ReceiveLoopBufferSize], config.MaxIncomingMessageSize, token);
+                    if (message.Data != null)
+                    {
+                        if (message.MessageType == WebSocketMessageType.Binary)
+                        {
+                            args = new ChannelReceivedEventArgs(Id, message.Data as byte[]);
+                        }
+                        else if (message.MessageType == WebSocketMessageType.Text)
+                        {
+                            args = new ChannelReceivedEventArgs(Id, Encoding.UTF8.GetBytes(message.Data as string));
+                        }
+                        else
+                        {
+                            State = ChannelState.ClosedReceived;
+                            break;
+                        }
+
+                        OnReceive?.Invoke(this, args);
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                await SkunkLab.Diagnostics.Logging.Log.LogWarningAsync("Web socket receive fail");
+                await SkunkLab.Diagnostics.Logging.Log.LogErrorAsync(ex.Message);
+
             }
 
             await CloseAsync();
@@ -252,25 +261,34 @@ namespace SkunkLab.Channels.WebSocket
                 throw new InvalidOperationException("Exceeds max message size.");
             }
 
-            if (message.Length <= config.SendBufferSize)
+            try
             {
-                await sendQueue.Enqueue(() => client.SendAsync(new ArraySegment<byte>(message), WebSocketMessageType.Binary, true, token));                
-            }
-            else
-            {
-                int offset = 0;
-                byte[] buffer = null;
-                while(message.Length - offset > config.SendBufferSize)
+
+                if (message.Length <= config.SendBufferSize)
                 {
-                    buffer = new byte[config.SendBufferSize];
-                    Buffer.BlockCopy(message, offset, buffer, 0, buffer.Length);
-                    await sendQueue.Enqueue(() => client.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, false, token));                   
-
-                    offset += buffer.Length;        
+                    await sendQueue.Enqueue(() => client.SendAsync(new ArraySegment<byte>(message), WebSocketMessageType.Binary, true, token));
                 }
+                else
+                {
+                    int offset = 0;
+                    byte[] buffer = null;
+                    while (message.Length - offset > config.SendBufferSize)
+                    {
+                        buffer = new byte[config.SendBufferSize];
+                        Buffer.BlockCopy(message, offset, buffer, 0, buffer.Length);
+                        await sendQueue.Enqueue(() => client.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, false, token));
 
-                buffer = new byte[message.Length - offset];
-                await sendQueue.Enqueue(() => client.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, true, token));                               
+                        offset += buffer.Length;
+                    }
+
+                    buffer = new byte[message.Length - offset];
+                    await sendQueue.Enqueue(() => client.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, true, token));
+                }
+            }
+            catch(Exception ex)
+            {
+                await SkunkLab.Diagnostics.Logging.Log.LogWarningAsync("Web socket client send fail.");
+                await SkunkLab.Diagnostics.Logging.Log.LogErrorAsync(ex.Message);
             }
             
         }

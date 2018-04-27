@@ -10,50 +10,29 @@ namespace Piraeus.Grains.Notifications
     public class Auditor
     {
         public Auditor()
-        {
-            Task task = SetupAsync();
-            Task.WhenAll(task);
+            : this(System.Environment.GetEnvironmentVariable("ORLEANS_AUDIT_DATACONNECTIONSTRING"), System.Environment.GetEnvironmentVariable("ORLEANS_AUDIT_TABLENAME"))
+        {   
         }
 
         public Auditor(string connectionstring, string tablename)
         {
-            Task task = SetupAsync(connectionstring, tablename);
-            Task.WhenAll(task);
+            this.connectionstring = connectionstring;
+
+            if(!string.IsNullOrEmpty(this.connectionstring))
+            {
+                storage = TableStorage.New(this.connectionstring, 2048, 102400);
+            }
+
+            this.tablename = tablename;
         }
 
         private TableStorage storage;
         private string tablename;
+        private string connectionstring;
 
-        public bool CanAudit { get; internal set; }
-
-        private Task SetupAsync(string connectionstring = null, string tablename = null)
-        {          
-            //try to get the audit config from environment variables (best method)
-            if (connectionstring == null)
-            {
-                connectionstring = System.Environment.GetEnvironmentVariable("ORLEANS_AUDIT_DATACONNECTIONSTRING");
-                this.tablename = System.Environment.GetEnvironmentVariable("ORLEANS_AUDIT_TABLENAME");                
-            }
-
-            //audit config is not set...exit
-            if (connectionstring == null)
-            {
-                Trace.TraceWarning("Auditor not configurable.");
-                return Task.CompletedTask;
-            }
-            try
-            {
-                storage = TableStorage.New(connectionstring);
-                CanAudit = true;
-                Trace.TraceInformation("Auditor initialized.");
-            }
-            catch(Exception ex)
-            {
-                Trace.TraceWarning("Auditor failed to initialize with error {0}", ex.Message);
-            }
-
-            return Task.CompletedTask;
-            
+        public bool CanAudit
+        {
+            get { return (storage != null && tablename != null); }
         }
 
         public async Task WriteAuditRecordAsync(AuditRecord record)

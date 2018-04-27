@@ -32,8 +32,7 @@ namespace Piraeus.SiloHost
             Console.WriteLine("Host Name {0}", hostname);
 
             if (dockerized)
-            {
-
+            {                
                 //USE for production and clustering
                 config = new ClusterConfiguration();
                 config.Globals.DataConnectionString = System.Environment.GetEnvironmentVariable("ORLEANS_LIVENESS_DATACONNECTIONSTRING");
@@ -62,7 +61,12 @@ namespace Piraeus.SiloHost
                 Console.WriteLine("Port {0}", config.Defaults.Port);
                 Console.WriteLine("ProxyGatewayEndpoint {0}:{1}", config.Defaults.ProxyGatewayEndpoint.Address.ToString(), config.Defaults.ProxyGatewayEndpoint.Port);
                 Console.WriteLine("SiloName {0}", hostname);
-                ServicePointManager.DefaultConnectionLimit = 12 * Environment.ProcessorCount;
+
+                string factor = System.Environment.GetEnvironmentVariable("SERVICEPOINT_CORE_FACTOR");
+                
+                ServicePointManager.DefaultConnectionLimit = Convert.ToInt32(factor)  * Environment.ProcessorCount;
+                ServicePointManager.UseNagleAlgorithm = false;
+               
 
                 IDictionary<string, string> properties = GetStorageProviderProperties();
 

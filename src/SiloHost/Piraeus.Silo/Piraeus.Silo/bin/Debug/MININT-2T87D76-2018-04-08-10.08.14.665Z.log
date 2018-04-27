@@ -1,0 +1,720 @@
+[2018-04-08 10:08:15.027 GMT     1	INFO   	100404	Silo	172.29.160.1:11111]	Silo starting with GC settings: ServerGC=True GCLatencyMode=Batch	
+[2018-04-08 10:08:15.090 GMT     1	INFO   	100403	Silo	172.29.160.1:11111]	-------------- Initializing Secondary silo on host MININT-2T87D76 MachineName MININT-2T87D76 at 172.29.160.1:11111, gen 260878094 --------------	
+[2018-04-08 10:08:15.119 GMT     1	INFO   	100415	Silo	172.29.160.1:11111]	Starting silo MININT-2T87D76 with the following configuration= 
+Config File Name: 
+Host: MININT-2T87D76
+Start time: 2018-04-08 10:08:15.092 GMT
+Primary node: null
+Platform version info:
+   Orleans version: 1.5.2.0 (Release).
+   .NET version: 4.0.30319.42000
+   OS version: Microsoft Windows NT 6.2.9200.0
+   App config file: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Piraeus.Silo.exe.Config
+   GC Type=Server GCLatencyMode=Batch
+Global configuration:
+   System Ids:
+      ServiceId: 00000000-0000-0000-0000-000000000000
+      DeploymentId: OrleansDeployment1
+   Subnet: 
+   Seed nodes: 
+   Messaging:
+       Response timeout: 00:30:00
+       Maximum resend count: 0
+       Resend On Timeout: False
+       Maximum Socket Age: 10675199.02:48:05.4775807
+       Drop Expired Messages: True
+       Silo Sender queues: 4
+       Gateway Sender queues: 4
+       Client Drop Timeout: 00:01:00
+       Buffer Pool Buffer Size: 4096
+       Buffer Pool Max Size: 10000
+       Buffer Pool Preallocation Size: 250
+       Maximum forward count: 2
+       Fallback serializer: 
+   Liveness:
+      LivenessEnabled: True
+      LivenessType: AzureTable
+      ProbeTimeout: 00:00:10
+      TableRefreshTimeout: 00:01:00
+      DeathVoteExpirationTimeout: 00:02:00
+      NumMissedProbesLimit: 3
+      NumProbedSilos: 3
+      NumVotesForDeathDeclaration: 2
+      UseLivenessGossip: True
+      ValidateInitialConnectivity: True
+      IAmAliveTablePublishTimeout: 00:05:00
+      NumMissedTableIAmAliveLimit: 2
+      MaxJoinAttemptTime: 00:05:00
+      ExpectedClusterSize: 20
+   MultiClusterNetwork: N/A
+   SystemStore:
+      SystemStore ConnectionString: DefaultEndpointsProtocol=https;AccountName=liveness;AccountKey=<--SNIP-->
+      Reminders ConnectionString: DefaultEndpointsProtocol=https;AccountName=liveness;AccountKey=<--SNIP-->
+   Application:
+      Defaults:
+         Deactivate if idle for: 02:00:00
+
+   PlacementStrategy: 
+         Default Placement Strategy: RandomPlacement
+         Deployment Load Publisher Refresh Time: 00:00:01
+         Activation CountBased Placement Choose Out Of: 2
+   Grain directory cache:
+      Maximum size: 1000000 grains
+      Initial TTL: 00:00:30
+      Maximum TTL: 00:04:00
+      TTL extension factor: 2.00
+      Directory Caching Strategy: Adaptive
+   Grain directory:
+      Lazy deregistration delay: 00:01:00
+      Client registration refresh: 00:05:00
+   Reminder Service:
+       ReminderServiceType: AzureTable
+   Consistent Ring:
+       Use Virtual Buckets Consistent Ring: True
+       Num Virtual Buckets Consistent Ring: 30
+   Providers:
+       StorageProviders:
+           Name=store, Type=Orleans.Storage.Redis.RedisStorageProvider, Properties=[DataConnectionString]
+
+Silo configuration:
+   Silo Name: MININT-2T87D76
+   Generation: 260878094
+   Host Name or IP Address: MININT-2T87D76
+   DNS Host Name: MININT-2T87D76
+   Port: 11111
+   Subnet: 
+   Preferred Address Family: InterNetwork
+   Proxy Gateway: 0.0.0.0:30000
+   IsPrimaryNode: False
+   Scheduler: 
+         Max Active Threads: 4
+         Processor Count: 4
+         Delay Warning Threshold: 00:00:10
+         Activation Scheduling Quantum: 00:00:00.1000000
+         Turn Warning Length Threshold: 00:00:00.2000000
+         Inject More Worker Threads: False
+         MinDotNetThreadPoolSize: 200
+         .NET thread pool sizes - Min: Worker Threads=4 Completion Port Threads=4
+         .NET thread pool sizes - Max: Worker Threads=2047 Completion Port Threads=1000
+         .NET ServicePointManager - DefaultConnectionLimit=200 Expect100Continue=False UseNagleAlgorithm=False
+   Load Shedding Enabled: False
+   Load Shedding Limit: 95
+   SiloShutdownEventName: 
+   Debug: 
+   Tracing: 
+     Default Trace Level: Info
+     TraceLevelOverrides: None
+     Trace to Console: True
+     Trace File Name: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\MININT-2T87D76-2018-04-08-10.08.14.665Z.log
+     LargeMessageWarningThreshold: 85000
+     PropagateActivityId: True
+     BulkMessageLimit: 5
+   Statistics: 
+     MetricsTableWriteInterval: 00:00:30
+     PerfCounterWriteInterval: 00:00:30
+     LogWriteInterval: 00:05:00
+     WriteLogStatisticsToTable: True
+     StatisticsCollectionLevel: Info
+
+	
+[2018-04-08 10:08:17.927 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	Searching for assemblies in C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug...	
+[2018-04-08 10:08:17.950 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DocumentDB.Spatial.Sql.dll is not compatible with current process, loading is skipped.	
+[2018-04-08 10:08:18.061 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Documents.ServiceInterop.dll is not compatible with current process, loading is skipped.	
+[2018-04-08 10:08:18.770 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Capl.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.790 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DocumentDB.Spatial.Sql.dll
+	* The file C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DocumentDB.Spatial.Sql.dll does not contain any CLR metadata, probably it is a native file.	
+[2018-04-08 10:08:18.816 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DotNetty.Buffers.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.839 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DotNetty.Codecs.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.844 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DotNetty.Codecs.Mqtt.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.862 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DotNetty.Common.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.869 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DotNetty.Handlers.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.887 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DotNetty.Transport.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.923 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Amqp.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:18.985 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Devices.Client.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.029 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Devices.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.046 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Devices.Shared.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.177 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Documents.Client.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.218 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Documents.ServiceInterop.dll
+	* The file C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Documents.ServiceInterop.dll does not contain any CLR metadata, probably it is a native file.	
+[2018-04-08 10:08:19.225 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.237 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.KeyVault.Cryptography.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.275 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.KeyVault.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.288 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.KeyVault.Extensions.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.291 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.KeyVault.WebKey.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:19.960 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.CodeAnalysis.CSharp.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:20.443 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.CodeAnalysis.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:20.689 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Data.Edm.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:20.906 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Data.OData.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.090 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Data.Services.Client.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.215 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.291 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.313 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.337 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Extensions.Logging.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.539 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.686 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.IdentityModel.Logging.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.759 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.797 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Owin.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.832 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:21.839 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Rest.ClientRuntime.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.130 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.ServiceBus.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.137 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Win32.Primitives.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.224 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.WindowsAzure.Storage.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.278 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Newtonsoft.Json.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.282 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Orleans.dll
+	* Assembly filename is excluded.	
+[2018-04-08 10:08:22.337 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\OrleansCodeGenerator.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.355 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\OrleansRuntime.dll
+	* Assembly filename is excluded.	
+[2018-04-08 10:08:22.361 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Owin.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.443 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\PCLCrypto.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.507 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\PInvoke.BCrypt.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.548 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\PInvoke.Kernel32.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.592 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\PInvoke.NCrypt.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.687 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\PInvoke.Windows.Core.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.732 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Piraeus.Core.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.760 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Piraeus.GrainInterfaces.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.814 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Piraeus.SiloHost.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.845 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\SkunkLab.Protocols.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.933 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\SkunkLab.Security.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:22.983 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\SkunkLab.Storage.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.034 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\StackExchange.Redis.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.063 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.AppContext.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.104 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Collections.Immutable.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.121 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Console.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.133 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.210 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.236 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Diagnostics.StackTrace.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.276 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Globalization.Calendars.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.296 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.317 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.IO.Compression.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.339 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.IO.Compression.ZipFile.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.351 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.IO.FileSystem.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.372 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.IO.FileSystem.Primitives.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.414 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Net.Http.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.438 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Net.Http.Formatting.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.443 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Net.Sockets.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.488 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Reflection.Metadata.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.497 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.507 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.511 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Security.Cryptography.Algorithms.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.513 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Security.Cryptography.Encoding.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.514 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Security.Cryptography.Primitives.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.516 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.523 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Spatial.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.527 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Text.Encoding.CodePages.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.529 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Threading.Thread.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.533 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.ValueTuple.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.567 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Web.Http.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.587 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Xml.ReaderWriter.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.626 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Xml.XmlDocument.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.653 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Xml.XPath.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.683 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\System.Xml.XPath.XDocument.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.720 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	User assembly ignored: C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Validation.dll
+	* Assembly does not contain any acceptable grain types.
+	* Assembly contains no types assignable from Orleans.Providers.IProvider.	
+[2018-04-08 10:08:23.729 GMT     1	WARNING	101705	AssemblyLoader.Silo	172.29.160.1:11111]	Unable to find directory C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Applications; skipping.	
+[2018-04-08 10:08:23.731 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	Loading assembly C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Orleans.Storage.Redis.dll...	
+[2018-04-08 10:08:23.733 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	Loading assembly C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\OrleansAzureUtils.dll...	
+[2018-04-08 10:08:23.740 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	Loading assembly C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\OrleansProviders.dll...	
+[2018-04-08 10:08:23.742 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	Loading assembly C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Piraeus.Grains.dll...	
+[2018-04-08 10:08:26.324 GMT     1	INFO   	100000	AssemblyLoader.Silo	172.29.160.1:11111]	4 assemblies loaded.	
+[2018-04-08 10:08:33.013 GMT     1	INFO   	100000	Scheduler.OrleansTaskScheduler	172.29.160.1:11111]	Starting OrleansTaskScheduler with 4 Max Active application Threads and 1 system thread.	
+[2018-04-08 10:08:33.129 GMT     1	INFO   	101010	Runtime.Messaging.IncomingMessageAcceptor	172.29.160.1:11111]	Opened a listening socket at address 172.29.160.1:11111	
+[2018-04-08 10:08:33.139 GMT     1	INFO   	101010	Runtime.Messaging.GatewayAcceptor	172.29.160.1:11111]	Opened a listening socket at address 0.0.0.0:30000	
+[2018-04-08 10:08:33.204 GMT     1	INFO   	100000	VirtualBucketsRingProvider	172.29.160.1:11111]	Starting VirtualBucketsRingProvider on silo S172.29.160.1:11111:260878094/xEF265184.	
+[2018-04-08 10:08:33.266 GMT     1	INFO   	103003	VirtualBucketsRingProvider	172.29.160.1:11111]	Added Server S172.29.160.1:11111:260878094/xEF265184. Current view: [S172.29.160.1:11111:260878094 -> <MultiRange: Size=x100000000, %Ring=100.000%>]	
+[2018-04-08 10:08:33.271 GMT     1	INFO   	103005	VirtualBucketsRingProvider	172.29.160.1:11111]	-NotifyLocalRangeSubscribers about old <(0 0], Size=x100000000, %Ring=100.000%> new <MultiRange: Size=x100000000, %Ring=100.000%> increased? True	
+[2018-04-08 10:08:33.316 GMT     1	INFO   	100000	Silo	172.29.160.1:11111]	Skip multicluster oracle creation (no multicluster network configured)	
+[2018-04-08 10:08:33.319 GMT     1	INFO   	100422	Silo	172.29.160.1:11111]	-------------- Started silo S172.29.160.1:11111:260878094, ConsistentHashCode EF265184 --------------	
+[2018-04-08 10:08:33.320 GMT     1	INFO   	100288	OrleansSiloHost	172.29.160.1:11111]	Successfully initialized Orleans silo 'MININT-2T87D76' as a Secondary node.	
+[2018-04-08 10:08:33.356 GMT     1	INFO   	100441	OrleansSiloHost	172.29.160.1:11111]	Silo shutdown event name: MININT-2T87D76-Shutdown	
+[2018-04-08 10:08:33.359 GMT     1	INFO   	100442	OrleansSiloHost	172.29.160.1:11111]	Created and set shutdown event MININT-2T87D76-Shutdown	
+[2018-04-08 10:08:33.369 GMT     1	INFO   	100401	Silo	172.29.160.1:11111]	Silo Start()	
+[2018-04-08 10:08:33.372 GMT     1	INFO   	100430	Silo	172.29.160.1:11111]	Configured ThreadPool.SetMinThreads() to values: 200,200. Previous values are: 4,4.	
+[2018-04-08 10:08:33.373 GMT     1	INFO   	100436	Silo	172.29.160.1:11111]	Configured .NET ServicePointManager to Expect100Continue=False, DefaultConnectionLimit=200, UseNagleAlgorithm=False to improve Azure storage performance.	
+[2018-04-08 10:08:33.510 GMT     1	INFO   	101711	AssemblyLoader.Silo	172.29.160.1:11111]	Loaded grain type summary for 15 types: 
+Grain class Orleans.LogConsistency.Orleans.LogConsistency.LogConsistentGrainBase<TView> [-2062750837 (0x850CEB8B)] from Orleans.dll implementing interfaces: 
+Grain class Orleans.Providers.Orleans.Providers.MemoryStreamQueueGrain [1359359215 (0x51062CEF)] from OrleansProviders.dll implementing interfaces: Orleans.Providers.Orleans.Providers.IMemoryStreamQueueGrain [1158152105 (0x4507FFA9)]
+Grain class Orleans.Runtime.Management.Orleans.Runtime.Management.ManagementGrain [1954798034 (0x7483D9D2)] from OrleansRuntime.dll implementing interfaces: Orleans.Runtime.Orleans.Runtime.IManagementGrain [-1734666656 (0x989B1660)]
+Grain class Orleans.Runtime.MembershipService.Orleans.Runtime.MembershipService.GrainBasedMembershipTable [-2103923544 (0x8298ACA8)] from OrleansRuntime.dll implementing interfaces: Orleans.Orleans.IMembershipTableGrain [-1256503757 (0xB51B4633)]
+Grain class Orleans.Runtime.ReminderService.Orleans.Runtime.ReminderService.GrainBasedReminderTable [-55315191 (0xFCB3F509)] from OrleansRuntime.dll implementing interfaces: Orleans.Orleans.IReminderTableGrain [-1135060418 (0xBC585A3E)]
+Grain class Orleans.Runtime.Versions.Orleans.Runtime.Versions.VersionStoreGrain [331003096 (0x13BAB4D8)] from OrleansRuntime.dll implementing interfaces: Orleans.Runtime.Versions.Orleans.Runtime.Versions.IVersionStoreGrain [-297600501 (0xEE42FA0B)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+Grain class Orleans.Storage.Orleans.Storage.MemoryStorageGrain [819348208 (0x30D642F0)] from OrleansRuntime.dll implementing interfaces: Orleans.Storage.Orleans.Storage.IMemoryStorageGrain [577125491 (0x22663C73)]
+Grain class Orleans.Streams.Orleans.Streams.PubSubRendezvousGrain [1903070868 (0x716E8E94)] from OrleansRuntime.dll implementing interfaces: Orleans.Streams.Orleans.Streams.IPubSubRendezvousGrain [1746702088 (0x681C8F08)]
+Grain class Piraeus.Grains.Piraeus.Grains.AccessControl [1194438116 (0x4731ADE4)] from Piraeus.Grains.dll implementing interfaces: Piraeus.GrainInterfaces.Piraeus.GrainInterfaces.IAccessControl [904784176 (0x35EDE930)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+Grain class Piraeus.Grains.Piraeus.Grains.AuditConfig [567748444 (0x21D7275C)] from Piraeus.Grains.dll implementing interfaces: Piraeus.GrainInterfaces.Piraeus.GrainInterfaces.IAuditConfig [1164047816 (0x4561F5C8)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+Grain class Piraeus.Grains.Piraeus.Grains.Resource [568034996 (0x21DB86B4)] from Piraeus.Grains.dll implementing interfaces: Piraeus.GrainInterfaces.Piraeus.GrainInterfaces.IResource [-369762324 (0xE9F5DFEC)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+Grain class Piraeus.Grains.Piraeus.Grains.ResourceList [-1258561115 (0xB4FBE1A5)] from Piraeus.Grains.dll implementing interfaces: Piraeus.GrainInterfaces.Piraeus.GrainInterfaces.IResourceList [-1548578914 (0xA3B28F9E)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+Grain class Piraeus.Grains.Piraeus.Grains.ServiceIdentity [1127256728 (0x43309298)] from Piraeus.Grains.dll implementing interfaces: Piraeus.GrainInterfaces.Piraeus.GrainInterfaces.IServiceIdentity [2087181860 (0x7C67DE24)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+Grain class Piraeus.Grains.Piraeus.Grains.Subscriber [-305176254 (0xEDCF6142)] from Piraeus.Grains.dll implementing interfaces: Piraeus.GrainInterfaces.Piraeus.GrainInterfaces.ISubscriber [678607351 (0x2872B9F7)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+Grain class Piraeus.Grains.Piraeus.Grains.Subscription [-1847807736 (0x91DCB108)] from Piraeus.Grains.dll implementing interfaces: Piraeus.GrainInterfaces.Piraeus.GrainInterfaces.ISubscription [1486087461 (0x5893E525)], Orleans.Orleans.IGrainWithStringKey [-1277021679 (0xB3E23211)]
+	
+[2018-04-08 10:08:33.768 GMT    12	INFO   	100000	Runtime.Scheduler.WorkerPoolThread/System.5	172.29.160.1:11111]	Starting AsyncAgent Runtime.Scheduler.WorkerPoolThread/System.5 on managed thread 12	
+[2018-04-08 10:08:33.848 GMT     9	INFO   	100000	Runtime.Scheduler.WorkerPoolThread/1	172.29.160.1:11111]	Starting AsyncAgent Runtime.Scheduler.WorkerPoolThread/1 on managed thread 9	
+[2018-04-08 10:08:33.870 GMT     8	INFO   	100000	Runtime.Scheduler.WorkerPoolThread/0	172.29.160.1:11111]	Starting AsyncAgent Runtime.Scheduler.WorkerPoolThread/0 on managed thread 8	
+[2018-04-08 10:08:33.906 GMT    10	INFO   	100000	Runtime.Scheduler.WorkerPoolThread/2	172.29.160.1:11111]	Starting AsyncAgent Runtime.Scheduler.WorkerPoolThread/2 on managed thread 10	
+[2018-04-08 10:08:33.955 GMT    11	INFO   	100000	Runtime.Scheduler.WorkerPoolThread/3	172.29.160.1:11111]	Starting AsyncAgent Runtime.Scheduler.WorkerPoolThread/3 on managed thread 11	
+[2018-04-08 10:08:34.035 GMT    13	INFO   	100000	Runtime.Messaging.IncomingMessageAcceptor	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.IncomingMessageAcceptor on managed thread 13	
+[2018-04-08 10:08:34.076 GMT    13	INFO   	100328	Runtime.Messaging.IncomingMessageAcceptor	172.29.160.1:11111]	Stopping AsyncAgent Runtime.Messaging.IncomingMessageAcceptor that runs on managed thread 13	
+[2018-04-08 10:08:34.083 GMT    14	INFO   	100000	Runtime.Messaging.SiloMessageSender/PingSender	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.SiloMessageSender/PingSender on managed thread 14	
+[2018-04-08 10:08:34.117 GMT    15	INFO   	100000	Runtime.Messaging.SiloMessageSender/SystemSender	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.SiloMessageSender/SystemSender on managed thread 15	
+[2018-04-08 10:08:34.125 GMT    21	INFO   	100000	Runtime.Messaging.IncomingMessageAgent/Ping	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.IncomingMessageAgent/Ping on managed thread 21	
+[2018-04-08 10:08:34.139 GMT    20	INFO   	100000	Runtime.Messaging.IncomingMessageAgent/System	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.IncomingMessageAgent/System on managed thread 20	
+[2018-04-08 10:08:34.146 GMT     1	INFO   	100000	Orleans.GrainDirectory.LocalGrainDirectory	172.29.160.1:11111]	Start (SeverityLevel=Info)	
+[2018-04-08 10:08:34.155 GMT    22	INFO   	100000	Runtime.Messaging.IncomingMessageAgent/Application	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.IncomingMessageAgent/Application on managed thread 22	
+[2018-04-08 10:08:34.163 GMT    18	INFO   	100000	Runtime.GrainDirectory.AdaptiveDirectoryCacheMaintainer`1	172.29.160.1:11111]	Starting AsyncAgent Runtime.GrainDirectory.AdaptiveDirectoryCacheMaintainer`1 on managed thread 18	
+[2018-04-08 10:08:34.169 GMT    19	INFO   	100000	Runtime.GrainDirectory.GlobalSingleInstanceActivationMaintainer	172.29.160.1:11111]	Starting AsyncAgent Runtime.GrainDirectory.GlobalSingleInstanceActivationMaintainer on managed thread 19	
+[2018-04-08 10:08:34.178 GMT    19	INFO   	100328	Runtime.GrainDirectory.GlobalSingleInstanceActivationMaintainer	172.29.160.1:11111]	Stopping AsyncAgent Runtime.GrainDirectory.GlobalSingleInstanceActivationMaintainer that runs on managed thread 19	
+[2018-04-08 10:08:35.277 GMT     4	INFO   	100801	StatsTableDataManager	172.29.160.1:11111]	Attached to Azure storage table OrleansSiloStatistics	
+[2018-04-08 10:08:35.454 GMT     5	INFO   	100801	SiloMetricsTableDataManager	172.29.160.1:11111]	Attached to Azure storage table OrleansSiloMetrics	
+[2018-04-08 10:08:35.490 GMT     1	INFO   	100000	ReminderFactory	172.29.160.1:11111]	Creating reminder grain service for type=Orleans.Runtime.ReminderService.AzureBasedReminderTable	
+[2018-04-08 10:08:35.564 GMT    12	INFO   	103102	ProviderLoader/IStorageProvider	172.29.160.1:11111]	Loaded provider of type Orleans.Storage.Redis.RedisStorageProvider Name=store	
+[2018-04-08 10:08:35.569 GMT    10	INFO   	100507	Catalog	172.29.160.1:11111]	Before collection#1: memory=25MB, #activations=0, collector=<#Activations=0, #Buckets=0, buckets=[]>.	
+[2018-04-08 10:08:35.572 GMT    10	INFO   	100508	Catalog	172.29.160.1:11111]	After collection#1: memory=25MB, #activations=0, collected 0 activations, collector=<#Activations=0, #Buckets=0, buckets=[]>, collection time=00:00:00.0089837.	
+[2018-04-08 10:08:35.750 GMT    12	WARNING	101215	Scheduler.ProviderManagerSystemTarget.WorkItemGroup	172.29.160.1:11111]	Task [Id=51, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094ProviderManagerSystemTarget@S00000013] took elapsed time 0:00:00.2047158 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/System.5, ManagedThreadId=12, Executing Task Id=51 Status=RanToCompletion for 00:00:00.2074994 on WorkItem=System*WorkItemGroup:Name=ProviderManagerSystemTarget,WorkGroupStatus=Running Executing for 00:00:00.2160032. .>	
+[2018-04-08 10:08:36.089 GMT    12	INFO   	100603	MembershipOracle	172.29.160.1:11111]	MembershipOracle starting on host = MININT-2T87D76 address = S172.29.160.1:11111:260878094 at 2018-04-08 10:08:33.152 GMT, backOffMax = 00:00:20	
+[2018-04-08 10:08:36.269 GMT    12	INFO   	100801	OrleansSiloInstanceManager	172.29.160.1:11111]	Attached to Azure storage table OrleansSiloInstances	
+[2018-04-08 10:08:42.216 GMT    12	INFO   	100652	MembershipOracle	172.29.160.1:11111]	-CleanupTable called on silo startup. Membership table 4 silos, 1 are Active, 3 are Dead, Version=<11, W/"datetime'2018-04-08T09%3A58%3A10.2106783Z'">. All silos: [SiloAddress=S172.29.160.1:11111:260877444 SiloName=MININT-2T87D76 Status=Active, SiloAddress=S172.29.160.1:11111:260832633 SiloName=MININT-2T87D76 Status=Dead, SiloAddress=S172.29.160.1:11111:260833642 SiloName=MININT-2T87D76 Status=Dead, SiloAddress=S172.29.160.1:11111:260835888 SiloName=MININT-2T87D76 Status=Dead]	
+[2018-04-08 10:08:42.225 GMT    12	WARNING	100619	MembershipOracle	172.29.160.1:11111]	Detected older version of myself - Marking other older clone as Dead -- Current Me=S172.29.160.1:11111:260878094 Older Me=S172.29.160.1:11111:260877444, Old entry= SiloAddress=S172.29.160.1:11111:260877444 SiloName=MININT-2T87D76 Status=Active	
+[2018-04-08 10:08:42.587 GMT    12	INFO   	100660	MembershipOracle	172.29.160.1:11111]	Starting IAmAliveUpdateTimer.	
+[2018-04-08 10:08:42.778 GMT    12	WARNING	100602	MembershipOracle	172.29.160.1:11111]	Silo MININT-2T87D76 restarted on same host MININT-2T87D76 New silo address = S172.29.160.1:11111:260878094 Previous silo address = S172.29.160.1:11111:260877444	
+[2018-04-08 10:08:42.785 GMT    11	INFO   	100604	MembershipOracle	172.29.160.1:11111]	-BecomeActive	
+[2018-04-08 10:08:42.982 GMT    12	INFO   	100614	MembershipOracle	172.29.160.1:11111]	About to send pings to 0 nodes in order to validate communication in the Joining state. Pinged nodes = []	
+[2018-04-08 10:08:43.282 GMT    12	INFO   	100634	MembershipOracle	172.29.160.1:11111]	-ReadAll (called from BecomeActive) Membership table 5 silos, 1 are Active, 4 are Dead, Version=<14, W/"datetime'2018-04-08T10%3A08%3A46.0643768Z'">. All silos: [SiloAddress=S172.29.160.1:11111:260878094 SiloName=MININT-2T87D76 Status=Active, SiloAddress=S172.29.160.1:11111:260832633 SiloName=MININT-2T87D76 Status=Dead, SiloAddress=S172.29.160.1:11111:260833642 SiloName=MININT-2T87D76 Status=Dead, SiloAddress=S172.29.160.1:11111:260835888 SiloName=MININT-2T87D76 Status=Dead, SiloAddress=S172.29.160.1:11111:260877444 SiloName=MININT-2T87D76 Status=Dead]	
+[2018-04-08 10:08:43.287 GMT    12	INFO   	100605	MembershipOracle	172.29.160.1:11111]	-Finished BecomeActive.	
+[2018-04-08 10:08:43.306 GMT    12	INFO   	100000	TypeManager	172.29.160.1:11111]	OnRefreshClusterMapTimer: refresh start	
+[2018-04-08 10:08:43.313 GMT     1	INFO   	100702	WindowsPerfCountersStatistics	172.29.160.1:11111]	Starting Windows perf counter stats collection with frequency=00:00:30	
+[2018-04-08 10:08:43.343 GMT     1	INFO   	100714	SiloPerformanceMetrics	172.29.160.1:11111]	Starting Silo Table metrics reporter with reportFrequency=00:00:30	
+[2018-04-08 10:08:43.354 GMT    12	INFO   	100000	DeploymentLoadPublisher	172.29.160.1:11111]	Starting DeploymentLoadPublisher.	
+[2018-04-08 10:08:43.478 GMT    10	INFO   	100000	DeploymentLoadPublisher	172.29.160.1:11111]	Started DeploymentLoadPublisher.	
+[2018-04-08 10:08:43.480 GMT     1	INFO   	100000	Watchdog	172.29.160.1:11111]	Starting Silo Watchdog.	
+[2018-04-08 10:08:43.502 GMT    31	INFO   	100000	Runtime.Watchdog	172.29.160.1:11111]	Starting AsyncAgent Runtime.Watchdog on managed thread 31	
+[2018-04-08 10:08:43.513 GMT    11	INFO   	100000	AzureTableDataManager-ReminderTableEntry	172.29.160.1:11111]	Creating RemindersTableManager for service id 00000000-0000-0000-0000-000000000000 and deploymentId OrleansDeployment1.	
+[2018-04-08 10:08:43.679 GMT     8	INFO   	100801	AzureTableDataManager-ReminderTableEntry	172.29.160.1:11111]	Attached to Azure storage table OrleansReminders	
+[2018-04-08 10:08:43.682 GMT     8	INFO   	102925	Orleans.Runtime.ReminderService.LocalReminderService	172.29.160.1:11111]	Starting Orleans.Runtime.ReminderService.LocalReminderService grain service on: S172.29.160.1:11111:260878094 xEF265184, with range 	
+[2018-04-08 10:08:43.885 GMT    16	INFO   	100000	Runtime.Messaging.GatewayAcceptor	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.GatewayAcceptor on managed thread 16	
+[2018-04-08 10:08:43.889 GMT    17	INFO   	100000	Runtime.Messaging.GatewayClientCleanupAgent	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.GatewayClientCleanupAgent on managed thread 17	
+[2018-04-08 10:08:43.889 GMT    16	INFO   	100328	Runtime.Messaging.GatewayAcceptor	172.29.160.1:11111]	Stopping AsyncAgent Runtime.Messaging.GatewayAcceptor that runs on managed thread 16	
+[2018-04-08 10:08:43.891 GMT     1	INFO   	100424	OrleansSiloHost	172.29.160.1:11111]	Silo startup event name: MININT-2T87D76	
+[2018-04-08 10:08:44.449 GMT     1	INFO   	100425	OrleansSiloHost	172.29.160.1:11111]	Created and set startup event MININT-2T87D76	
+[2018-04-08 10:08:44.449 GMT     1	INFO   	100402	OrleansSiloHost	172.29.160.1:11111]	Silo MININT-2T87D76 started successfully	
+[2018-04-08 10:08:59.641 GMT    11	WARNING	101215	Scheduler.DeploymentLoadPublisherSystemTarget.WorkItemGroup	172.29.160.1:11111]	Task [Id=1054, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094DeploymentLoadPublisherSystemTarget@S00000016] took elapsed time 0:00:00.3415195 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/3, ManagedThreadId=11, Executing Task Id=1054 Status=RanToCompletion for 00:00:00.3415001 on WorkItem=System*WorkItemGroup:Name=DeploymentLoadPublisherSystemTarget,WorkGroupStatus=Running Executing for 00:00:00.3415001. .>	
+[2018-04-08 10:09:06.354 GMT    12	WARNING	101215	Scheduler.DeploymentLoadPublisherSystemTarget.WorkItemGroup	172.29.160.1:11111]	Task [Id=1144, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094DeploymentLoadPublisherSystemTarget@S00000016] took elapsed time 0:00:00.5601531 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/System.5, ManagedThreadId=12, Executing Task Id=1144 Status=RanToCompletion for 00:00:00.5600006 on WorkItem=System*WorkItemGroup:Name=DeploymentLoadPublisherSystemTarget,WorkGroupStatus=Running Executing for 00:00:00.5604999. .>	
+[2018-04-08 10:09:08.786 GMT    12	WARNING	101215	Scheduler.DeploymentLoadPublisherSystemTarget.WorkItemGroup	172.29.160.1:11111]	Task [Id=1167, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094DeploymentLoadPublisherSystemTarget@S00000016] took elapsed time 0:00:00.3827957 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/System.5, ManagedThreadId=12, Executing Task Id=1167 Status=RanToCompletion for 00:00:00.3830010 on WorkItem=System*WorkItemGroup:Name=DeploymentLoadPublisherSystemTarget,WorkGroupStatus=Running Executing for 00:00:00.8635020. .>	
+[2018-04-08 10:09:10.944 GMT    12	WARNING	101215	Scheduler.DeploymentLoadPublisherSystemTarget.WorkItemGroup	172.29.160.1:11111]	Task [Id=1185, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094DeploymentLoadPublisherSystemTarget@S00000016] took elapsed time 0:00:00.5175153 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/System.5, ManagedThreadId=12, Executing Task Id=1185 Status=RanToCompletion for 00:00:00.5175105 on WorkItem=System*WorkItemGroup:Name=DeploymentLoadPublisherSystemTarget,WorkGroupStatus=Running Executing for 00:00:00.5175105. .>	
+[2018-04-08 10:09:14.462 GMT    12	WARNING	101215	Scheduler.DeploymentLoadPublisherSystemTarget.WorkItemGroup	172.29.160.1:11111]	Task [Id=1225, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094DeploymentLoadPublisherSystemTarget@S00000016] took elapsed time 0:00:00.2490367 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/System.5, ManagedThreadId=12, Executing Task Id=1225 Status=RanToCompletion for 00:00:00.2489995 on WorkItem=System*WorkItemGroup:Name=DeploymentLoadPublisherSystemTarget,WorkGroupStatus=Running Executing for 00:00:00.2499976. .>	
+[2018-04-08 10:09:35.891 GMT    12	INFO   	100507	Catalog	172.29.160.1:11111]	Before collection#2: memory=14MB, #activations=0, collector=<#Activations=0, #Buckets=0, buckets=[]>.	
+[2018-04-08 10:09:36.206 GMT    12	INFO   	100508	Catalog	172.29.160.1:11111]	After collection#2: memory=14MB, #activations=0, collected 0 activations, collector=<#Activations=0, #Buckets=0, buckets=[]>, collection time=00:00:00.3149166.	
+[2018-04-08 10:09:36.501 GMT    12	WARNING	101215	Scheduler.Catalog.WorkItemGroup	172.29.160.1:11111]	Task [Id=1506, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094Catalog@S0000000e] took elapsed time 0:00:00.6185752 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/System.5, ManagedThreadId=12, Executing Task Id=1506 Status=RanToCompletion for 00:00:00.6184999 on WorkItem=System*WorkItemGroup:Name=Catalog,WorkGroupStatus=Running Executing for 00:00:00.6184999. .>	
+[2018-04-08 10:10:33.712 GMT    45	INFO   	101301	Orleans.Messaging.Gateway	172.29.160.1:11111]	Recorded opened socket from endpoint 127.0.0.1:8450, client ID *cli/0d80c3a6.	
+[2018-04-08 10:10:34.079 GMT    49	INFO   	100000	Runtime.Messaging.GatewaySender/GatewaySiloSender_0	172.29.160.1:11111]	Starting AsyncAgent Runtime.Messaging.GatewaySender/GatewaySiloSender_0 on managed thread 49	
+[2018-04-08 10:10:36.514 GMT    12	INFO   	100507	Catalog	172.29.160.1:11111]	Before collection#3: memory=15MB, #activations=0, collector=<#Activations=0, #Buckets=0, buckets=[]>.	
+[2018-04-08 10:10:36.518 GMT    12	INFO   	100508	Catalog	172.29.160.1:11111]	After collection#3: memory=15MB, #activations=0, collected 0 activations, collector=<#Activations=0, #Buckets=0, buckets=[]>, collection time=00:00:00.0036620.	
+[2018-04-08 10:10:43.435 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:06.3085177 - possibly GC? We are now using total of 15MB memory. gc=9, 8, 3	
+[2018-04-08 10:10:43.438 GMT    11	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=2639, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/43309298/00000000+serviceidentity@a0bd0594 #GrainType=Piraeus.Grains.ServiceIdentity Placement=RandomPlacement State=Create] took elapsed time 0:00:05.8998187 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/3, ManagedThreadId=11, Executing Task Id=2639 Status=RanToCompletion for 00:00:05.9005184 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/43309298/00000000+serviceidentity@a0bd0594 #GrainType=Piraeus.Grains.ServiceIdentity Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:05.9005184. .>	
+[2018-04-08 10:10:43.486 GMT    12	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ReadTableTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:09:39.567 GMT, 00:01:03.9178433 since previous fire, should have fired after 00:01:00.	
+[2018-04-08 10:11:22.236 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:04.8585012 - possibly GC? We are now using total of 21MB memory. gc=9, 8, 3	
+[2018-04-08 10:11:22.260 GMT     8	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=3364, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/21D7275C/00000000+auditconfig@29f302b9 #GrainType=Piraeus.Grains.AuditConfig Placement=RandomPlacement State=Create] took elapsed time 0:00:03.8914078 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/0, ManagedThreadId=8, Executing Task Id=3364 Status=RanToCompletion for 00:00:03.8915026 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21D7275C/00000000+auditconfig@29f302b9 #GrainType=Piraeus.Grains.AuditConfig Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:03.8915026. .>	
+[2018-04-08 10:11:29.181 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:06.8717753 - possibly GC? We are now using total of 21MB memory. gc=9, 8, 3	
+[2018-04-08 10:11:33.475 GMT    12	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ProbeTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:11:17.762 GMT, 00:00:15.7122774 since previous fire, should have fired after 00:00:10.	
+[2018-04-08 10:11:33.479 GMT     8	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=3442, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/EDCF6142/00000000+aa@ea1fdc93 #GrainType=Piraeus.Grains.Subscriber Placement=RandomPlacement State=Create] took elapsed time 0:00:11.1110126 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/0, ManagedThreadId=8, Executing Task Id=3442 Status=RanToCompletion for 00:00:11.1112751 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/EDCF6142/00000000+aa@ea1fdc93 #GrainType=Piraeus.Grains.Subscriber Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:11.1112751. .>	
+[2018-04-08 10:11:38.925 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:03.7145044 - possibly GC? We are now using total of 14MB memory. gc=10, 8, 3	
+[2018-04-08 10:11:38.926 GMT    11	INFO   	100507	Catalog	172.29.160.1:11111]	Before collection#4: memory=14MB, #activations=4, collector=<#Activations=3, #Buckets=2, buckets=[1h:59m:21s.74ms->1 items, 2h:0m:21s.74ms->2 items]>.	
+[2018-04-08 10:11:38.927 GMT    10	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=3443, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-b@32a1c285 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement State=Create] took elapsed time 0:00:16.5586007 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/2, ManagedThreadId=10, Executing Task Id=3443 Status=RanToCompletion for 00:00:16.5587793 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-b@32a1c285 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:16.5587793. .>	
+[2018-04-08 10:11:38.955 GMT    11	INFO   	100508	Catalog	172.29.160.1:11111]	After collection#4: memory=14MB, #activations=4, collected 0 activations, collector=<#Activations=3, #Buckets=2, buckets=[1h:59m:21s.44ms->1 items, 2h:0m:21s.44ms->2 items]>, collection time=00:00:00.0297736.	
+[2018-04-08 10:11:51.678 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:10.8885382 - possibly GC? We are now using total of 14MB memory. gc=10, 8, 3	
+[2018-04-08 10:11:51.687 GMT    12	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ProbeTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:11:33.513 GMT, 00:00:18.1735648 since previous fire, should have fired after 00:00:10.	
+[2018-04-08 10:11:51.704 GMT    11	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=3549, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/4731ADE4/00000000+http://www.skunklab.io/resource-a@9894689a #GrainType=Piraeus.Grains.AccessControl Placement=RandomPlacement State=Create] took elapsed time 0:00:12.6535344 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/3, ManagedThreadId=11, Executing Task Id=3549 Status=RanToCompletion for 00:00:12.6535621 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/4731ADE4/00000000+http://www.skunklab.io/resource-a@9894689a #GrainType=Piraeus.Grains.AccessControl Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:12.6535621. .>	
+[2018-04-08 10:11:51.801 GMT    12	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ReadTableTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:10:43.673 GMT, 00:01:08.1283538 since previous fire, should have fired after 00:01:00.	
+[2018-04-08 10:12:12.620 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:05.7214999 - possibly GC? We are now using total of 17MB memory. gc=10, 8, 3	
+[2018-04-08 10:12:14.350 GMT    10	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=3930, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/EDCF6142/00000000+rrrr@a4fef9b7 #GrainType=Piraeus.Grains.Subscriber Placement=RandomPlacement State=Activating] took elapsed time 0:00:07.4457947 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/2, ManagedThreadId=10, Executing Task Id=3930 Status=RanToCompletion for 00:00:07.4455015 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/EDCF6142/00000000+rrrr@a4fef9b7 #GrainType=Piraeus.Grains.Subscriber Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:07.4455015. .>	
+[2018-04-08 10:12:18.395 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:04.0475029 - possibly GC? We are now using total of 17MB memory. gc=10, 8, 3	
+[2018-04-08 10:12:18.430 GMT    12	INFO   	601215	Scheduler.DeploymentLoadPublisherSystemTarget.WorkItemGroup	172.29.160.1:11111]	Log code 101215 occurred 7 additional times in the previous 00:03:18.7892342	
+[2018-04-08 10:12:19.855 GMT    12	WARNING	101215	Scheduler.DeploymentLoadPublisherSystemTarget.WorkItemGroup	172.29.160.1:11111]	Task [Id=3973, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094DeploymentLoadPublisherSystemTarget@S00000016] took elapsed time 0:00:04.1225818 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/System.5, ManagedThreadId=12, Executing Task Id=3973 Status=RanToCompletion for 00:00:04.1225011 on WorkItem=System*WorkItemGroup:Name=DeploymentLoadPublisherSystemTarget,WorkGroupStatus=Running Executing for 00:00:04.1225011. .>	
+[2018-04-08 10:12:31.963 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:12.1080022 - possibly GC? We are now using total of 18MB memory. gc=10, 8, 3	
+[2018-04-08 10:12:31.963 GMT    11	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ProbeTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:12:12.627 GMT, 00:00:19.3365067 since previous fire, should have fired after 00:00:10.	
+[2018-04-08 10:12:31.966 GMT     8	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=3972, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement State=Create] took elapsed time 0:00:17.6189938 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/0, ManagedThreadId=8, Executing Task Id=3972 Status=RanToCompletion for 00:00:17.6190058 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:17.6190058. .>	
+[2018-04-08 10:12:37.814 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:05.7795171 - possibly GC? We are now using total of 18MB memory. gc=10, 8, 3	
+[2018-04-08 10:12:40.901 GMT    11	INFO   	100507	Catalog	172.29.160.1:11111]	Before collection#5: memory=19MB, #activations=8, collector=<#Activations=7, #Buckets=3, buckets=[1h:58m:19s.98ms->1 items, 1h:59m:19s.98ms->3 items, 2h:0m:19s.98ms->3 items]>.	
+[2018-04-08 10:12:40.904 GMT     8	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=4060, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/4731ADE4/00000000+http://www.skunklab.io/resource-b@281c24ae #GrainType=Piraeus.Grains.AccessControl Placement=RandomPlacement State=Create] took elapsed time 0:00:08.7298553 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/0, ManagedThreadId=8, Executing Task Id=4060 Status=RanToCompletion for 00:00:08.7294301 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/4731ADE4/00000000+http://www.skunklab.io/resource-b@281c24ae #GrainType=Piraeus.Grains.AccessControl Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:08.7294301. .>	
+[2018-04-08 10:12:40.909 GMT    11	INFO   	100508	Catalog	172.29.160.1:11111]	After collection#5: memory=19MB, #activations=8, collected 0 activations, collector=<#Activations=7, #Buckets=3, buckets=[1h:58m:19s.90ms->1 items, 1h:59m:19s.90ms->3 items, 2h:0m:19s.90ms->3 items]>, collection time=00:00:00.0074754.	
+[2018-04-08 10:13:20.315 GMT    11	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=4869, Status=RanToCompletion] in WorkGroup [LowPrioritySystemTarget: S172.29.160.1:11111:260878094/567A1EA9/00000000@S00000000] took elapsed time 0:00:00.7080629 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/3, ManagedThreadId=11, Executing Task Id=4869 Status=RanToCompletion for 00:00:00.7080012 on WorkItem=System*WorkItemGroup:Name=/567A1EA9/00000000,WorkGroupStatus=Running Executing for 00:00:00.7080012. .>	
+[2018-04-08 10:13:30.715 GMT    31	INFO   	600150	Watchdog	172.29.160.1:11111]	Log code 100150 occurred 1 additional time in the previous 00:01:39.0373184	
+[2018-04-08 10:13:30.724 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:05.5275401 - possibly GC? We are now using total of 19MB memory. gc=11, 8, 3	
+[2018-04-08 10:13:32.941 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:02.2134998 - possibly GC? We are now using total of 19MB memory. gc=11, 8, 3	
+[2018-04-08 10:13:32.950 GMT    10	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=5468, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/B4FBE1A5/00000000+resourcelist@3680d1a0 #GrainType=Piraeus.Grains.ResourceList Placement=RandomPlacement State=Create] took elapsed time 0:00:06.9786011 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/2, ManagedThreadId=10, Executing Task Id=5468 Status=RanToCompletion for 00:00:06.9785452 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/B4FBE1A5/00000000+resourcelist@3680d1a0 #GrainType=Piraeus.Grains.ResourceList Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:06.9785452. .>	
+[2018-04-08 10:13:39.166 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:06.1836896 - possibly GC? We are now using total of 20MB memory. gc=11, 8, 3	
+[2018-04-08 10:13:41.610 GMT    12	INFO   	100507	Catalog	172.29.160.1:11111]	Before collection#6: memory=20MB, #activations=9, collector=<#Activations=9, #Buckets=4, buckets=[1h:57m:18s.389ms->1 items, 1h:58m:18s.389ms->1 items, 1h:59m:18s.389ms->2 items, 2h:0m:18s.389ms->5 items]>.	
+[2018-04-08 10:13:41.621 GMT    12	INFO   	100508	Catalog	172.29.160.1:11111]	After collection#6: memory=20MB, #activations=9, collected 0 activations, collector=<#Activations=9, #Buckets=4, buckets=[1h:57m:18s.378ms->1 items, 1h:58m:18s.378ms->1 items, 1h:59m:18s.378ms->2 items, 2h:0m:18s.378ms->5 items]>, collection time=00:00:00.0114678.	
+[2018-04-08 10:13:41.702 GMT    10	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=5441, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement State=Valid] took elapsed time 0:00:08.724518 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/2, ManagedThreadId=10, Executing Task Id=5441 Status=RanToCompletion for 00:00:08.7247244 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:08.7257276. .>	
+[2018-04-08 10:13:47.716 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:06.1040028 - possibly GC? We are now using total of 20MB memory. gc=11, 8, 3	
+[2018-04-08 10:13:47.716 GMT    11	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ProbeTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:13:32.962 GMT, 00:00:14.7542366 since previous fire, should have fired after 00:00:10.	
+[2018-04-08 10:13:47.719 GMT    10	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=5571, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement State=Valid] took elapsed time 0:00:06.0066954 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/2, ManagedThreadId=10, Executing Task Id=5571 Status=RanToCompletion for 00:00:06.0065035 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:06.0065035. .>	
+[2018-04-08 10:13:47.764 GMT    11	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.IAmAliveTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:08:42.624 GMT, 00:05:05.1402721 since previous fire, should have fired after 00:05:00.	
+[2018-04-08 10:13:47.788 GMT    31	ERROR  	101212	Runtime.Scheduler.WorkerPoolThread/2	172.29.160.1:11111]	!!!!!!!!!! Worker pool thread Runtime.Scheduler.WorkerPoolThread/2 (ManagedThreadId=10) has been busy for long time: Executing Task Id=5571 Status=RanToCompletion for 00:00:06.0675027 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:06.0675027. WorkItemGroup Details: WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement],WorkGroupStatus=Running. Currently QueuedWorkItems=1; Total EnQueued=18; Total processed=17; Quantum expirations=0; TaskRunner=ActivationTaskScheduler-20:Queued=1; Detailed SchedulingContext=<[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/000000000000000000000000000000000600000021db86b4+http://www.skunklab.io/resource-a-0x6B6D460F@77a45387 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement State=Valid NonReentrancyQueueSize=0 EnqueuedOnDispatcher=0 InFlightCount=1 NumRunning=1 IdlenessTimeSpan=00:00:49.4131704 CollectionAgeLimit=02:00:00 CurrentlyExecuting=Request S172.29.160.1:11111:260878094*cli/0d80c3a6@02816c87->S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-a@77a45387 #29: global::Piraeus.GrainInterfaces.IResource:UpsertMetadataAsync()]>.	
+[2018-04-08 10:13:47.794 GMT    28	INFO   	100704	SiloLogStatistics	172.29.160.1:11111]	Statistics: ^^^
+App.Requests.Latency.Average.Millis=113.000
+App.Requests.LatencyHistogram.Millis=[0.4096:0.8191]=66, [0.8192:1.6383]=19, [1.6384:3.2767]=16, [3.2768:6.5535]=19, [6.5536:13.1071]=24, [13.1072:26.2143]=19, [26.2144:52.4287]=8, [52.4288:104.8575]=12, [104.8576:209.7151]=14, [209.7152:419.4303]=2, [419.4304:838.8607]=2, [838.8608:1677.7215]=2, [1677.7216:3355.4431]=1, [3355.4432:6710.8863]=1, [6710.8864:13421.7727]=1, 
+App.Requests.TimedOut.Current=0
+App.Requests.Total.Requests.Current=206
+Catalog.Activation.Collection.NumberOfCollections.Current=6
+Catalog.Activation.Created.Current=9
+Catalog.Activation.CurrentCount=9
+Catalog.Activation.Destroyed.Current=0
+Catalog.Activation.FailedToActivate.Current=0
+ConsistentRing.AverageRangePercentage=100.000
+ConsistentRing.MyRange.RingDistance=x100000000
+ConsistentRing.MyRange.RingPercentage=100.000
+ConsistentRing.Ring=[S172.29.160.1:11111:260878094 -> <MultiRange: Size=x100000000, %Ring=100.000%>]
+ConsistentRing.RingSize=1
+Directory.CacheSize=0
+Directory.Lookups.Cache.HitRatio=0, Delta=0
+Directory.Lookups.Cache.Issued.Current=0
+Directory.Lookups.Cache.Successes.Current=0
+Directory.Lookups.Full.Issued.Current=9
+Directory.Lookups.Local.Issued.Current=27
+Directory.Lookups.Local.Successes.Current=18
+Directory.Lookups.LocalDirectory.Issued.Current=36
+Directory.Lookups.LocalDirectory.Successes.Current=18
+Directory.Lookups.Remote.Received.Current=0
+Directory.Lookups.Remote.Sent.Current=0
+Directory.PartitionSize=10
+Directory.Registrations.Issued.Current=2
+Directory.Registrations.Local.Current=2
+Directory.Registrations.Remote.Received.Current=0
+Directory.Registrations.Remote.Sent.Current=0
+Directory.Registrations.SingleAct.Issued.Current=9
+Directory.Registrations.SingleAct.Local.Current=9
+Directory.Registrations.SingleAct.Remote.Received.Current=0
+Directory.Registrations.SingleAct.Remote.Sent.Current=0
+Directory.Ring=[S172.29.160.1:11111:260878094/EF265184]
+Directory.Ring.MyPortion.AverageRingPercentage=100.000
+Directory.Ring.MyPortion.RingDistance=0
+Directory.Ring.MyPortion.RingPercentage=0.000
+Directory.Ring.MyPredecessors=[]
+Directory.Ring.MySuccessors=[]
+Directory.Ring.RingSize=1
+Directory.UnRegistrations.Issued.Current=0
+Directory.UnRegistrations.Local.Current=0
+Directory.UnRegistrations.Remote.Received.Current=0
+Directory.UnRegistrations.Remote.Sent.Current=0
+Directory.UnRegistrationsMany.Issued.Current=0
+Directory.UnRegistrationsMany.Remote.Received.Current=0
+Directory.UnRegistrationsMany.Remote.Sent.Current=0
+Directory.Validations.Cache.Received.Current=0
+Directory.Validations.Cache.Sent.Current=0
+Dispatcher.NewPlacement.Current=9
+Gateway.ConnectedClients.Current=1
+Gateway.LoadShedding.Current=0
+Gateway.Received.Current=28
+Gateway.Sent.Current=28
+Grain.Piraeus.Grains.AccessControl.Current=2
+Grain.Piraeus.Grains.AuditConfig.Current=1
+Grain.Piraeus.Grains.Resource.Current=2
+Grain.Piraeus.Grains.ResourceList.Current=1
+Grain.Piraeus.Grains.ServiceIdentity.Current=1
+Grain.Piraeus.Grains.Subscriber.Current=2
+Membership.ActiveCluster=[S172.29.160.1:11111:260878094]
+Membership.ActiveClusterSize=1
+MessageCenter.ReceiveQueueLength=0
+MessageCenter.SendQueueLength=0
+Messaging.Acceptor.AllocatedSocketEventArgs.Current=1
+Messaging.Acceptor.CheckedInSocketEventArgs.Current=0
+Messaging.Acceptor.CheckedOutSocketEventArgs.Current=1
+Messaging.Acceptor.InUseSocketEventArgs=1
+Messaging.Expired.AtDispatch.Current=0
+Messaging.Expired.AtInvoke.Current=0
+Messaging.Expired.AtReceive.Current=0
+Messaging.Expired.AtRespond.Current=0
+Messaging.Expired.AtSend.Current=0
+Messaging.Processing.ActivationData.All=1
+Messaging.Processing.Dispatcher.Processed.Errors.Direction.OneWay.Current=0
+Messaging.Processing.Dispatcher.Processed.Errors.Direction.Request.Current=0
+Messaging.Processing.Dispatcher.Processed.Errors.Direction.Response.Current=0
+Messaging.Processing.Dispatcher.Processed.Ok.Direction.OneWay.Current=0
+Messaging.Processing.Dispatcher.Processed.Ok.Direction.Request.Current=27
+Messaging.Processing.Dispatcher.Processed.Ok.Direction.Response.Current=1
+Messaging.Processing.Dispatcher.Processed.ReRoute.Direction.OneWay.Current=0
+Messaging.Processing.Dispatcher.Processed.ReRoute.Direction.Request.Current=0
+Messaging.Processing.Dispatcher.Processed.ReRoute.Direction.Response.Current=0
+Messaging.Processing.Dispatcher.Processed.Total.Current=28
+Messaging.Processing.Dispatcher.Received.Direction.OneWay.Current=0
+Messaging.Processing.Dispatcher.Received.Direction.Request.Current=27
+Messaging.Processing.Dispatcher.Received.Direction.Response.Current=1
+Messaging.Processing.Dispatcher.Received.OnActivationContext.Current=18
+Messaging.Processing.Dispatcher.Received.OnNullContext.Current=10
+Messaging.Processing.Dispatcher.Received.Total.Current=28
+Messaging.Processing.IGC.Forwarded.Current=0
+Messaging.Processing.IGC.ReRoute.Current=0
+Messaging.Processing.IGC.Resent.Current=0
+Messaging.Processing.IMA.Enqueued.ToActivationContex.Current=18
+Messaging.Processing.IMA.Enqueued.ToNullContex.Current=10
+Messaging.Processing.IMA.Enqueued.ToSystemTargetContex.Current=412
+Messaging.Processing.IMA.Received.Current=440
+Messaging.Received.BatchSize.PerSocketDirection.GatewayToClient=0.000
+Messaging.Received.BatchSize.PerSocketDirection.SiloToSilo=0.000
+Messaging.Received.BatchSizeBytesHistogram.Bytes.PerSocketDirection.GatewayToClient=
+Messaging.Received.BatchSizeBytesHistogram.Bytes.PerSocketDirection.SiloToSilo=
+Messaging.Received.Bytes.Header.Current=6199
+Messaging.Received.Bytes.Total.Current=9665
+Messaging.Received.Direction.OneWay.Current=0
+Messaging.Received.Direction.Request.Current=28
+Messaging.Received.Direction.Response.Current=0
+Messaging.Received.Messages.From.Null.Current=28
+Messaging.Received.Messages.Total.Current=28
+Messaging.Received.MessageSizeHistogram.Bytes=[128:255]=22, [256:511]=3, [512:1023]=1, [1024:2047]=2, 
+Messaging.Rerouted.OneWay.Current=0
+Messaging.Rerouted.Request.Current=28
+Messaging.Rerouted.Response.Current=0
+Messaging.Sent.BatchSize.PerSocketDirection.GatewayToClient=0.000
+Messaging.Sent.BatchSize.PerSocketDirection.SiloToSilo=0.000
+Messaging.Sent.BatchSizeBytesHistogram.Bytes.PerSocketDirection.GatewayToClient=
+Messaging.Sent.BatchSizeBytesHistogram.Bytes.PerSocketDirection.SiloToSilo=
+Messaging.Sent.Bytes.Header.Current=6927
+Messaging.Sent.Bytes.Total.Current=11380
+Messaging.Sent.Direction.OneWay.Current=0
+Messaging.Sent.Direction.Request.Current=0
+Messaging.Sent.Direction.Response.Current=28
+Messaging.Sent.LocalMessages.Current=440
+Messaging.Sent.Messages.To.Null.Current=28
+Messaging.Sent.Messages.Total.Current=28
+Messaging.Sent.MessageSizeHistogram.Bytes=[128:255]=11, [256:511]=16, [2048:4095]=1, 
+Networking.Sockets.GatewayToClient.Duplex.Closed.Current=0
+Networking.Sockets.GatewayToClient.Duplex.Opened.Current=1
+Networking.Sockets.Silo.Receiving.Closed.Current=0
+Networking.Sockets.Silo.Receiving.Opened.Current=0
+Networking.Sockets.Silo.Sending.Closed.Current=0
+Networking.Sockets.Silo.Sending.Opened.Current=0
+Queues.QueueSize.Instantaneous.Scheduler.LevelOne=0
+Reminders.AverageTardiness.Seconds=0 Secs
+Reminders.NumberOfActiveReminders=0
+Reminders.TicksDelivered.Current=0
+Runtime.CpuUsage=78.430
+Runtime.DOT.NET.ThreadPool.InUse.CompletionPortThreads=0
+Runtime.DOT.NET.ThreadPool.InUse.WorkerThreads=4
+Runtime.GC.AllocatedBytesInKbPerSec=0.000
+Runtime.GC.GenCollectonCount=gen0=11, gen1=8, gen2=3
+Runtime.GC.GenSizesKb=gen0=20819.56, gen1=853.36, gen2=10256.78
+Runtime.GC.LargeObjectHeapSizeKb=7178.430
+Runtime.GC.NumberOfInducedGCs=2.000
+Runtime.GC.PercentOfTimeInGC=0.002
+Runtime.GC.PromotedFinalizationMemoryFromGen0Kb=18.829
+Runtime.GC.PromotedMemoryFromGen1Kb=0.000
+Runtime.GC.TotalMemoryKb=21888
+Runtime.IsOverloaded=False
+Runtime.Memory.AvailableMemoryMb=4710
+Runtime.Memory.TotalPhysicalMemoryMb=16384
+Runtime.Threads.AsynchAgent.Runtime.GrainDirectory.AdaptiveDirectoryCacheMaintainer`1.Current=1
+Runtime.Threads.AsynchAgent.Runtime.GrainDirectory.GlobalSingleInstanceActivationMaintainer.Current=0
+Runtime.Threads.AsynchAgent.Runtime.Messaging.GatewayAcceptor.Current=0
+Runtime.Threads.AsynchAgent.Runtime.Messaging.GatewayClientCleanupAgent.Current=1
+Runtime.Threads.AsynchAgent.Runtime.Messaging.GatewaySender.Current=1
+Runtime.Threads.AsynchAgent.Runtime.Messaging.IncomingMessageAcceptor.Current=0
+Runtime.Threads.AsynchAgent.Runtime.Messaging.IncomingMessageAgent.Current=3
+Runtime.Threads.AsynchAgent.Runtime.Messaging.SiloMessageSender.Current=2
+Runtime.Threads.AsynchAgent.Runtime.Scheduler.WorkerPoolThread.Current=5
+Runtime.Threads.AsynchAgent.Runtime.Watchdog.Current=1
+Runtime.Threads.AsynchAgent.TotalThreadsCreated.Current=17
+Scheduler.NumLongQueueWaitTimes.Current=0
+Scheduler.NumLongRunningTurns.Current=27
+Scheduler.WorkItemGroupCount=22
+Serialization.BufferPool.AllocatedBuffers.Current=250
+Serialization.BufferPool.BuffersInPool=218
+Serialization.BufferPool.CheckedInBuffers.Current=366
+Serialization.BufferPool.CheckedOutBuffers.Current=398
+Serialization.BufferPool.DroppedBuffers.Current=0
+Serialization.BufferPool.DroppedTooLargeBuffers.Current=0
+Serialization.BufferPool.InUse.AllocatedAndNotInPool_Buffers=32
+Serialization.BufferPool.InUse.CheckedOutAndNotCheckedIn_Buffers=32
+Silo.StartTime=2018-04-08 10:08:15.021 GMT
+Storage.Activate.Errors.Current=0
+Storage.Activate.Total.Current=9
+Storage.Azure.Table.ServerBusy.Current=0
+Storage.Clear.Errors.Current=0
+Storage.Clear.Latency=0 Secs
+Storage.Clear.Total.Current=0
+Storage.Read.Errors.Current=0
+Storage.Read.Latency=10.3353234 Secs
+Storage.Read.Total.Current=0
+Storage.Write.Errors.Current=0
+Storage.Write.Latency=14.7371921 Secs
+Storage.Write.Total.Current=1
+SystemTarget..Current=3
+Watchdog.NumHealthChecks.Current=1
+	
+[2018-04-08 10:13:51.221 GMT    11	WARNING	101215	Scheduler.MembershipOracle.WorkItemGroup	172.29.160.1:11111]	Task [Id=5575, Status=RanToCompletion] in WorkGroup [SystemTarget: S172.29.160.1:11111:260878094MembershipOracle@S0000000f] took elapsed time 0:00:03.4560063 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/3, ManagedThreadId=11, Executing Task Id=5575 Status=RanToCompletion for 00:00:03.4562659 on WorkItem=System*WorkItemGroup:Name=MembershipOracle,WorkGroupStatus=Running Executing for 00:00:03.5042663. .>	
+[2018-04-08 10:13:51.232 GMT    31	WARNING	102603	Watchdog	172.29.160.1:11111]	Watchdog had 1 Health Check Failure(s) out of 2 Health Check Participants.	
+[2018-04-08 10:13:55.731 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:07.9559574 - possibly GC? We are now using total of 22MB memory. gc=11, 8, 3	
+[2018-04-08 10:13:55.733 GMT     8	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=5607, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-b@32a1c285 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement State=Valid] took elapsed time 0:00:07.8367324 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/0, ManagedThreadId=8, Executing Task Id=5607 Status=RanToCompletion for 00:00:07.8369611 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/21DB86B4/00000000+http://www.skunklab.io/resource-b@32a1c285 #GrainType=Piraeus.Grains.Resource Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:07.8399595. .>	
+[2018-04-08 10:13:55.748 GMT    12	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ReadTableTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:12:51.981 GMT, 00:01:03.7671329 since previous fire, should have fired after 00:01:00.	
+[2018-04-08 10:14:21.237 GMT    10	INFO   	601215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Log code 101215 occurred 1 additional time in the previous 00:01:00.9219112	
+[2018-04-08 10:14:21.282 GMT    10	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=6101, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/91DCB108/00000000+http://www.skunklab.io/resource-b/b6587c94-909e-424e-8781-943341056537@a647298f #GrainType=Piraeus.Grains.Subscription Placement=RandomPlacement State=Activating] took elapsed time 0:00:05.7287715 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/2, ManagedThreadId=10, Executing Task Id=6101 Status=RanToCompletion for 00:00:05.7285006 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/91DCB108/00000000+http://www.skunklab.io/resource-b/b6587c94-909e-424e-8781-943341056537@a647298f #GrainType=Piraeus.Grains.Subscription Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:05.7285006. .>	
+[2018-04-08 10:14:21.290 GMT    12	WARNING	101410	GrainTimer	172.29.160.1:11111]	-GrainTimer.Membership.ProbeTimer. TimerCallbackHandler:Orleans.Runtime.GrainTimer+<>c__DisplayClass16_0->System.Threading.Tasks.Task <FromTimerCallback>b__0(System.Object) did not fire on time. Last fired at 2018-04-08 10:14:07.818 GMT, 00:00:13.4725128 since previous fire, should have fired after 00:00:10.	
+[2018-04-08 10:14:39.477 GMT    31	INFO   	600150	Watchdog	172.29.160.1:11111]	Log code 100150 occurred 2 additional times in the previous 00:01:08.7620004	
+[2018-04-08 10:14:39.488 GMT     9	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=6473, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/EDCF6142/00000000+www@58ddd28f #GrainType=Piraeus.Grains.Subscriber Placement=RandomPlacement State=Activating] took elapsed time 0:00:03.8023901 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/1, ManagedThreadId=9, Executing Task Id=6473 Status=RanToCompletion for 00:00:03.8023997 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/EDCF6142/00000000+www@58ddd28f #GrainType=Piraeus.Grains.Subscriber Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:03.8023997. .>	
+[2018-04-08 10:14:39.504 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:04.1994215 - possibly GC? We are now using total of 29MB memory. gc=11, 8, 3	
+[2018-04-08 10:14:43.252 GMT    31	WARNING	100150	Watchdog	172.29.160.1:11111]	.NET Runtime Platform stalled for 00:00:03.7474916 - possibly GC? We are now using total of 30MB memory. gc=11, 8, 3	
+[2018-04-08 10:14:43.260 GMT     9	WARNING	101215	Scheduler.WorkItemGroup	172.29.160.1:11111]	Task [Id=6536, Status=RanToCompletion] in WorkGroup [Activation: S172.29.160.1:11111:260878094*grn/91DCB108/00000000+http://www.skunklab.io/resource-a/47ddf83b-9461-4130-b578-23ded2dcd51d@06a990a0 #GrainType=Piraeus.Grains.Subscription Placement=RandomPlacement State=Create] took elapsed time 0:00:03.7242602 for execution, which is longer than 00:00:00.2000000. Running on thread <Runtime.Scheduler.WorkerPoolThread/1, ManagedThreadId=9, Executing Task Id=6536 Status=RanToCompletion for 00:00:03.7244947 on WorkItem=WorkItemGroup:Name=[Activation: S172.29.160.1:11111:260878094*grn/91DCB108/00000000+http://www.skunklab.io/resource-a/47ddf83b-9461-4130-b578-23ded2dcd51d@06a990a0 #GrainType=Piraeus.Grains.Subscription Placement=RandomPlacement],WorkGroupStatus=Running Executing for 00:00:03.7244947. .>	
+[2018-04-08 10:14:43.261 GMT    12	INFO   	100507	Catalog	172.29.160.1:11111]	Before collection#7: memory=30MB, #activations=13, collector=<#Activations=12, #Buckets=5, buckets=[1h:56m:16s.738ms->1 items, 1h:57m:16s.738ms->1 items, 1h:58m:16s.738ms->1 items, 1h:59m:16s.738ms->1 items, 2h:0m:16s.738ms->8 items]>.	

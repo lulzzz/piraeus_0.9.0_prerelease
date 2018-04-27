@@ -1,9 +1,13 @@
 ﻿//using Microsoft.Rest.Azure.Authentication;
 //using Piraeus.Core.Messaging;
 //using Piraeus.Core.Metadata;
+//using SkunkLab.Protocols.Coap;
+//using SkunkLab.Protocols.Mqtt;
 //using System;
 //using System.Collections.Specialized;
 //using System.Diagnostics;
+//using System.IO;
+//using System.Threading;
 //using System.Threading.Tasks;
 //using System.Web;
 
@@ -14,11 +18,13 @@
 
 //        private string appId;
 //        private string secret;
-//        private string tenantId;
-//        private string fqdn;
+//        private string domain;
+//        private string account;
 //        private string folder;
-//        private AdlsClient client;
+//        private string filename;
 //        private string subscriptionUriString;
+//        private Uri ADL_TOKEN_AUDIENCE = new System.Uri(@"https://datalake.azure.net/");
+//        private DataLakeStoreFileSystemManagementClient client;
 
 //        /// <summary>
 //        /// Creates Azure Data Lake notification 
@@ -35,20 +41,19 @@
 //                subscriptionUriString = metadata.SubscriptionUriString;
 
 //                Uri uri = new Uri(metadata.NotifyAddress);
+//                account = uri.Authority.Replace(".azuredatalakestore.net", "");
 //                NameValueCollection nvc = HttpUtility.ParseQueryString(uri.Query);
 //                appId = nvc["appid"];
-//                tenantId = nvc["tenantid"];
+//                domain = nvc["domain"];
 //                folder = nvc["folder"];
+//                filename = nvc["file"];
+
 //                secret = metadata.SymmetricKey;
 
-//                //adl://malong.azuredatalakestore.net
-//                string fqdn = String.Format("{0}{1}{2}{3}", uri.Scheme, Uri.SchemeDelimiter, uri.Authority, uri.AbsolutePath);
-//                var creds = new ClientCredential(appId, secret);
+//                var creds = GetCreds_SPI_SecretKey(domain, ADL_TOKEN_AUDIENCE, appId, secret);
+//                client = new DataLakeStoreFileSystemManagementClient(creds);
 
-//                //var clientCreds = ApplicationTokenProvider.LoginSilentAsync(tenantId, creds).GetAwaiter().GetResult();
-//                Task<ServiceClientCredentials> task = LoginSilent(creds);
-//                var clientCreds = task.Result;
-//                client = AdlsClient.CreateClient(fqdn, clientCreds);
+
 //            }
 //            catch (Exception ex)
 //            {
@@ -57,28 +62,26 @@
 //            }
 //        }
 
-//        private Task<ServiceClientCredentials> LoginSilent(ClientCredential creds)
-//        {
-//            TaskCompletionSource<ServiceClientCredentials> tcs = new TaskCompletionSource<ServiceClientCredentials>();
-//            Task<ServiceClientCredentials> t = ApplicationTokenProvider.LoginSilentAsync(tenantId, creds);
-//            tcs.SetResult(null);
-//            return tcs.Task;
-//        }
+
 
 //        public override async Task SendAsync(EventMessage message)
 //        {
 //            try
 //            {
-//                string filename = String.Format("/{0}/{1}", folder, GetFilename(message.ContentType));
-//                using (AdlsOutputStream stream = await client.CreateFileAsync(filename, IfExists.Overwrite))
+//                byte[] payload = GetPayload(message);
+//                string path = GetPath(message.ContentType);
+//                if (filename != null)
 //                {
-//                    await stream.WriteAsync(message.Message, 0, message.Message.Length);
-//                    await stream.FlushAsync();
-//                    stream.Close();
+//                    using (MemoryStream stream = new MemoryStream(payload))
+//                    {
+//                        await client.FileSystem.AppendAsync(account, path, stream);
+//                    }
 //                }
 //            }
+
 //            catch (Exception ex)
 //            {
+//                Trace.TraceWarning("Data Lake sink write error.");
 //                Trace.TraceError("Azure data lake subscription {0} writing error {1}", subscriptionUriString, ex.Message);
 //            }
 //        }
@@ -102,5 +105,61 @@
 //            string filename = DateTime.UtcNow.ToString("yyyy-MM-ddTHH-MM-ss-fffff");
 //            return suffix == null ? filename : String.Format("{0}.{1}", filename, suffix);
 //        }
+
+
+//        private byte[] GetPayload(EventMessage message)
+//        {
+//            switch (message.Protocol)
+//            {
+//                case ProtocolType.COAP:
+//                    CoapMessage coap = CoapMessage.DecodeMessage(message.Message);
+//                    return coap.Payload;
+//                case ProtocolType.MQTT:
+//                    MqttMessage mqtt = MqttMessage.DecodeMessage(message.Message);
+//                    return mqtt.Payload;
+//                case ProtocolType.REST:
+//                    return message.Message;
+//                case ProtocolType.WSN:
+//                    return message.Message;
+//                default:
+//                    return null;
+//            }
+//        }
+
+
+
+//        private string GetPath(string contentType)
+//        {
+//            if (filename != null)
+//            {
+//                return String.Format("/{0}/{1}", folder, filename);
+//            }
+//            else
+//            {
+//                return GetFilename(contentType);
+//            }
+//        }
+
+
+//        private ServiceClientCredentials GetCreds_SPI_SecretKey(string tenant, Uri tokenAudience, string clientId, string secretKey)
+//        {
+//            ServiceClientCredentials scc;
+
+//            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+
+//            var serviceSettings = ActiveDirectoryServiceSettings.Azure;
+//            serviceSettings.TokenAudience = tokenAudience;
+
+//            var creds = ApplicationTokenProvider.LoginSilentAsync(
+//             tenant,
+//             clientId,
+//             secretKey,
+//             serviceSettings).GetAwaiter().GetResult();
+//            return creds;
+//        }
+
+
+
+
 //    }
 //}

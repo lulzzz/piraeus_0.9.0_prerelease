@@ -14,12 +14,12 @@ namespace SkunkLab.Protocols.Coap.Handlers
         }
 
         public override async Task<CoapMessage> ProcessAsync()
-        {            
+        {
 
             CoapMessage response = null;
             if (!Session.CoapReceiver.IsDup(Message.MessageId))
             {
-                response = await Dispatcher.PostAsync(Message);
+                response = await Dispatcher.PostAsync(Message).ContinueWith<CoapMessage>(ExceptionAction, TaskContinuationOptions.OnlyOnFaulted);
             }
             else
             {
@@ -28,9 +28,10 @@ namespace SkunkLab.Protocols.Coap.Handlers
                     return await Task.FromResult<CoapMessage>(new CoapResponse(Message.MessageId, ResponseMessageType.Acknowledgement, ResponseCodeType.EmptyMessage));
                 }
             }
+            
 
-            if(response != null && !Message.NoResponse.IsNoResponse(Message.Code))            
-            {
+            if (response != null && !Message.NoResponse.IsNoResponse(Message.Code))            
+            {                
                 return response;
             }
             else
@@ -38,6 +39,13 @@ namespace SkunkLab.Protocols.Coap.Handlers
                 return null;
             }
 
+        }
+
+        private CoapMessage ExceptionAction(Task task)
+        {
+            System.Diagnostics.Trace.WriteLine(task.Exception.Message);
+            System.Diagnostics.Trace.WriteLine(task.Exception.StackTrace);
+            return null;
         }
     }
 }

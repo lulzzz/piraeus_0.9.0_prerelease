@@ -15,6 +15,7 @@ namespace SkunkLab.Storage
             CloudStorageAccount account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(connectionString);
             StorageCredentials credentials = new StorageCredentials(account.Credentials.AccountName, account.Credentials.ExportKey());
             client = new CloudQueueClient(account.QueueStorageUri, credentials);
+            
             container = new Dictionary<string, CloudQueue>();
 
             if(bufferManager != null)

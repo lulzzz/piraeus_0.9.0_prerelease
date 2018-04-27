@@ -4,9 +4,9 @@ using SkunkLab.Protocols.Coap;
 using SkunkLab.Protocols.Mqtt;
 using SkunkLab.Storage;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -15,20 +15,44 @@ namespace Piraeus.Grains.Notifications
 {
     public class AzureBlobStorageSink : EventSink
     {
-        private BlobStorage storage;
+
+        
         private string container;
         private string blobType;
         private string appendFilename;
         private Auditor auditor;
         private Uri uri;
-        
+        private string key;
+        private Uri sasUri;        
+        private BlobStorage[] storageArray;
+        private int arrayIndex;
+        private ConcurrentQueue<byte[]> queue;
+        private int delay;
+        private int clientCount;
+
+
+
         public AzureBlobStorageSink(SubscriptionMetadata metadata)
             : base(metadata)
         {
+
+            queue = new ConcurrentQueue<byte[]>();
             auditor = new Auditor();
+            key = metadata.SymmetricKey;
             uri = new Uri(metadata.NotifyAddress);
             NameValueCollection nvc = HttpUtility.ParseQueryString(uri.Query);
             container = nvc["container"];
+            
+            if(!int.TryParse(nvc["clients"], out clientCount))
+            {
+                clientCount = 1;
+            }
+
+            if(!int.TryParse(nvc["delay"], out delay))
+            {
+                delay = 1000;
+            }
+
 
             if (String.IsNullOrEmpty(container))
             {
@@ -54,73 +78,154 @@ namespace Piraeus.Grains.Notifications
                 return;
             }
 
-            Uri sasUri = null;
+            sasUri = null;
             Uri.TryCreate(metadata.SymmetricKey, UriKind.Absolute, out sasUri);
 
+            //storageArray = new BlobStorage[rangeMax + 1];
+            storageArray = new BlobStorage[clientCount];
             if (sasUri == null)
             {
-                storage = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], metadata.SymmetricKey),10000,1000);
+                string connectionString = String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key);
+                
+                for(int i=0;i<clientCount;i++)
+                {
+                    storageArray[i] = BlobStorage.New(connectionString, 2048, 102400);
+                }
+                //storage = BlobStorage.New(connectionString, 2048, 102400);
+                //pool = new StoragePool(connectionString, 5, 2048, 102400);
+
+                //storage = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
+               
+                //storageArray[rangeIndex] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
+                //for (int i = 0; i < rangeMax; i++)
+                //{
+                    
+                //    //storageArray[rangeIndex] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
+                //    //rangeIndex = rangeIndex.RangeIncrement(rangeMin, rangeMax);
+                    
+                    
+                //}
+                //storageArray[0] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
+                //storageArray[1] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
             }
             else
             {
-                string connectionString = String.Format("BlobEndpoint={0};SharedAccessSignature={1}", container != "$Root" ? uri.ToString().Replace(uri.LocalPath, "") : uri.ToString(), metadata.SymmetricKey);
-                storage = BlobStorage.New(connectionString,10000,1000);
+                string connectionString = String.Format("BlobEndpoint={0};SharedAccessSignature={1}", container != "$Root" ? uri.ToString().Replace(uri.LocalPath, "") : uri.ToString(), key);
+                //storage = BlobStorage.New(connectionString, 2048, 102400);
+                for (int i = 0; i < clientCount; i++)
+                {
+                    storageArray[i] = BlobStorage.New(connectionString, 2048, 102400);
+                }
+                //pool = new StoragePool(connectionString, 5, 2048, 102400);
+                //storage = BlobStorage.New(connectionString, 10240, 1024);
+                //for (int i = 0; i < rangeMax + 1; i++)
+                //{
+                //    storageArray[rangeIndex] = BlobStorage.New(connectionString, 10240, 1024);
+                //    rangeIndex = rangeIndex.RangeIncrement(rangeMin, rangeMax);
+                //}
+
+
+                //storageArray[0] = BlobStorage.New(connectionString,10240,1024);
+                //storageArray[1] = BlobStorage.New(connectionString, 10240, 1024);
             }
+
+            //rangeIndex = 0;
         }
 
+        
         public override async Task SendAsync(EventMessage message)
         {
-            if(storage == null)
-            {
-                Trace.TraceWarning("Subscription {0} did not initialize storage for blob storage sink.  Check logs to determine reason.", metadata.SubscriptionUriString);
-                return;
-            }
-
+            
             AuditRecord record = null;
             byte[] payload = null;
-           
+            string filename = null;
+
+            byte[] msg = GetPayload(message);
+
+            if (msg != null)
+            {
+                queue.Enqueue(msg);
+            }
+
             try
             {
-                payload = GetPayload(message);
-                if(payload == null)
+                while (!queue.IsEmpty)
                 {
-                    Trace.TraceWarning("Subscription {0} could not write to blob storage sink because payload was either null or unknown protocol type.");
-                    return;
-                }
+                    arrayIndex = arrayIndex.RangeIncrement(0, clientCount - 1);
+                    queue.TryDequeue(out payload);
+                    
+                    //payload = GetPayload(message);
+                    if (payload == null)
+                    {
+                        Trace.TraceWarning("Subscription {0} could not write to blob storage sink because payload was either null or unknown protocol type.");
+                        return;
+                    }
 
-                string filename = GetBlobName(message.ContentType);
+                    filename = GetBlobName(message.ContentType);
 
-                if (blobType == "block")
-                {
+                    if (blobType == "block")
+                    {
 
-                    await storage.WriteBlockBlobAsync(container, filename, payload, message.ContentType);
-                }
-                else if (blobType == "page")
-                {
-                    await storage.WritePageBlobAsync(container, filename, payload, message.ContentType);
-                }
-                else
-                {
-                    await storage.WriteAppendBlobAsync(container, GetAppendFilename(message.ContentType), payload, message.ContentType);
-                }
+                        await storageArray[arrayIndex].WriteBlockBlobAsync(container, filename, payload, message.ContentType);
+                        //await storage.WriteBlockBlobAsync(container, filename, payload, message.ContentType);
 
-                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureBlob", "AzureBlob", payload.Length, true, DateTime.UtcNow);
+                        //await storage.WriteBlockBlobAsync(container, filename, payload, message.ContentType).ContinueWith(async (antecedent) =>
+                        //{
+                        //    await storage.WriteBlockBlobAsync(container, filename, payload, message.ContentType);
+                        //}, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(async (antecedent) =>
+                        //{                        
+                        //    await storage.WriteBlockBlobAsync(container, filename, payload, message.ContentType);
+
+                        //}, TaskContinuationOptions.OnlyOnFaulted);
+                    }
+                    else if (blobType == "page")
+                    {
+                        int pad = payload.Length % 512 != 0 ? 512 - payload.Length % 512 : 0;
+                        byte[] buffer = new byte[payload.Length + pad];
+                        Buffer.BlockCopy(payload, 0, buffer, 0, payload.Length);
+                        //await storage.WritePageBlobAsync(container, filename, buffer, message.ContentType);
+                        await storageArray[arrayIndex].WritePageBlobAsync(container, filename, buffer, message.ContentType);
+                    }
+                    else
+                    {
+                        //await storage.WriteAppendBlobAsync(container, filename, payload, message.ContentType);
+                        await storageArray[arrayIndex].WriteAppendBlobAsync(container, filename, payload, message.ContentType);
+                    }
+
+
+                    if (auditor.CanAudit && message.Audit)
+                    {
+                        record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureBlob", "AzureBlob", payload.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
+                    }
+
+                    await Task.Delay(delay);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureBlob", "AzureBlob", payload.Length, false, DateTime.UtcNow, ex.Message);
-                throw;
+                
+                if (message != null)
+                {
+                    Trace.TraceWarning("Failed blob write.");
+                    Trace.TraceError(ex.Message);
+                    record = new AuditRecord(message.MessageId, uri.Query.Length > 0 ? uri.ToString().Replace(uri.Query, "") : uri.ToString(), "AzureBlob", "AzureBlob", payload.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
+                }
             }
             finally
             {
-                if(message.Audit)
+                if (record != null && message.Audit && auditor.CanAudit)
                 {
-                    Audit(record);
+                    await auditor.WriteAuditRecordAsync(record);
                 }
             }
         }
 
+
        
+
+
+
+
         private byte[] GetPayload(EventMessage message)
         {
             switch(message.Protocol)
@@ -139,16 +244,6 @@ namespace Piraeus.Grains.Notifications
                     return null;
             }
         }
-
-        private void Audit(AuditRecord record)
-        {
-            if (auditor.CanAudit)
-            {
-                Task task = auditor.WriteAuditRecordAsync(record);
-                Task.WhenAll(task);
-            }
-        }
-
 
         private string GetAppendFilename(string contentType)
         {

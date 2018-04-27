@@ -55,18 +55,18 @@ namespace Piraeus.Grains.Notifications
                 brokerMessage.Properties.Add("Content-Type", message.ContentType);
                 brokerMessage.MessageId = message.MessageId;
                 await client.SendAsync(brokerMessage);
-                record = new AuditRecord(message.MessageId, String.Format("sb://{0}/{1}",uri.Authority, topic), "ServiceBus", "ServiceBus", message.Message.Length, true, DateTime.UtcNow);
+                record = new AuditRecord(message.MessageId, String.Format("sb://{0}/{1}",uri.Authority, topic), "ServiceBus", "ServiceBus", message.Message.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
             }
             catch (Exception ex)
             {
                 Trace.TraceError("Service bus failed to send to topic with error {0}",ex.Message);
-                record = new AuditRecord(message.MessageId, String.Format("sb://{0}/{1}", uri.Authority, topic), "ServiceBus", "ServiceBus", message.Message.Length, false, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(message.MessageId, String.Format("sb://{0}/{1}", uri.Authority, topic), "ServiceBus", "ServiceBus", message.Message.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
             }
             finally
             {
-                if(message.Audit)
+                if(message.Audit && record != null && auditor.CanAudit)
                 {
-                    Audit(record);
+                    await auditor.WriteAuditRecordAsync(record);
                 }
             }
         }
@@ -90,14 +90,7 @@ namespace Piraeus.Grains.Notifications
             }
         }
 
-        private void Audit(AuditRecord record)
-        {
-            if (auditor.CanAudit)
-            {
-                Task task = auditor.WriteAuditRecordAsync(record);
-                Task.WhenAll(task);
-            }
-        }
+     
 
 
     }

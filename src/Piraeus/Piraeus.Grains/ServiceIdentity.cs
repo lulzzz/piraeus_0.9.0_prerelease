@@ -73,7 +73,7 @@ namespace Piraeus.Grains
         public Task AddCertificateAsync(byte[] certificate)
         {
             State.Certificate = certificate;
-            return Task.CompletedTask;
+            return WriteStateAsync();
         }
 
         public Task AddClaimsAsync(List<KeyValuePair<string,string>> claims)

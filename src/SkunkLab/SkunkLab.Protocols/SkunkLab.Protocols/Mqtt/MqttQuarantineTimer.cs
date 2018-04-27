@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SkunkLab.Protocols.Mqtt.Handlers;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 
@@ -45,7 +47,7 @@ namespace SkunkLab.Protocols.Mqtt
             return container.ContainsKey(id);
         }
 
-        public void Add(MqttMessage message)
+        public void Add(MqttMessage message, DirectionType direction)
         {
             if (message.QualityOfService == QualityOfServiceLevelType.AtMostOnce)
             {
@@ -54,9 +56,17 @@ namespace SkunkLab.Protocols.Mqtt
 
             if (!container.ContainsKey(message.MessageId))
             {
-                DateTime timeout = DateTime.UtcNow.AddMilliseconds(config.AckTimeout.TotalMilliseconds);
-                RetryMessageData amd = new RetryMessageData(message, timeout, 0);
-                container.Add(message.MessageId, amd);
+                try
+                {
+                    DateTime timeout = DateTime.UtcNow.AddMilliseconds(config.AckTimeout.TotalMilliseconds);
+                    RetryMessageData amd = new RetryMessageData(message, timeout, 0, direction);
+                    container.Add(message.MessageId, amd);
+                }
+                catch(Exception ex)
+                {
+                    Trace.TraceWarning("MQTT quarantine cannot add message id");
+                    Trace.TraceError(ex.Message);
+                }
             }
         }
 
@@ -70,9 +80,10 @@ namespace SkunkLab.Protocols.Mqtt
             List<ushort> list = new List<ushort>();
 
            
-                IEnumerable<KeyValuePair<ushort, RetryMessageData>> items = container.Where((c) => c.Value.NextRetryTime > DateTime.UtcNow);
+                IEnumerable<KeyValuePair<ushort, RetryMessageData>> items = container.Where((c) => c.Value.NextRetryTime < DateTime.UtcNow
+                                                && c.Value.Direction == DirectionType.Out);
 
-                if (items != null)
+                if (items != null && items.Count() > 0)
                 {
                     foreach (var item in items.ToArray())
                     {

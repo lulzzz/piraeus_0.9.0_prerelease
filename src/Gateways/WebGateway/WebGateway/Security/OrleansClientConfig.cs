@@ -30,18 +30,6 @@ namespace WebGateway.Security
                 Task task = client.Connect();
                 Task.WaitAll(task);
                 
-                //var ip = hostEntry.AddressList.Length > 1 ? hostEntry.AddressList[1] : hostEntry.AddressList[0];
-
-                
-
-                //var ip = hostEntry.AddressList[0];
-                //config.Gateways.Add(new IPEndPoint(ip, 30000));
-
-                //IPAddress ip = GetIP(hostname);
-                //IPAddress ip = System.Net.Dns.GetHostAddresses(hostname)[0];
-                //var config = new Orleans.Runtime.Configuration.ClientConfiguration();
-                //config.Gateways.Add(new IPEndPoint(ip, 30000));
-                //config.OpenConnectionTimeout = TimeSpan.FromMinutes(2);
                 Orleans.GrainClient.Initialize(config);
             }
             catch (Exception ex)
@@ -59,8 +47,9 @@ namespace WebGateway.Security
             {
                 if (Orleans.GrainClient.IsInitialized)
                     return true;
-
+               
                 var config = Orleans.Runtime.Configuration.ClientConfiguration.LocalhostSilo();
+                
                 Orleans.GrainClient.Initialize(config);
             }
             catch (Exception ex)
