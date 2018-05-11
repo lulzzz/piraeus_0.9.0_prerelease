@@ -14,6 +14,11 @@ namespace SkunkLab.Storage
 {
     public class BlobStorage
     {
+        private static BlobStorage instance;
+        private CloudBlobClient client;
+        private Vault keyVault;
+        private static SkunkLabBufferManager bufferManager;
+
         /// <summary>
         /// Sets the connection string for Blob storage via Key Vault
         /// </summary>
@@ -72,7 +77,7 @@ namespace SkunkLab.Storage
             }
         }
 
-        private static SkunkLabBufferManager bufferManager;
+        
 
         public static BlobStorage CreateSingleton(string connectionString)
         {
@@ -143,9 +148,7 @@ namespace SkunkLab.Storage
             return new BlobStorage(vault, clientId, clientSecret, keyName);
         }
 
-        private static BlobStorage instance;
-        private CloudBlobClient client;
-        private Vault keyVault;
+        
 
         #region Blob Writers
 
@@ -566,45 +569,7 @@ namespace SkunkLab.Storage
                     throw ex;
                 }
             }
-
-            //Action<ICloudBlob, byte[], string> action = new Action<ICloudBlob, byte[], string>(async (a, b, c) =>
-            //{
-            //    try
-            //    {
-            //        using (MemoryStream stream = new MemoryStream(b))
-            //        {
-            //            await UploadAsync(a, stream, c);
-            //        }
-            //    }
-            //    catch (AggregateException ae)
-            //    {
-            //        Trace.TraceWarning("Blob upload failed with {0}", ae.Flatten().InnerException.Message);
-            //        throw ae.Flatten().InnerException;
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Trace.TraceWarning("Blob upload failed with {0}", ex.Message);
-            //        throw ex;
-            //    }
-            //});
-
-            //try
-            //{
-            //    await Retry.ExecuteAsync(() =>
-            //    {
-            //        action(blob, buffer, encryptKeyName);
-            //    }, TimeSpan.FromMilliseconds(5000), 5);
-            //}
-            //catch (AggregateException ae)
-            //{
-            //    Trace.TraceWarning("Blob upload failed with {0}", ae.Flatten().InnerException.Message);
-            //    throw ae.Flatten().InnerException;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Trace.TraceWarning("Failed to write blob.");
-            //    Trace.TraceError("Blob write error {0}", ex.Message);
-            //}
+            
         }
 
         private async Task UploadAsync(ICloudBlob blob, Stream stream, string encryptKeyName = null)

@@ -35,3 +35,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Powershell\Piraeus.Module\Pirae
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Powershell\Piraeus.Module\Piraeus.Module\obj\Release\Piraeus.Module.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Powershell\Piraeus.Module\Piraeus.Module\obj\Release\Piraeus.Module.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Powershell\Piraeus.Module\Piraeus.Module\obj\Release\Piraeus.Module.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Powershell\Piraeus.Module\Piraeus.Module\obj\Release\Piraeus.Module.csproj.CopyComplete

@@ -322,3 +322,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\TcpUdpGateway\TcpUdpGateway\ob
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\TcpUdpGateway\TcpUdpGateway\obj\Debug\TcpUdpGateway.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\TcpUdpGateway\TcpUdpGateway\obj\Debug\TcpUdpGateway.exe
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\TcpUdpGateway\TcpUdpGateway\obj\Debug\TcpUdpGateway.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\TcpUdpGateway\TcpUdpGateway\obj\Debug\TcpUdpGateway.csproj.CopyComplete

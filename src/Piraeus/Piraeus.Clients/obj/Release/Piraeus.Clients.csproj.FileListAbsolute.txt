@@ -140,3 +140,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Release\Pir
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Release\Piraeus.Clients.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Release\Piraeus.Clients.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Release\Piraeus.Clients.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Release\Piraeus.Clients.csproj.CopyComplete

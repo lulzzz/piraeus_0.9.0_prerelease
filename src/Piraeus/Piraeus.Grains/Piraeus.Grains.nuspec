@@ -2,11 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Piraeus.Grains</id>
-<<<<<<< HEAD
-    <version>0.9.4-prerelease</version>
-=======
-    <version>0.9.3-prerelease</version>
->>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
+    <version>0.9.5-prerelease</version>
     <title>Piraeus.Grains</title>
     <authors>SkunkLab</authors>
     <owners>SkunkLab</owners>
@@ -21,11 +17,7 @@
     <tags>Piraeus SkunkLab</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
-<<<<<<< HEAD
-        <dependency id="Piraeus.GrainInterfaces" version="0.9.4-prerelease" />
-=======
-        <dependency id="Piraeus.GrainInterfaces" version="0.9.3-prerelease" />
->>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
+        <dependency id="Piraeus.GrainInterfaces" version="0.9.5-prerelease" />
         <dependency id="SkunkLab.Security" version="0.5.24" />
         <dependency id="SkunkLab.Storage" version="0.5.24" />
         <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.3" />
@@ -37,8 +29,6 @@
         <dependency id="Microsoft.Orleans.OrleansCodeGenerator.Build" version="1.5.2" />
         <dependency id="Microsoft.Orleans.OrleansProviders" version="1.5.2" />
         <dependency id="Microsoft.Orleans.OrleansRuntime" version="1.5.2" />
-        <!--<dependency id="PInvoke.BCrypt" version="0.5.111" />
-        <dependency id="PInvoke.NCrypt" version="0.5.111" /> -->
         <dependency id="WindowsAzure.ServiceBus" version="4.1.6" />
       </group>
     </dependencies>

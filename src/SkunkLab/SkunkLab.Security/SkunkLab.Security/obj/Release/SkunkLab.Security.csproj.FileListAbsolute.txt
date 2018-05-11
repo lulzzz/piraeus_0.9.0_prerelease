@@ -132,7 +132,8 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Sec
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\System.Net.Http.Formatting.xml
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\System.Web.Http.xml
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\bin\Release\System.Web.Http.WebHost.xml
-C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.csprojResolveAssemblyReference.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.csproj.CopyComplete
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Security\SkunkLab.Security\obj\Release\SkunkLab.Security.csprojResolveAssemblyReference.cache

@@ -31,16 +31,25 @@ namespace Piraeus.Module
         [Parameter(HelpMessage = "Number of blob storage clients to use.", Mandatory = false)]
         public int NumClients;
 
-        [Parameter(HelpMessage = "Number of milliseconds to delay next write.", Mandatory = false)]
-        public int Delay;
-
         [Parameter(HelpMessage = "Description of the subscription.", Mandatory = false)]
         public string Description;
 
+        [Parameter(HelpMessage = "(Optional parameter for Append Blob filename", Mandatory = false)]
+        public string Filename;
+
+
         protected override void ProcessRecord()
         {
+            string uriString = null;
 
-            string uriString = String.Format("https://{0}.blob.core.windows.net?container={1}&blobtype={2}&clients{3}&delay{4}", Host, Container, BlobType.ToString(), NumClients <= 0 ? 1 : NumClients, Delay <= 0 ? 1000 : Delay);
+            if (string.IsNullOrEmpty(Filename))
+            {
+                uriString = String.Format("https://{0}.blob.core.windows.net?container={1}&blobtype={2}&clients={3}", Host, Container, BlobType.ToString(), NumClients <= 0 ? 1 : NumClients);
+            }
+            else
+            {
+                uriString = String.Format("https://{0}.blob.core.windows.net?container={1}&blobtype={2}&clients={3}&file={4}", Host, Container, BlobType.ToString(), NumClients <= 0 ? 1 : NumClients, Filename);
+            }
 
             SubscriptionMetadata metadata = new SubscriptionMetadata()
             {

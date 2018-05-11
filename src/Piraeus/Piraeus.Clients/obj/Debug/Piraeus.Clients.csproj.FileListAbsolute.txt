@@ -170,3 +170,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Debug\Pirae
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Debug\Piraeus.Clients.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Debug\Piraeus.Clients.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Debug\Piraeus.Clients.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Clients\obj\Debug\Piraeus.Clients.csproj.CopyComplete

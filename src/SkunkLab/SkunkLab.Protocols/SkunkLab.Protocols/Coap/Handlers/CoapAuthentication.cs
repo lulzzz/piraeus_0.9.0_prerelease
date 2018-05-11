@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SkunkLab.Security.Identity;
 using System.Diagnostics;
-using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using SkunkLab.Protocols.Utilities;
 
 namespace SkunkLab.Protocols.Coap.Handlers
 {
@@ -17,8 +12,8 @@ namespace SkunkLab.Protocols.Coap.Handlers
             {
                 CoapUri coapUri = new CoapUri(message.ResourceUri.ToString());
 
-                Trace.WriteLine(String.Format("Coap URI token type = {0}", coapUri.TokenType));
-                Trace.WriteLine(String.Format("Coap URI token = {0}", coapUri.SecurityToken));
+                //Trace.WriteLine(String.Format("Coap URI token type = {0}", coapUri.TokenType));
+                //Trace.WriteLine(String.Format("Coap URI token = {0}", coapUri.SecurityToken));
                 if (!session.Authenticate(coapUri.TokenType, coapUri.SecurityToken))
                 {
                     Trace.WriteLine("Coap URI authentication failed.");
@@ -26,9 +21,11 @@ namespace SkunkLab.Protocols.Coap.Handlers
                 }
                 else
                 {
+                    IdentityDecoder decoder = new IdentityDecoder(session.Config.IdentityClaimType, session.Config.Indexes);
+                    session.Identity = decoder.Id;
+                    session.Indexes = decoder.Indexes;
                     Trace.WriteLine("Coap URI authentication is successful");
                 }
-
             }
         }
     }

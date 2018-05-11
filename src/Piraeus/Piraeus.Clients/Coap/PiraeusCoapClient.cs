@@ -9,7 +9,7 @@ using SkunkLab.Security.Tokens;
 namespace Piraeus.Clients.Coap
 {
     public class PiraeusCoapClient
-    {   
+    {        
         public PiraeusCoapClient(CoapConfig config, IChannel channel, SecurityTokenType tokenType, string securityToken, ICoapRequestDispatch dispatcher = null)
             : this(config, channel, dispatcher)
         {
@@ -37,6 +37,7 @@ namespace Piraeus.Clients.Coap
             session.OnKeepAlive += Session_OnKeepAlive;
             session.IsAuthenticated = true;
             usedToken = true;
+            queue = new Queue<byte[]>();
         }
 
         
@@ -48,6 +49,7 @@ namespace Piraeus.Clients.Coap
         private CoapSession session;
         private ICoapRequestDispatch dispatcher;
         private List<ushort> pingId;
+        private Queue<byte[]> queue;
         
         private bool usedToken;
 
@@ -69,7 +71,15 @@ namespace Piraeus.Clients.Coap
 
             RequestMessageType mtype = confirmable ? RequestMessageType.Confirmable : RequestMessageType.NonConfirmable;
             CoapRequest cr = new CoapRequest(id, mtype, MethodType.POST, token, new Uri(coapUriString), MediaTypeConverter.ConvertToMediaType(contentType), payload);
-            await channel.SendAsync(cr.Encode());
+
+            queue.Enqueue(cr.Encode());
+
+            while(queue.Count > 0)
+            {
+                byte[] message = queue.Dequeue();
+                Task t = channel.SendAsync(message);
+                await Task.WhenAll(t);
+            }            
         }
 
         
@@ -218,19 +228,37 @@ namespace Piraeus.Clients.Coap
         {
             CoapMessage message = CoapMessage.DecodeMessage(args.Message);
             CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
-            Task task = Task.Factory.StartNew(async () =>
-            {
-                CoapMessage msg = await handler.ProcessAsync();
-                if (msg != null && pingId.Contains(msg.MessageId))
-                {
-                    pingId.Remove(msg.MessageId);
-                    //ping complete
-                    OnPingResponse?.Invoke(this, new CoapMessageEventArgs(msg));
-                }
-            });
 
+            Task task = ReceiveAsync(handler);
             Task.WhenAll(task);
+
+            //Task task = Task.Factory.StartNew(async () =>
+            //{
+            //    CoapMessage msg = await handler.ProcessAsync();
+
+            //    if (msg != null && pingId.Contains(msg.MessageId))
+            //    {
+            //        pingId.Remove(msg.MessageId);
+            //        //ping complete
+            //        OnPingResponse?.Invoke(this, new CoapMessageEventArgs(msg));
+            //    }
+            //});
+
+            //Task.WaitAll(task);
                 
+        }
+
+        private async Task ReceiveAsync(CoapMessageHandler handler)
+        {
+            CoapMessage msg = await handler.ProcessAsync();
+
+            if (msg != null && pingId.Contains(msg.MessageId))
+            {
+                pingId.Remove(msg.MessageId);
+                //ping complete
+                OnPingResponse?.Invoke(this, new CoapMessageEventArgs(msg));
+            }
+
         }
 
         private void Channel_OnStateChange(object sender, ChannelStateEventArgs args)

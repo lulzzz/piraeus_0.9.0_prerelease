@@ -330,7 +330,8 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Stor
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\bin\Debug\zh-Hant\System.Spatial.resources.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.csprojResolveAssemblyReference.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.Properties.Resources.resources
-C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.csproj.GenerateResource.Cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.csproj.GenerateResource.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.csproj.CopyComplete
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Storage\SkunkLab.Storage\obj\Debug\SkunkLab.Storage.pdb

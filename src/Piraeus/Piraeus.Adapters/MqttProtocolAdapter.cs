@@ -108,14 +108,14 @@ namespace Piraeus.Adapters
                 MqttMessage mm = MqttMessage.DecodeMessage(message);
 
                 length = mm.Payload.Length;
-                record = new AuditRecord(e.Message.MessageId, session.Identity, this.Channel.TypeId, e.Message.Protocol.ToString(), length, MessageDirectionType.Out, true, sendTime);
+                record = new AuditRecord(e.Message.MessageId, session.Identity, this.Channel.TypeId, "MQTT", length, MessageDirectionType.Out, true, sendTime);
             }
             catch(Exception ex)
             {
                 Trace.TraceWarning("MQTT Adapter observe fault.");
                 Trace.TraceError("MQTT Adapter observe erorr {0}", ex.Message);
                 Trace.TraceError("MQTT Adapter observer stack trace {0}", ex.StackTrace);
-                record = new AuditRecord(e.Message.MessageId, session.Identity, this.Channel.TypeId, e.Message.Protocol.ToString(), length, MessageDirectionType.Out, true, sendTime, ex.Message);
+                record = new AuditRecord(e.Message.MessageId, session.Identity, this.Channel.TypeId, "MQTT", length, MessageDirectionType.Out, true, sendTime, ex.Message);
             }
             finally
             {
@@ -273,62 +273,104 @@ namespace Piraeus.Adapters
 
         private void Session_OnPublish(object sender, MqttMessageEventArgs args)
         {
+            PublishMessage message = args.Message as PublishMessage;
+            Task task = PublishAsync(message);
+            Task.WhenAll(task);
+            //try
+            //{
+            //    PublishMessage message = args.Message as PublishMessage;
+
+            //    MqttUri mqttUri = new MqttUri(message.Topic);
+
+            //    Task task = Retry.ExecuteAsync(async () =>
+            //    {
+            //        ResourceMetadata metadata = await GraphManager.GetResourceMetadataAsync(mqttUri.Resource);
+
+            //        if (await adapter.CanPublishAsync(metadata, Channel.IsEncrypted))
+            //        {
+            //            EventMessage msg = new EventMessage(mqttUri.ContentType, mqttUri.Resource, ProtocolType.MQTT, message.Encode(), DateTime.UtcNow, metadata.Audit);
+            //            await adapter.PublishAsync(msg, null);
+            //        }
+            //        else
+            //        {
+            //            if (metadata.Audit && auditor.CanAudit)
+            //            {
+            //                await auditor.WriteAuditRecordAsync(new AuditRecord("XXXXXXXXXXXX", session.Identity, this.Channel.TypeId, "MQTT", args.Message.Payload.Length, MessageDirectionType.In, false, DateTime.UtcNow, "Not authorized, missing resource metadata, or channel encryption requirements"));
+            //            }
+
+            //            await Log.LogWarningAsync("Mqtt message cannot be published because not authorized.");
+            //        }
+            //    });
+
+            //    Task.WhenAll(task);
+
+            //    //Task task = Task.Factory.StartNew(async () =>
+            //    //{
+            //    //    ResourceMetadata metadata = await GraphManager.GetResourceMetadataAsync(mqttUri.Resource);
+
+            //    //    if (await adapter.CanPublishAsync(metadata, Channel.IsEncrypted))
+            //    //    {
+            //    //        EventMessage msg = new EventMessage(mqttUri.ContentType, mqttUri.Resource, ProtocolType.MQTT, message.Encode(), DateTime.UtcNow, metadata.Audit);
+            //    //        await adapter.PublishAsync(msg, null);
+            //    //    }
+            //    //    else
+            //    //    {
+            //    //        await Log.LogWarningAsync("Mqtt message cannot be published because not authorized.");
+            //    //    }
+
+            //    //});
+
+            //    //Task.WhenAll(task);
+            //}
+            //catch(Exception ex)
+            //{
+            //    Trace.TraceError("ERROR: MQTT Publish error {0}", ex.Message);
+            //    Trace.TraceError("ERORR: MQTT Publish error stack trace {0} ", ex.StackTrace);
+            //    OnError?.Invoke(this, new ProtocolAdapterErrorEventArgs(Channel.Id, ex));
+            //    //Task logTask = Log.LogErrorAsync("Mqtt On_Publish error {0}", ex.Message);
+            //    //Task.WhenAll(logTask);
+            //    Task task = Channel.CloseAsync();
+            //    Task.WhenAll(task);
+            //}
+        }
+
+        private async Task PublishAsync(PublishMessage message)
+        {
+            AuditRecord record = null;
+            ResourceMetadata metadata = null;
+
             try
             {
-                PublishMessage message = args.Message as PublishMessage;
-
                 MqttUri mqttUri = new MqttUri(message.Topic);
-
-                Task task = Retry.ExecuteAsync(async () =>
+                metadata = await GraphManager.GetResourceMetadataAsync(mqttUri.Resource);
+                if (await adapter.CanPublishAsync(metadata, Channel.IsEncrypted))
                 {
-                    ResourceMetadata metadata = await GraphManager.GetResourceMetadataAsync(mqttUri.Resource);
-
-                    if (await adapter.CanPublishAsync(metadata, Channel.IsEncrypted))
+                    EventMessage msg = new EventMessage(mqttUri.ContentType, mqttUri.Resource, ProtocolType.MQTT, message.Encode(), DateTime.UtcNow, metadata.Audit);
+                    await adapter.PublishAsync(msg, null);
+                }
+                else
+                {
+                    if (metadata.Audit && auditor.CanAudit)
                     {
-                        EventMessage msg = new EventMessage(mqttUri.ContentType, mqttUri.Resource, ProtocolType.MQTT, message.Encode(), DateTime.UtcNow, metadata.Audit);
-                        await adapter.PublishAsync(msg, null);
+                        record = new AuditRecord("XXXXXXXXXXXX", session.Identity, this.Channel.TypeId, "MQTT", message.Payload.Length, MessageDirectionType.In, false, DateTime.UtcNow, "Not authorized, missing resource metadata, or channel encryption requirements");
                     }
-                    else
-                    {
-                        if (metadata.Audit && auditor.CanAudit)
-                        {
-                            await auditor.WriteAuditRecordAsync(new AuditRecord("XXXXXXXXXXXX", session.Identity, this.Channel.TypeId, "MQTT", args.Message.Payload.Length, MessageDirectionType.In, false, DateTime.UtcNow, "Not authorized, missing resource metadata, or channel encryption requirements"));
-                        }
 
-                        await Log.LogWarningAsync("Mqtt message cannot be published because not authorized.");
-                    }
-                });
-
-                Task.WhenAll(task);
-
-                //Task task = Task.Factory.StartNew(async () =>
-                //{
-                //    ResourceMetadata metadata = await GraphManager.GetResourceMetadataAsync(mqttUri.Resource);
-
-                //    if (await adapter.CanPublishAsync(metadata, Channel.IsEncrypted))
-                //    {
-                //        EventMessage msg = new EventMessage(mqttUri.ContentType, mqttUri.Resource, ProtocolType.MQTT, message.Encode(), DateTime.UtcNow, metadata.Audit);
-                //        await adapter.PublishAsync(msg, null);
-                //    }
-                //    else
-                //    {
-                //        await Log.LogWarningAsync("Mqtt message cannot be published because not authorized.");
-                //    }
-
-                //});
-
-                //Task.WhenAll(task);
+                    await Log.LogWarningAsync("Mqtt message cannot be published because not authorized.");
+                }
             }
             catch(Exception ex)
             {
                 Trace.TraceError("ERROR: MQTT Publish error {0}", ex.Message);
-                Trace.TraceError("ERORR: MQTT Publish error stack trace {0} ", ex.StackTrace);
-                OnError?.Invoke(this, new ProtocolAdapterErrorEventArgs(Channel.Id, ex));
-                //Task logTask = Log.LogErrorAsync("Mqtt On_Publish error {0}", ex.Message);
-                //Task.WhenAll(logTask);
-                Task task = Channel.CloseAsync();
-                Task.WhenAll(task);
+                await Channel.CloseAsync().ConfigureAwait(false);
             }
+            finally
+            {
+                if(metadata != null && metadata.Audit && auditor.CanAudit && record != null)
+                {
+                    await auditor.WriteAuditRecordAsync(record);
+                }
+            }
+
         }
 
         #endregion        
@@ -363,7 +405,7 @@ namespace Piraeus.Adapters
 
         private void Channel_OnReceive(object sender, ChannelReceivedEventArgs e)
         {
-            LimitedConcurrencyLevelTaskScheduler lcts = new LimitedConcurrencyLevelTaskScheduler(5);
+            LimitedConcurrencyLevelTaskScheduler lcts = new LimitedConcurrencyLevelTaskScheduler(100);
             CancellationTokenSource tokenSource = new CancellationTokenSource();
 
             try
@@ -398,25 +440,37 @@ namespace Piraeus.Adapters
                         throw new SecurityException("Per receive authentication failed.");
                     }
                 }
-                
-
-                Task task = Task.Factory.StartNew(async () =>
-                {
-                    MqttMessageHandler handler = MqttMessageHandler.Create(session, msg);
-                    MqttMessage message = await handler.ProcessAsync();
-
-                    if (message != null)
-                    {
-                        await Channel.SendAsync(message.Encode());
-                    }
-
-                },tokenSource.Token, TaskCreationOptions.AttachedToParent, lcts).ContinueWith(ExceptionAction, TaskContinuationOptions.OnlyOnFaulted);
 
 
 
-                Task.WhenAll(task);
 
-                //Task task = Receive(msg);
+                //Task task = Task.Factory.StartNew(async () =>
+                //{
+                //    MqttMessageHandler handler = MqttMessageHandler.Create(session, msg);
+                //    MqttMessage message = await handler.ProcessAsync();
+
+                //    if (message != null)
+                //    {
+                //        await Channel.SendAsync(message.Encode());
+                //    }
+
+                //},tokenSource.Token, TaskCreationOptions.AttachedToParent, lcts).ContinueWith(ExceptionAction, TaskContinuationOptions.OnlyOnFaulted);
+
+                //Task task = Task.Factory.StartNew(async () =>
+                //{
+                //    MqttMessageHandler handler = MqttMessageHandler.Create(session, msg);
+                //    MqttMessage message = await handler.ProcessAsync();
+
+                //    if (message != null)
+                //    {
+                //        await Channel.SendAsync(message.Encode());
+                //    }
+
+                //});
+
+                Task task = ProcessMessageAsync(msg);
+
+               Task.WhenAll(task);
                 
                 
             }            
@@ -426,6 +480,17 @@ namespace Piraeus.Adapters
                 Task.WhenAll(task);
                 Task closeTask = Channel.CloseAsync();
                 Task.WhenAll(closeTask);
+            }
+        }
+
+        private async Task ProcessMessageAsync(MqttMessage message)
+        {
+            MqttMessageHandler handler = MqttMessageHandler.Create(session, message);
+            MqttMessage msg = await handler.ProcessAsync();
+
+            if (msg != null)
+            {
+                await Channel.SendAsync(msg.Encode());
             }
         }
 

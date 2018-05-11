@@ -82,3 +82,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Coap\Sa
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Coap\Samples.Clients.Coap\obj\Release\Samples.Clients.Coap.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Coap\Samples.Clients.Coap\obj\Release\Samples.Clients.Coap.exe
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Coap\Samples.Clients.Coap\obj\Release\Samples.Clients.Coap.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Coap\Samples.Clients.Coap\obj\Release\Samples.Clients.Coap.csproj.CopyComplete

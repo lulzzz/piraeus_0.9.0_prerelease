@@ -21,13 +21,13 @@ namespace Piraeus.Grains
         private Queue<EventMessage> memoryMessageQueue;
 
         [NonSerialized]
-        IDisposable leaseTimer;
+        private IDisposable leaseTimer;
 
         [NonSerialized]
-        IDisposable messageQueueTimer;
+        private IDisposable messageQueueTimer;
 
         [NonSerialized]
-        EventSink sink;
+        private EventSink sink;
 
         #region Activatio/Deactivation
 

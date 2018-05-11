@@ -104,6 +104,10 @@ C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.Core.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\Docker\TcpUdpGateway\Output\Piraeus.Core.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\Docker\TcpUdpGateway\Output\Piraeus.Core.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\Docker\TcpUdpGateway\Output\Piraeus.Core.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.csproj.CopyComplete
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Release\Piraeus.Core.pdb
@@ -115,7 +119,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Release\Newton
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Release\System.Net.Http.Formatting.xml
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Release\System.Web.Http.xml
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Release\System.Web.Http.WebHost.xml
-C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.csproj.CoreCompileInputs.cache
-C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.dll
-C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Release\Piraeus.Core.csprojResolveAssemblyReference.cache

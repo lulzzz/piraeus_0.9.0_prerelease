@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkunkLab.Security", "..\..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Storage.Redis", "..\..\Orleans.Storage.Redis\Orleans.Storage.Redis\Orleans.Storage.Redis.csproj", "{3A5DB603-C5DD-4551-90C1-A42DBE60F087}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkunkLab.Protocols", "..\..\SkunkLab\SkunkLab.Protocols\SkunkLab.Protocols\SkunkLab.Protocols.csproj", "{7B2C72A0-0DBA-4DED-96DC-B6AF80A82277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{3A5DB603-C5DD-4551-90C1-A42DBE60F087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A5DB603-C5DD-4551-90C1-A42DBE60F087}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A5DB603-C5DD-4551-90C1-A42DBE60F087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2C72A0-0DBA-4DED-96DC-B6AF80A82277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2C72A0-0DBA-4DED-96DC-B6AF80A82277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2C72A0-0DBA-4DED-96DC-B6AF80A82277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2C72A0-0DBA-4DED-96DC-B6AF80A82277}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

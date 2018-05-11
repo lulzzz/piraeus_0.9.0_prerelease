@@ -514,3 +514,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\DocumentDB.
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\TcpUdpGateway.exe.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\TcpUdpGateway.exe
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\TcpUdpGateway\Output\TcpUdpGateway.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\TcpUdpGateway\TcpUdpGateway\obj\Release\TcpUdpGateway.csproj.CopyComplete

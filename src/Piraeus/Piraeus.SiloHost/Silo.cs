@@ -41,6 +41,8 @@ namespace Piraeus.SiloHost
                 config.Globals.LivenessEnabled = true;
                 config.Globals.LivenessType = GlobalConfiguration.LivenessProviderType.AzureTable;               
                 config.Globals.ReminderServiceType = GlobalConfiguration.ReminderServiceProviderType.AzureTable;
+                config.Globals.ResponseTimeout = TimeSpan.FromSeconds(180.0);
+                config.Globals.ClientSenderBuckets = 32768;
                 
 
                 config.Defaults.PropagateActivityId = true;

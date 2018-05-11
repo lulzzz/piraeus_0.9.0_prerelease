@@ -90,13 +90,9 @@ namespace Piraeus.Adapters
             Task.WhenAll(task);
 
             session.IsAuthenticated = Channel.IsAuthenticated;
+           
 
-            if(session.IsAuthenticated)
-            {                
-                IdentityDecoder decoder = new IdentityDecoder(session.Config.IdentityClaimType, session.Config.Indexes);
-                session.Identity = decoder.Id;
-                session.Indexes = decoder.Indexes;
-            }
+            
 
             try
             {
@@ -106,8 +102,15 @@ namespace Piraeus.Adapters
                     CoapUri coapUri = new CoapUri(msg.ResourceUri.ToString());
                     session.IsAuthenticated = session.Authenticate(coapUri.TokenType, coapUri.SecurityToken);
                 }
-                
-               
+
+                if (session.IsAuthenticated)
+                {
+                    IdentityDecoder decoder = new IdentityDecoder(session.Config.IdentityClaimType, session.Config.Indexes);
+                    session.Identity = decoder.Id;
+                    session.Indexes = decoder.Indexes;
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -123,7 +126,7 @@ namespace Piraeus.Adapters
                 Task.WhenAll(logTask);
 
                 Task closeTask = Channel.CloseAsync();
-                Task.WaitAll(closeTask);
+                Task.WhenAll(closeTask);
             }
             else
             {
@@ -138,9 +141,7 @@ namespace Piraeus.Adapters
             //Task logTask = Log.LogInfoAsync("Channel {0} received message.", e.ChannelId);
             //Task.WhenAll(logTask);
 
-            LimitedConcurrencyLevelTaskScheduler lcts = new LimitedConcurrencyLevelTaskScheduler(5);
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
-
+            LimitedConcurrencyLevelTaskScheduler lcts = new LimitedConcurrencyLevelTaskScheduler(100);
 
             try
             {
@@ -152,10 +153,10 @@ namespace Piraeus.Adapters
                 }
 
                 OnObserve?.Invoke(this, new ChannelObserverEventArgs(message.ResourceUri.ToString(), MediaTypeConverter.ConvertFromMediaType(message.ContentType), message.Payload));
-                               
+
                 Task task = Task.Factory.StartNew(async () =>
                 {
-                    
+
                     CoapMessageHandler handler = CoapMessageHandler.Create(session, message, dispatcher);
                     CoapMessage msg = await handler.ProcessAsync();
 
@@ -165,18 +166,15 @@ namespace Piraeus.Adapters
                         await Channel.SendAsync(payload);
                     }
 
-                    
-                },tokenSource.Token, TaskCreationOptions.AttachedToParent, lcts).ContinueWith(ExceptionAction, TaskContinuationOptions.OnlyOnFaulted);
+                });
 
-                //Task task = Forward(message);
                 Task.WhenAll(task);
-
-             
-
             }
             catch(Exception ex)
             {
                 OnError?.Invoke(this, new ProtocolAdapterErrorEventArgs(Channel.Id, ex));
+                System.Diagnostics.Trace.WriteLine(ex.Message);
+                System.Diagnostics.Trace.WriteLine(ex.StackTrace);
                 Task t = Channel.CloseAsync();
                 Task.WhenAll(t);
             }
@@ -184,18 +182,6 @@ namespace Piraeus.Adapters
           
         }
 
-        private void ExceptionAction(Task task)
-        {
-            System.Diagnostics.Trace.WriteLine(task.Exception.Message);
-            System.Diagnostics.Trace.WriteLine(task.Exception.StackTrace);
-        }
-
-        private CoapMessage ExceptionAction2(Task task)
-        {
-            System.Diagnostics.Trace.WriteLine(task.Exception.Message);
-            System.Diagnostics.Trace.WriteLine(task.Exception.StackTrace);
-            return null;
-        }
 
         //private async Task Forward(CoapMessage message)
         //{
