@@ -21,8 +21,8 @@ $token = Get-PiraeusManagementToken -ServiceUrl $url -Key "12345678"
 $resource_A = "http://www.skunklab.io/resource-a"
 $containerName="resource-a"
 
-$storageAcct="pirstore18"  #If the blob storage endpint is "https://pirstore.blob.core.windows.net/" use "pirstore" as the hostname
-$storageKey="1hHqb3TzUxsmImLhiVAzXoZLkao4vxtmzy6XvsHrcyhMAr3tIoiHVYCRy0tO1YJuJ0e8kQh5s66TjtImN+oFeg=="  #Security key to blob storage account
+$storageAcct="STORAGE_ACCT_NAME"  #If the blob storage endpint is "https://pirstore.blob.core.windows.net/" use "pirstore" as the hostname
+$storageKey="STORAGE_ACCT_KEY"  #Security key to blob storage account
 
 #Remove-PiraeusSubscription -ServiceUrl $url -SecurityToken $token -SubscriptionUriString "http://www.skunklab.io/resource-a/a4ef6ad1-8922-40a6-ba5f-91fbeba3d2df"
 Add-PiraeusBlobStorageSubscription -ServiceUrl $url -SecurityToken $token -ResourceUriString $resource_A  -BlobType Block -Host $storageAcct -Container $containerName -Key $storageKey -NumClients 6
