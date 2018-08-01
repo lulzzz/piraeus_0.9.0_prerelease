@@ -19,3 +19,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Debug\Capl.csproj.Generat
 C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Debug\Capl.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Debug\Capl.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\CAPL\Capl\obj\Debug\Capl.pdb
+C:\_git\core\src\CAPL\Capl\obj\Debug\Capl.csprojResolveAssemblyReference.cache

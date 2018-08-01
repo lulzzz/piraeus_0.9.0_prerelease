@@ -91,45 +91,16 @@ namespace Piraeus.Grains.Notifications
                 {
                     storageArray[i] = BlobStorage.New(connectionString, 2048, 102400);
                 }
-                //storage = BlobStorage.New(connectionString, 2048, 102400);
-                //pool = new StoragePool(connectionString, 5, 2048, 102400);
-
-                //storage = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
-               
-                //storageArray[rangeIndex] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
-                //for (int i = 0; i < rangeMax; i++)
-                //{
-                    
-                //    //storageArray[rangeIndex] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
-                //    //rangeIndex = rangeIndex.RangeIncrement(rangeMin, rangeMax);
-                    
-                    
-                //}
-                //storageArray[0] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
-                //storageArray[1] = BlobStorage.New(String.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};", uri.Authority.Split(new char[] { '.' })[0], key), 10240, 1024);
             }
             else
             {
                 string connectionString = String.Format("BlobEndpoint={0};SharedAccessSignature={1}", container != "$Root" ? uri.ToString().Replace(uri.LocalPath, "") : uri.ToString(), key);
-                //storage = BlobStorage.New(connectionString, 2048, 102400);
+
                 for (int i = 0; i < clientCount; i++)
                 {
                     storageArray[i] = BlobStorage.New(connectionString, 2048, 102400);
                 }
-                //pool = new StoragePool(connectionString, 5, 2048, 102400);
-                //storage = BlobStorage.New(connectionString, 10240, 1024);
-                //for (int i = 0; i < rangeMax + 1; i++)
-                //{
-                //    storageArray[rangeIndex] = BlobStorage.New(connectionString, 10240, 1024);
-                //    rangeIndex = rangeIndex.RangeIncrement(rangeMin, rangeMax);
-                //}
-
-
-                //storageArray[0] = BlobStorage.New(connectionString,10240,1024);
-                //storageArray[1] = BlobStorage.New(connectionString, 10240, 1024);
             }
-
-            //rangeIndex = 0;
         }
 
         

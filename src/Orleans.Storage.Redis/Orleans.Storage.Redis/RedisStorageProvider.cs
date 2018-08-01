@@ -24,11 +24,7 @@ namespace Orleans.Storage.Redis
         private ConnectionMultiplexer connection;
         private IDatabase database;
         private SerializationManager serializationManager;
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
         public Logger Log
         {
             get;
@@ -63,11 +59,8 @@ namespace Orleans.Storage.Redis
 
             string key = grainReference.ToKeyString();
             RedisValue value = await database.StringGetAsync(key);
-<<<<<<< HEAD
-            if(value.HasValue)
-=======
+
             if (value.HasValue)
->>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
             {
                 grainState.State = serializationManager.DeserializeFromByteArray<object>(value);
             }

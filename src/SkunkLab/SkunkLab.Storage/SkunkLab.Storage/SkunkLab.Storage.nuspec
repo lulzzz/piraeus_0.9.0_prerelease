@@ -2,11 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>SkunkLab.Storage</id>
-<<<<<<< HEAD
     <version>0.9.4-prerelease</version>
-=======
-    <version>0.9.3-prerelease</version>
->>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
     <title>SkunkLab.Storage</title>
     <authors>SkunkLab</authors>
     <owners>SkunkLab</owners>

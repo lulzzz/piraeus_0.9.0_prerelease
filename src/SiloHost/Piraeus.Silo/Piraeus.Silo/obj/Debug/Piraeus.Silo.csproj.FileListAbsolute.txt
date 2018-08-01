@@ -202,7 +202,6 @@ C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.cspro
 C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.csproj.CoreCompileInputs.cache
 C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.exe
 C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.pdb
-C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.orleans.g.cs
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\Microsoft.Azure.Documents.ServiceInterop.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\DocumentDB.Spatial.Sql.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\bin\Debug\OrleansConfiguration.xml
@@ -408,3 +407,5 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.exe
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.orleans.g.cs
+C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.csproj.CopyComplete
+C:\_git\core\src\SiloHost\Piraeus.Silo\Piraeus.Silo\obj\Debug\Piraeus.Silo.orleans.g.cs

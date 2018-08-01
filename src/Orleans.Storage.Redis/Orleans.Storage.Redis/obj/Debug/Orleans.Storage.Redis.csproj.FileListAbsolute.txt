@@ -121,3 +121,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Orleans.Storage.Redis\Orleans.Storage.R
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Orleans.Storage.Redis\Orleans.Storage.Redis\obj\Debug\Orleans.Storage.Redis.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Orleans.Storage.Redis\Orleans.Storage.Redis\obj\Debug\Orleans.Storage.Redis.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Orleans.Storage.Redis\Orleans.Storage.Redis\obj\Debug\Orleans.Storage.Redis.pdb
+C:\_git\core\src\Orleans.Storage.Redis\Orleans.Storage.Redis\obj\Debug\Orleans.Storage.Redis.csproj.CopyComplete

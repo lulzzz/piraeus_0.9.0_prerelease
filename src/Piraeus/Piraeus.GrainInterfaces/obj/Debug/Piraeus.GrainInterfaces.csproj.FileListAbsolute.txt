@@ -97,7 +97,6 @@ C:\_git\core\Piraeus.Orleans\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInte
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.dll.config
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.pdb
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Capl.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Microsoft.CodeAnalysis.CSharp.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Microsoft.CodeAnalysis.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Microsoft.Data.Edm.dll
@@ -110,7 +109,6 @@ C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Orleans.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\OrleansCodeGenerator.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\OrleansProviders.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\OrleansRuntime.dll
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.Core.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.AppContext.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Collections.Immutable.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Console.dll
@@ -138,12 +136,6 @@ C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Xml.ReaderWrit
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Xml.XmlDocument.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Xml.XPath.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Xml.XPath.XDocument.dll
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Newtonsoft.Json.dll
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Web.Http.dll
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Net.Http.Formatting.dll
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Capl.pdb
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.Core.pdb
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.Core.dll.config
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Microsoft.CodeAnalysis.xml
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Microsoft.CodeAnalysis.CSharp.xml
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Microsoft.Data.Edm.xml
@@ -159,9 +151,6 @@ C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Collections.Im
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Reflection.Metadata.xml
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Spatial.xml
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Newtonsoft.Json.xml
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Web.Http.xml
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Net.Http.Formatting.xml
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\de\Microsoft.Data.Edm.resources.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\es\Microsoft.Data.Edm.resources.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\fr\Microsoft.Data.Edm.resources.dll
@@ -202,7 +191,6 @@ C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfac
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.csproj.CoreCompileInputs.cache
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.dll
 C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.pdb
-C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.orleans.g.cs
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.GrainInterfaces.pdb
@@ -312,3 +300,16 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Deb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.orleans.g.cs
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.csproj.CopyComplete
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Capl.dll
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.Core.dll
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Newtonsoft.Json.dll
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Web.Http.dll
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Net.Http.Formatting.dll
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Capl.pdb
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.Core.pdb
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Piraeus.Core.dll.config
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\Newtonsoft.Json.xml
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Web.Http.xml
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\bin\Debug\System.Net.Http.Formatting.xml
+C:\_git\core\src\Piraeus\Piraeus.GrainInterfaces\obj\Debug\Piraeus.GrainInterfaces.orleans.g.cs
