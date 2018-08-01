@@ -2,7 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>SkunkLab.Security</id>
+<<<<<<< HEAD
     <version>0.9.4-prerelease</version>
+=======
+    <version>0.9.5-prerelease</version>
+>>>>>>> origin/master
     <title>SkunkLab.Security</title>
     <authors>SkunkLab</authors>
     <owners>SkunkLab</owners>

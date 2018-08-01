@@ -4,14 +4,14 @@
 /r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\WindowsAzure.Storage.8.7.0\lib\net45\Microsoft.WindowsAzure.Storage.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\mscorlib.dll
 /r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.Core.1.5.2\lib\net461\Orleans.dll
-/r:C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Orleans.Storage.Redis.dll
 /r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansAzureUtils.1.5.2\lib\net461\OrleansAzureUtils.dll
 /r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansCodeGenerator.1.5.2\lib\net461\OrleansCodeGenerator.dll
 /r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansProviders.1.5.2\lib\net461\OrleansProviders.dll
 /r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Nuget\packages\Microsoft.Orleans.OrleansRuntime.1.5.2\lib\net461\OrleansRuntime.dll
-/r:C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.Core.dll
-/r:C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.GrainInterfaces.dll
-/r:C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.Grains.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.Core.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.GrainInterfaces.dll
+/r:C:\_git\dev\piraeus_0.9.0_prerelease\src\Docker\Orleans-Silo\Output\Piraeus.Grains.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.ComponentModel.Composition.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Configuration.dll
 /r:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Core.dll

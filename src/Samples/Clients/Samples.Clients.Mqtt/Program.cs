@@ -49,7 +49,7 @@ namespace Samples.Clients.Mqtt
             {
 
                 WriteHeader();  //descriptive header
-                Console.Write("Select message type [1=Json, Enter=Default] ? ");
+                Console.Write("Select message type [1=Json Test, Enter=Default Test] ? ");
                 messageType = Console.ReadLine() == "1" ? 1 : 0;
                 if (messageType == 1)
                 {

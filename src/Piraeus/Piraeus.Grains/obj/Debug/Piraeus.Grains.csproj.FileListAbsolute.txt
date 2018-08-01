@@ -455,6 +455,7 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\bin\Debug\zh-Han
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\bin\Debug\zh-Hant\System.Spatial.resources.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Debug\Piraeus.Grains.csprojResolveAssemblyReference.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Debug\Piraeus.Grains.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Debug\Piraeus.Grains.csproj.CopyComplete
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Debug\Piraeus.Grains.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Debug\Piraeus.Grains.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Grains\obj\Debug\Piraeus.Grains.orleans.g.cs

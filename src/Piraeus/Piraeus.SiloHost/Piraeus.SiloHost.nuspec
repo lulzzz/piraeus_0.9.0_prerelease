@@ -2,11 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Piraeus.SiloHost</id>
-<<<<<<< HEAD
-    <version>0.9.4-prerelease</version>
-=======
-    <version>0.9.3-prerelease</version>
->>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
+    <version>0.9.5-prerelease</version>
     <title>Piraeus.SiloHost</title>
     <authors>SkunkLab</authors>
     <owners>SkunkLab</owners>
@@ -21,11 +17,7 @@
     <tags>Piraeus</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
-<<<<<<< HEAD
-        <dependency id="Piraeus.Grains" version="0.9.4-prerelease" />
-=======
-        <dependency id="Piraeus.Grains" version="0.9.3-prerelease" />
->>>>>>> 24b1d6ed6730742969071b35810e9c5c6407a009
+        <dependency id="Piraeus.Grains" version="0.9.5-prerelease" />
       </group>
     </dependencies>
   </metadata>

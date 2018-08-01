@@ -133,12 +133,7 @@ namespace Piraeus.Adapters
 
             if (!authz)
             {                
-                await Log.LogWarningAsync("Identity is not authorized to publish to resource {0}", metadata.ResourceUriString);
-                
-                //foreach (Claim claim in identity.Claims)
-                //{
-                //    await Log.LogInfoAsync("Identity claim {0} : {1}", claim.Type, claim.Value);
-                //}
+                await Log.LogWarningAsync("Identity '{0}' is not authorized to publish to resource '{1}'", this.identity, metadata.ResourceUriString);
             }
 
             return authz;
@@ -203,7 +198,7 @@ namespace Piraeus.Adapters
 
             try
             {
-                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, MessageDirectionType.In, true, receiveTime);
+                record = new AuditRecord(message.MessageId, identity, channelType, protocolType.ToUpperInvariant(), message.Message.Length, MessageDirectionType.In, true, receiveTime);
 
                 if (indexes == null || indexes.Count == 0)
                 {
@@ -216,7 +211,7 @@ namespace Piraeus.Adapters
             }
             catch(Exception ex)
             {
-                record = new AuditRecord(message.MessageId, identity, channelType, protocolType, message.Message.Length, MessageDirectionType.In, false, receiveTime, ex.Message);
+                record = new AuditRecord(message.MessageId, identity, channelType, protocolType.ToUpperInvariant(), message.Message.Length, MessageDirectionType.In, false, receiveTime, ex.Message);
             }
             finally
             {

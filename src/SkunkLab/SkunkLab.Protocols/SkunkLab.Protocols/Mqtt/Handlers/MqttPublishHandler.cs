@@ -66,6 +66,10 @@ namespace SkunkLab.Protocols.Mqtt.Handlers
             {
                 Session.HoldMessage(msg);
             }
+            else
+            {
+                Session.Unquarantine(msg.MessageId);
+            }
 
             if (msg.QualityOfServiceLevel == QualityOfServiceLevelType.AtMostOnce)
             {

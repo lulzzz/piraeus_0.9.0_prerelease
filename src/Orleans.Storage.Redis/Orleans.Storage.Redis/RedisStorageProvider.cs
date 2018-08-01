@@ -61,6 +61,10 @@ namespace Orleans.Storage.Redis
             RedisValue value = await database.StringGetAsync(key);
 
             if (value.HasValue)
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
             {
                 grainState.State = serializationManager.DeserializeFromByteArray<object>(value);
             }

@@ -376,5 +376,6 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Adapters\bin\Debug\zh-H
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Adapters\bin\Debug\zh-Hant\System.Spatial.resources.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Adapters\obj\Debug\Piraeus.Adapters.csprojResolveAssemblyReference.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Adapters\obj\Debug\Piraeus.Adapters.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Adapters\obj\Debug\Piraeus.Adapters.csproj.CopyComplete
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Adapters\obj\Debug\Piraeus.Adapters.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Adapters\obj\Debug\Piraeus.Adapters.pdb

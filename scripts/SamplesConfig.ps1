@@ -1,6 +1,9 @@
 ﻿
 #IMPORTANT:  Import the Piraeus Powershell Module
-import-module #FULL PATH to Piraeus.Module.dll  located in src\Piraeus\Powershell\Piraeus.Module\Piraeus.Module\bin\Release\Piraeus.Module.dll
+import-module C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Powershell\Piraeus.Module\Piraeus.Module\bin\Release\Piraeus.Module.dll
+
+
+
 
 #Login to the Management API
 
@@ -8,11 +11,15 @@ import-module #FULL PATH to Piraeus.Module.dll  located in src\Piraeus\Powershel
 #If running in Azure use the hostname or IP address of the virtual machine
 #If running locally, type "docker inspect webgateway" to obtain the IP address of the web gateway
 
-$url = "http://hostnameOrIPaddress"  #Replace with Host name or IP address of the Piraeus Web Gateway
-
+$url = "http://piraeus.eastus.cloudapp.azure.com"  #Replace with Host name or IP address of the Piraeus Web Gateway
+#$url = "http://localhost:1733"
 
 #get a security token for the management API
 $token = Get-PiraeusManagementToken -ServiceUrl $url -Key "12345678"
+
+#$metadata = Get-PiraeusResourceMetadata -ServiceUrl $url -SecurityToken $token -ResourceUriString $resource_A
+
+
 
 
 
@@ -95,14 +102,12 @@ $resource_B = "http://www.skunklab.io/resource-b"
 #Add the resources to Piraeus
 
 #Resource "A" lets users with role "A" send and users with role "B" subscribe to receive transmissions
-Add-PiraeusResourceMetadata -ResourceUriString $resource_A -Enabled $true -RequireEncryptedChannel $false -PublishPolicyUriString $policyId_A -SubscribePolicyUriString $policyId_B -ServiceUrl $url -SecurityToken $token 
+Add-PiraeusResourceMetadata -ResourceUriString $resource_A -Enabled $true -RequireEncryptedChannel $false -PublishPolicyUriString $policyId_A -SubscribePolicyUriString $policyId_B -ServiceUrl $url -SecurityToken $token -Audit $true
 
 #Resource "B" lets users with role "B" send and users with role "A" subscribe to receive transmissions
 Add-PiraeusResourceMetadata -ResourceUriString $resource_B -Enabled $true -RequireEncryptedChannel $false -PublishPolicyUriString $policyId_B -SubscribePolicyUriString $policyId_A -ServiceUrl $url -SecurityToken $token
 
 
 #Quick check get the resource data and verify what was set
-$data1 = ""
-$data2 = ""
-$data1 = Get-PiraeusResourceMetadata -ResourceUriString $resource_A -ServiceUrl $url -SecurityToken $token
-$data2 = Get-PiraeusResourceMetadata -ResourceUriString $resource_B -ServiceUrl $url -SecurityToken $token
+Get-PiraeusResourceMetadata -ResourceUriString $resource_A -ServiceUrl $url -SecurityToken $token
+Get-PiraeusResourceMetadata -ResourceUriString $resource_B -ServiceUrl $url -SecurityToken $token

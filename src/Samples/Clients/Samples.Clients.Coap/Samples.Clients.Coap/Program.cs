@@ -18,7 +18,6 @@ namespace Samples.Clients.Coap
 {
     class Program
     {
-
         static string jsonPayload;
         static int messageType;
         static int channelNo;
@@ -40,7 +39,7 @@ namespace Samples.Clients.Coap
         {
             source = new CancellationTokenSource();
             WriteHeader();  //descriptive header
-            Console.Write("Select message type [1=Json, Enter=Default] ? ");
+            Console.Write("Select message type [1=Json Test, Enter=Default Test] ? ");
             messageType = Console.ReadLine() == "1" ? 1 : 0;
             if(messageType == 1)
             {
@@ -166,6 +165,7 @@ namespace Samples.Clients.Coap
         }
         static void ObserveResource(CodeType code, string contentType, byte[] payload)
         {
+            
             Console.ForegroundColor = ConsoleColor.Magenta;
             if (payload != null)
             {

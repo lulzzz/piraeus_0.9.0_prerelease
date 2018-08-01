@@ -41,9 +41,9 @@ services:
     restart: always
     volumes:
       - c:\piraeus:c:\app\logs
-    ports:
-      - "11111:11111/tcp"
-      - "30000:30000/tcp"
+    expose:
+      - "11111"
+      - "30000"
 networks:
   default:
     external:

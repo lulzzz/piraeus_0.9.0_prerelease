@@ -654,6 +654,11 @@ C:\_git\dev\piraeus_0.9.0_prerelease\Docker\Orleans-Silo\Output\Piraeus.GrainInt
 C:\_git\dev\piraeus_0.9.0_prerelease\Docker\TcpUdpGateway\Output\Piraeus.GrainInterfaces.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\Docker\TcpUdpGateway\Output\Piraeus.GrainInterfaces.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\Docker\TcpUdpGateway\Output\Piraeus.GrainInterfaces.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.csprojResolveAssemblyReference.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.csproj.CopyComplete
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.dll
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Release\Piraeus.GrainInterfaces.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Release\Piraeus.GrainInterfaces.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Release\Piraeus.GrainInterfaces.pdb
@@ -758,8 +763,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Rel
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Release\ru\System.Spatial.resources.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Release\zh-Hans\System.Spatial.resources.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\bin\Release\zh-Hant\System.Spatial.resources.dll
-C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.csprojResolveAssemblyReference.cache
-C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.csproj.CoreCompileInputs.cache
-C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.dll
-C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.pdb
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.GrainInterfaces\obj\Release\Piraeus.GrainInterfaces.orleans.g.cs

@@ -460,5 +460,6 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\bin\zh-H
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\bin\zh-Hant\System.Spatial.resources.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Debug\WebGateway.csprojResolveAssemblyReference.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Debug\WebGateway.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Debug\WebGateway.csproj.CopyComplete
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Debug\WebGateway.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Gateways\WebGateway\WebGateway\obj\Debug\WebGateway.pdb

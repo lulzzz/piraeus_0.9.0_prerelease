@@ -52,8 +52,13 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Debug\Newtonso
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Debug\System.Net.Http.Formatting.xml
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Debug\System.Web.Http.xml
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\bin\Debug\System.Web.Http.WebHost.xml
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Debug\Piraeus.Core.csprojResolveAssemblyReference.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Debug\Piraeus.Core.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Debug\Piraeus.Core.csproj.CopyComplete
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Debug\Piraeus.Core.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Debug\Piraeus.Core.pdb
+<<<<<<< HEAD
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Piraeus\Piraeus.Core\obj\Debug\Piraeus.Core.csprojResolveAssemblyReference.cache
 C:\_git\core\src\Piraeus\Piraeus.Core\obj\Debug\Piraeus.Core.csproj.CopyComplete
+=======
+>>>>>>> origin/master

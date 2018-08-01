@@ -175,11 +175,11 @@ namespace Piraeus.Adapters
             try
             {
                 await channel.SendAsync(message);
-                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, e.Message.Protocol.ToString(), e.Message.Message.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
+                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, "COAP", e.Message.Message.Length, MessageDirectionType.Out, true, DateTime.UtcNow);
             }
             catch(Exception ex)
             {
-                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, e.Message.Protocol.ToString(), e.Message.Message.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
+                record = new AuditRecord(e.Message.MessageId, session.Identity, this.channel.TypeId, "COAP", e.Message.Message.Length, MessageDirectionType.Out, false, DateTime.UtcNow, ex.Message);
             }
             finally
             {
@@ -212,7 +212,7 @@ namespace Piraeus.Adapters
                 {
                     if(metadata.Audit && auditor.CanAudit)
                     {
-                        await auditor.WriteAuditRecordAsync(new AuditRecord("XXXXXXXXXXXX", session.Identity, this.channel.TypeId, "CoAP", message.Payload.Length, MessageDirectionType.In, false, DateTime.UtcNow, "Not authorized, missing resource metadata, or channel encryption requirements"));
+                        await auditor.WriteAuditRecordAsync(new AuditRecord("XXXXXXXXXXXX", session.Identity, this.channel.TypeId, "COAP", message.Payload.Length, MessageDirectionType.In, false, DateTime.UtcNow, "Not authorized, missing resource metadata, or channel encryption requirements"));
                     }
 
                     return new CoapResponse(message.MessageId, rmt, ResponseCodeType.Unauthorized, message.Token);

@@ -106,5 +106,6 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Cha
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\bin\Debug\SkunkLab.Diagnostics.dll.config
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\obj\Debug\SkunkLab.Channels.csprojResolveAssemblyReference.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\obj\Debug\SkunkLab.Channels.csproj.CoreCompileInputs.cache
+C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\obj\Debug\SkunkLab.Channels.csproj.CopyComplete
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\obj\Debug\SkunkLab.Channels.dll
 C:\_git\dev\piraeus_0.9.0_prerelease\src\SkunkLab\SkunkLab.Channels\SkunkLab.Channels\obj\Debug\SkunkLab.Channels.pdb

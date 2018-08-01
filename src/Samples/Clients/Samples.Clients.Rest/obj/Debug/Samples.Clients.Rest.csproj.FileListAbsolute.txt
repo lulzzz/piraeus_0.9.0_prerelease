@@ -68,3 +68,4 @@ C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Rest\ob
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Rest\obj\Debug\Samples.Clients.Rest.csproj.CoreCompileInputs.cache
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Rest\obj\Debug\Samples.Clients.Rest.exe
 C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Rest\obj\Debug\Samples.Clients.Rest.pdb
+C:\_git\dev\piraeus_0.9.0_prerelease\src\Samples\Clients\Samples.Clients.Rest\obj\Debug\Samples.Clients.Rest.csproj.CopyComplete
